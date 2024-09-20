@@ -4,3 +4,13 @@
   box-sizing: border-box;
   font-family: sans-serif;
 }
+
+
+body {
+  font-family: 'Metropolitano', sans-serif;
+  --main: #7b61ff;
+}
+
+h1, h2, h3, p, span {
+  font-family: 'Metropolitano', sans-serif;
+}

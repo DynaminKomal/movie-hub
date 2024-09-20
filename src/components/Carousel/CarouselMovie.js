@@ -1,11 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import styles from './style.module.scss';
+import globalStyle from '../../styles/globalStyle.module.scss'
 import { Carousel } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import john_video from '../../assets/videos/john.mp4';
+import spider_video from '../../assets/videos/spider.mp4';
 import john_image from '../../assets/banner/john.jpg';
+import spider_image from '../../assets/banner/spider.jpg';
 import muteIcon from '../../assets/mutespeaker.svg';
 import unmuteIcon from '../../assets/unmutespeaker.svg';
+import ratingIcon from '../../assets/ratingIcon.svg';
 
 const CarouselMovie = () => {
     const [activeIndex, setActiveIndex] = useState(0);
@@ -13,8 +17,26 @@ const CarouselMovie = () => {
     const [isMuted, setIsMuted] = useState(true);
 
     const carouselData = [
-        { id: "102", title: "MAGIC SLIDER", description: "Description 1", url: john_image, videoUrl: john_video },
-        { id: "103", title: "MAGIC SLIDER", description: "Description 2", url: john_image, videoUrl: john_video }
+        {
+            id: "102", title: "John Wick 4",
+            description: "Enjoy exclusive Amazon Originals as well as popular movies and TV shows for USD 120z/month. Watch now, cancel anytime. ",
+            url: john_image,
+            videoUrl: john_video,
+            genre: "Action,Thriller",
+            year: "2023",
+            rating: "8.2",
+            timing: "1hr 25min"
+        },
+        // {
+        //     id: "103", title: "Spider Man Memo",
+        //     description: "Enjoy exclusive Amazon Originals as well as popular movies and TV shows for USD 120z/month. Watch now, cancel anytime. ",
+        //     url: spider_image,
+        //     videoUrl: spider_video,
+        //     genre: "Action,Anime",
+        //     year: "2023",
+        //     rating: "8.2",
+        //     timing: "1hr 25min"
+        // }
     ];
 
     const handleSelect = (selectedIndex) => {
@@ -47,8 +69,8 @@ const CarouselMovie = () => {
     const progressWidth = ((activeIndex + 1) / carouselData.length) * 100;
 
     return (
-        <div style={{ backgroundColor: "#000" }}>
-            <Carousel activeIndex={activeIndex} onSelect={handleSelect} className={styles.carousel} indicators={false}>
+        <div className={styles.carouselContainer}>
+            <Carousel activeIndex={activeIndex} onSelect={handleSelect} className={styles.carousel} indicators={false} controls={false}>
                 {carouselData.map((item) => (
                     <Carousel.Item key={item.id} className={styles.itemP} interval={4000}>
                         {isVideoPlaying && activeIndex === parseInt(item.id) - 102 ? (
@@ -60,7 +82,18 @@ const CarouselMovie = () => {
                             <img src={item.url} alt="slides" style={{ width: '100%', height: 'auto' }} />
                         )}
                         <Carousel.Caption className={item.title ? styles.caption : styles.caption2}>
-                            <h1>{item.title}</h1>
+                            <span className={`${globalStyle.uppercase} ${styles.gener}`}>{item.genre}</span>
+                            <h1 className={`${globalStyle.uppercase} ${styles.title}`}>{item.title}</h1>
+                            <div className={styles.metaBox}>
+                                <div className={styles.rating}>
+                                    <img src={ratingIcon} alt="rating icon" />
+                                    {item.rating}
+                                </div>
+                                <ul>
+                                    <li>{item.year}</li>
+                                    <li>{item.timing}</li>
+                                </ul>
+                            </div>
                             <p>{item.description}</p>
                         </Carousel.Caption>
                         <div className={styles.videoAction}>
