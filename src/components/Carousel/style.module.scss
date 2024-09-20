@@ -191,6 +191,40 @@
 
 .carouselContainer {
   background: #000;
+  position: relative;
+}
+
+.button {
+  width: 28px;
+  height: 76px;
+  top: 33%;
+  background: rgba(0, 0, 0, .2);
+  color: #fff;
+  position: absolute;
+  margin-top: -38px;
+  text-align: center;
+  line-height: 76px;
+  border-radius: 5px;
+  transition: .3s all;
+  outline: none;
+  border: none;
+  cursor: pointer;
+  z-index: 1000;
+  img{
+    width: 10px;
+  }
+
+  &:hover {
+    background: var(--main);
+  }
+}
+
+.prevButton {
+  left: 0;
+}
+
+.nextButton {
+  right: 0;
 }
 
 .carousel {

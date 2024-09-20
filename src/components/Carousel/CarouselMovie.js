@@ -12,7 +12,9 @@ import unmuteIcon from '../../assets/unmutespeaker.svg';
 import ratingIcon from '../../assets/ratingIcon.svg';
 import Button from '../Button/Button';
 import playIcon from '../../assets/playIcon.svg';
-import saveIcon from '../../assets/bookmark.svg'
+import saveIcon from '../../assets/bookmark.svg';
+import leftIcon from '../../assets/prev-icon.svg';
+import rightIon from '../../assets/next-icon.svg';
 
 const CarouselMovie = () => {
     const [activeIndex, setActiveIndex] = useState(0);
@@ -30,16 +32,16 @@ const CarouselMovie = () => {
             rating: "8.2",
             timing: "1hr 25min"
         },
-        // {
-        //     id: "103", title: "Spider Man Memo",
-        //     description: "Enjoy exclusive Amazon Originals as well as popular movies and TV shows for USD 120z/month. Watch now, cancel anytime. ",
-        //     url: spider_image,
-        //     videoUrl: spider_video,
-        //     genre: "Action,Anime",
-        //     year: "2023",
-        //     rating: "8.2",
-        //     timing: "1hr 25min"
-        // }
+        {
+            id: "103", title: "Spider Man Memo",
+            description: "Enjoy exclusive Amazon Originals as well as popular movies and TV shows for USD 120z/month. Watch now, cancel anytime. ",
+            url: spider_image,
+            videoUrl: spider_video,
+            genre: "Action,Anime",
+            year: "2023",
+            rating: "8.2",
+            timing: "1hr 25min"
+        }
     ];
 
     const handleSelect = (selectedIndex) => {
@@ -73,6 +75,9 @@ const CarouselMovie = () => {
 
     return (
         <div className={styles.carouselContainer}>
+            {activeIndex !== 0 && <button className={`${styles.button} ${styles.prevButton}`} type='button' onClick={activeIndex === 0 ? undefined : goToPrev}>
+                <img src={leftIcon} alt='prev icon' />
+            </button>}
             <Carousel activeIndex={activeIndex} onSelect={handleSelect} className={styles.carousel} indicators={false} controls={false}>
                 {carouselData.map((item) => (
                     <Carousel.Item key={item.id} className={styles.itemP} interval={4000}>
@@ -123,6 +128,9 @@ const CarouselMovie = () => {
                     </Carousel.Item>
                 ))}
             </Carousel>
+            {(activeIndex !== (carouselData?.length - 1)) && <button className={`${styles.button} ${styles.nextButton}`} type='button' onClick={activeIndex === (carouselData?.length - 1) ? undefined : goToNext}>
+                <img src={rightIon} alt='right icon' />
+            </button>}
         </div>
     );
 };
