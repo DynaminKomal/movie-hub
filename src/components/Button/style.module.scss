@@ -1,4 +1,25 @@
 .btn{
-    background: none;
-    padding: 5px 10px;
+    background: linear-gradient(248.28deg, var(--btn-bgcolor) 9.539999999999999%, rgba(142, 97, 255, 0) 32.8%), radial-gradient(81.70999999999999% 279.87% at -16.57% -92%, var(--btn-bgcolor2) 28.69%, rgba(205, 219, 248, 0) 69.54000000000001%), var(--btn-bgcolor3);
+    color: var(--btn-color);
+    border: 0;
+    padding-top: 15px;
+    padding-right: 31px;
+    padding-bottom: 15px;
+    padding-left: 31px;
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 20px;
+    position: relative;
+    overflow: hidden;
+    display: inline-block;
+    transition: .2s ease;
+    border-radius: 10px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    img{
+        width: 15px;
+        margin-left: 10px;
+    }
 }

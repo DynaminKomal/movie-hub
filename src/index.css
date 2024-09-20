@@ -9,8 +9,14 @@
 body {
   font-family: 'Metropolitano', sans-serif;
   --main: #7b61ff;
+  --fontFamilyName: 'Metropolitano', sans-serif;
+  --btn-bgcolor: #9e61ff;
+  --btn-color: #ffffff;
+  --btn-bgcolor2: #619bff;
+  --btn-color2: #ffffff;
+  --btn-bgcolor3: #6c52ee;
 }
 
-h1, h2, h3, p, span {
+h1, h2, h3, p, span, div {
   font-family: 'Metropolitano', sans-serif;
 }

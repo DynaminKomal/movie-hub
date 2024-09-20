@@ -15,7 +15,7 @@
   position: absolute;
   top: 87%;
   left: 58%;
-  transform: translate(-80%, -50%);
+  transform: translate(-80%, -70%);
   color: white;
 }
 
@@ -25,7 +25,7 @@
   position: absolute !important;
   top: 53%;
   left: 35% !important;
-  transform: translate(-80%, -50%);
+  transform: translate(-80%, -70%);
   color: white;
   max-width: 660px;
   z-index: 10;
@@ -36,6 +36,8 @@
     font-weight: 700;
     font-size: 14px;
     color: var(--main);
+    font-family: var(--fontFamilyName);
+    margin-bottom: 20px;
   }
 
   .title {
@@ -43,6 +45,7 @@
     font-size: 67.34px;
     line-height: 75.75px;
     cursor: pointer;
+    margin-bottom: 23px;
 
     &:hover {
       color: var(--main);
@@ -200,5 +203,31 @@
     left: 0;
     background: linear-gradient(0deg, #00031c 0%, rgba(0, 3, 28, .7) 15.62%, rgba(0, 3, 28, 0) 31.32%), linear-gradient(90deg, #00031c 6.03%, rgba(0, 3, 28, 0) 78.64%);
     z-index: 0;
+  }
+}
+
+.buttonBox {
+  display: flex;
+  align-items: center;
+}
+
+.bookmark {
+  display: flex;
+  align-items: center;
+  margin-left: 36px;
+  font-weight: 700;
+
+  &:hover {
+    color: var(--main);
+    transition: 0.3s all;
+
+    img {
+      content: url('../../assets/bookmark-hover.svg');
+    }
+  }
+
+  img {
+    width: 15px;
+    margin-left: 10px;
   }
 }

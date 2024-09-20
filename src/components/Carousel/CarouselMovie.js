@@ -10,6 +10,9 @@ import spider_image from '../../assets/banner/spider.jpg';
 import muteIcon from '../../assets/mutespeaker.svg';
 import unmuteIcon from '../../assets/unmutespeaker.svg';
 import ratingIcon from '../../assets/ratingIcon.svg';
+import Button from '../Button/Button';
+import playIcon from '../../assets/playIcon.svg';
+import saveIcon from '../../assets/bookmark.svg'
 
 const CarouselMovie = () => {
     const [activeIndex, setActiveIndex] = useState(0);
@@ -81,8 +84,8 @@ const CarouselMovie = () => {
                         ) : (
                             <img src={item.url} alt="slides" style={{ width: '100%', height: 'auto' }} />
                         )}
-                        <Carousel.Caption className={item.title ? styles.caption : styles.caption2}>
-                            <span className={`${globalStyle.uppercase} ${styles.gener}`}>{item.genre}</span>
+                        <Carousel.Caption className={styles.caption}>
+                            <div className={`${globalStyle.uppercase} ${styles.gener}`}>{item.genre}</div>
                             <h1 className={`${globalStyle.uppercase} ${styles.title}`}>{item.title}</h1>
                             <div className={styles.metaBox}>
                                 <div className={styles.rating}>
@@ -95,6 +98,13 @@ const CarouselMovie = () => {
                                 </ul>
                             </div>
                             <p>{item.description}</p>
+                            <div className={styles.buttonBox}>
+                                <Button name="Play Now" image_icon={playIcon} image_position="right" image_name="play icon" />
+                                <div className={styles.bookmark}>
+                                    Watch Later
+                                    <img src={saveIcon} alt="save icon" />
+                                </div>
+                            </div>
                         </Carousel.Caption>
                         <div className={styles.videoAction}>
                             <div className={styles.videoBoxForMute}>
