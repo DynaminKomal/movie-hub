@@ -75,33 +75,6 @@
 
 
 
-
-.changed {
-  background-image: url('../../assets/next.svg');
-  display: inline-block;
-  width: 20px;
-  height: 20px;
-  margin-left: 100px;
-  background-size: 100% 100%;
-}
-
-.changedprev {
-  background-image: url('../../assets/prev.svg');
-  display: inline-block;
-  width: 20px;
-  height: 20px;
-  margin-left: -100px;
-  background-size: 100% 100%;
-}
-
-.changed:hover {
-  background-image: url('../../assets/next-icon.svg');
-}
-
-.changedprev:hover {
-  background-image: url('../../assets/prev-icon.svg');
-}
-
 .videoBackgroundHolder {
   width: 100%;
   position: absolute;
@@ -256,7 +229,7 @@
     transition: 0.3s all;
 
     img {
-      content: url('../../assets/bookmark-hover.svg');
+      content: url('../../../assets/bookmark-hover.svg');
     }
   }
 

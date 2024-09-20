@@ -1,20 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import styles from './style.module.scss';
-import globalStyle from '../../styles/globalStyle.module.scss'
+import globalStyle from '../../../styles/globalStyle.module.scss'
 import { Carousel } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
-import john_video from '../../assets/videos/john.mp4';
-import spider_video from '../../assets/videos/spider.mp4';
-import john_image from '../../assets/banner/john.jpg';
-import spider_image from '../../assets/banner/spider.jpg';
-import muteIcon from '../../assets/mutespeaker.svg';
-import unmuteIcon from '../../assets/unmutespeaker.svg';
-import ratingIcon from '../../assets/ratingIcon.svg';
-import Button from '../Button/Button';
-import playIcon from '../../assets/playIcon.svg';
-import saveIcon from '../../assets/bookmark.svg';
-import leftIcon from '../../assets/prev-icon.svg';
-import rightIon from '../../assets/next-icon.svg';
+import john_video from '../../../assets/videos/john.mp4';
+import spider_video from '../../../assets/videos/spider.mp4';
+import john_image from '../../../assets/banner/john.jpg';
+import spider_image from '../../../assets/banner/spider.jpg';
+import muteIcon from '../../../assets/mutespeaker.svg';
+import unmuteIcon from '../../../assets/unmutespeaker.svg';
+import ratingIcon from '../../../assets/ratingIcon.svg';
+import Button from '../../HOC/Button/Button';
+import playIcon from '../../../assets/playIcon.svg';
+import saveIcon from '../../../assets/bookmark.svg';
+import leftIcon from '../../../assets/prev-icon.svg';
+import rightIon from '../../../assets/next-icon.svg';
 
 const CarouselMovie = () => {
     const [activeIndex, setActiveIndex] = useState(0);
