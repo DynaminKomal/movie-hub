@@ -8,7 +8,8 @@ const HomeComponent = () => {
         <div>
             <NavigationMenu />
             <CarouselMovie />
-            <MovieList />
+            <MovieList name="Trending"/>
+            <MovieList name="New Release"/>   
         </div>
     )
 }

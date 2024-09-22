@@ -1,20 +1,161 @@
-.moviesConatiner{
+.moviesContainer {
     background: black;
-    height: 500px;
     padding: 0 70px;
-    .heading{
+
+    .heading {
         padding: 80px 10px 20px 10px;
         color: white;
         width: 100%;
         display: flex;
         justify-content: space-between;
-        h5{
+
+        h5 {
             text-transform: capitalize;
             font-weight: 400;
             line-height: 1.2;
         }
-        .viewAll{
+
+        .viewAll {
             text-transform: capitalize;
         }
     }
+}
+
+.wrapper {
+    position: relative;
+    transition: transform 0.75s ease;
+    width: 100%;
+    overflow: hidden;
+    z-index: 0;
+}
+
+.box {
+    width: 100%;
+    color: white;
+    padding: 0 10px;
+    
+
+    h5 {
+        cursor: pointer;
+    }
+
+    img {
+        width: 100%;
+        margin-bottom: 20px;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    .metaBox {
+        margin-bottom: 32px;
+        display: flex;
+        cursor: pointer;
+
+        ul {
+            display: flex;
+            margin-bottom: 0rem;
+
+            li {
+                margin: 0 16px;
+                cursor: pointer;
+            }
+        }
+    }
+
+}
+
+
+.button {
+    width: 28px;
+    height: 76px;
+    top: 33%;
+    background: rgba(0, 0, 0, .2);
+    color: #fff;
+    position: absolute;
+    margin-top: -38px;
+    text-align: center;
+    line-height: 76px;
+    border-radius: 5px;
+    transition: .3s all;
+    outline: none;
+    border: none;
+    cursor: pointer;
+    z-index: 1000;
+
+    img {
+        width: 10px;
+    }
+
+    &:hover {
+        background: var(--main);
+    }
+}
+
+.prevButton {
+    left: 0.5%;
+}
+
+.nextButton {
+    right: 0.5%;
+}
+
+.tooltip {
+    position: absolute;
+    width: 428px;
+    background-color: #00031c;
+    padding: 5px 10px;
+    border-radius: 5px;
+    z-index: 10000;
+    transition: opacity 0.3s ease;
+    color: white;
+    transform-origin: left center;
+
+    
+
+    .videoBackgroundHolder {
+        width: 100%;
+        height: initial;
+        &:after {
+            position: absolute;
+            content: "";
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: 0;
+        }
+    }
+
+    .metaBox {
+        margin-bottom: 10px;
+        display: flex;
+        color: white;
+
+        ul {
+            display: flex;
+            margin-bottom: 0rem;
+
+            li {
+                margin: 0 16px;
+            }
+        }
+    }
+}
+
+.videoMeta {
+    padding: 0 20px 20px 20px;
+    background-color: #00031c;
+}
+
+
+.title {
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+
+
+.buttonBox {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
