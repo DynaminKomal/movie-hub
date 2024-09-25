@@ -41,7 +41,7 @@ const Tooltip = ({ tooltipData, position }) => {
     );
 };
 
-const MovieList = (props) => {
+const TrendingList = (props) => {
     const { name } = props;
 
     const [currentIndex, setCurrentIndex] = useState(0);
@@ -146,8 +146,8 @@ const MovieList = (props) => {
     );
 };
 
-MovieList.propTypes = {
+TrendingList.propTypes = {
     name: PropTypes.string
 }
 
-export default MovieList;
+export default TrendingList;

@@ -1,15 +1,16 @@
 import React from 'react'
 import NavigationMenu from '../HOC/Menu/NavigationMenu'
 import CarouselMovie from './Carousel/CarouselMovie'
-import MovieList from './MovieList/MovieList'
+import TrendingList from './TrendingList/TrendingList'
+import NewRelease from './NewRelease/NewRelease'
 
 const HomeComponent = () => {
     return (
         <div>
             <NavigationMenu />
             <CarouselMovie />
-            <MovieList name="Trending"/>
-            <MovieList name="New Release"/>   
+            <TrendingList name="Trending"/>
+            <NewRelease name="New Release"/>
         </div>
     )
 }
