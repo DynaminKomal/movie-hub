@@ -7,9 +7,10 @@ import rightIcon from '../../../assets/next-icon.svg';
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import playIcon from '../../../assets/playIcon.svg'
 
 function NewRelease(props) {
-    const {name} = props;
+    const { name } = props;
     const [currentIndex, setCurrentIndex] = useState(0);
     const itemsPerPage = 6;
 
@@ -72,15 +73,26 @@ function NewRelease(props) {
                     {data.map((item) => (
                         <div
                             className={styles.box}
-                            key={item.id}
-                        >
-                            <img src={item.image_url} alt={item.title} />
-                            <h5>{item.title} - {item.id}</h5>
-                            <div className={styles.metaBox}>
-                                <span>{item.year}</span>
-                                <ul>
-                                    <li>{item.timing}</li>
-                                    <li>TV-MA</li>
+                            key={item.id}>
+                            <div className={styles.media}>
+                                <img src={item.image_url} alt={item.title} />
+                                <div className={styles.playButton}>
+                                    <img src={playIcon} alt="play icon" />
+                                </div>
+                                <a className={styles.addToList}>Add To My List</a>
+                            </div>
+
+                            <div>
+                                <h5>{item.title} - {item.id}</h5>
+                                <div className={styles.metaBox}>
+                                    <span>{item.year}</span>
+                                    <ul>
+                                        <li>{item.timing}</li>
+                                        <li>TV-MA</li>
+                                    </ul>
+                                </div>
+                                <ul className={styles.type}>
+                                    <li>{item.genre}</li>
                                 </ul>
                             </div>
                         </div>
