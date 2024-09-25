@@ -102,11 +102,8 @@ const MovieList = (props) => {
         setTooltipData(item);
         setTooltipPosition({
             x: rect.left + window.scrollX,
-            y: rect.bottom + window.scrollY
+            y:  window.scrollY + 500
         });
-        console.log("rect.bottom + window.scrollY", rect.bottom + window.scrollY)
-        console.log("rect.bottom", rect.bottom)
-        console.log(" window.scrollY", window.scrollY)
     };
 
     const handleMouseLeave = () => {
