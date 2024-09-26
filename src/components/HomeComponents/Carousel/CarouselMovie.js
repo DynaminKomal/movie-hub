@@ -25,6 +25,15 @@ const CarouselMovie = () => {
     const fetchBannerReducer = useSelector((state) => state.user.fetchBannerReducer);
     const { data, loading } = fetchBannerReducer;
 
+    const images = {
+        '102': john_image,
+        '103': spider_image,
+    };
+    const videos = {
+        '102': john_video,
+        '103': spider_video,
+    }
+
     const handleSelect = (selectedIndex) => {
         setActiveIndex(selectedIndex);
         setIsVideoPlaying(false);
@@ -64,11 +73,11 @@ const CarouselMovie = () => {
                     <Carousel.Item key={item.id} className={styles.itemP} interval={4000}>
                         {isVideoPlaying && activeIndex === parseInt(item.id) - 102 ? (
                             <video autoPlay className={styles.videoBackgroundHolder} muted={isMuted}>
-                                <source src={item.videoUrl} type="video/mp4" />
+                                <source src={videos[item.id]} type="video/mp4" />
                                 Your browser does not support the video tag.
                             </video>
                         ) : (
-                            <img src={item.url} alt="slides" style={{ width: '100%', height: 'auto' }} />
+                            <img src={images[item.id]} alt="slides" style={{ width: '100%', height: 'auto' }} />
                         )}
                         <Carousel.Caption className={styles.caption}>
                             <div className={`${globalStyle.uppercase} ${styles.gener}`}>{item.genre}</div>
