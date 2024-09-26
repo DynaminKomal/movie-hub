@@ -1,15 +1,12 @@
-import { combineReducers } from "redux";
-
-// import all reducers is here
-
+import { combineReducers } from 'redux';
+import userReducers from './users/index'; 
 
 const createRootReducer = combineReducers({
-    // router:connectRouter(history),
+    user: userReducers, 
+});
 
-
-})
-
-const rootReducers = (state, action) => {
+const rootReducer = (state, action) => {
     return createRootReducer(state, action);
-}
-export default rootReducers;
+};
+
+export default rootReducer;

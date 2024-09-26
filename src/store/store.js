@@ -1,21 +1,17 @@
-import { configureStore, applyMiddleware, compose} from '@reduxjs/toolkit';
-import { createBrowserHistory } from 'history';
+import { configureStore } from '@reduxjs/toolkit';
 import createSagaMiddleware from 'redux-saga';
-import reducers from './reducers/index';
+import rootReducer from './reducers/index'; 
 import sagas from './sagas/index';
 
-const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-
-export const history = createBrowserHistory();
-
-//create saga middleware
 const sagaMiddleware = createSagaMiddleware();
 
-const store = configureStore(
-    reducers,
-    composeEnhancers(applyMiddleware(sagaMiddleware))
-)
+const store = configureStore({
+    reducer: rootReducer,
+    middleware: (getDefaultMiddleware) => 
+        getDefaultMiddleware().concat(sagaMiddleware)
+});
 
-sagaMiddleware.run(sagas)
+// Run sagas
+sagaMiddleware.run(sagas);
 
-export default store
+export default store;
