@@ -15,34 +15,15 @@ import playIcon from '../../../assets/playIcon.svg';
 import saveIcon from '../../../assets/bookmark.svg';
 import leftIcon from '../../../assets/prev-icon.svg';
 import rightIon from '../../../assets/next-icon.svg';
+import { useSelector } from 'react-redux';
 
 const CarouselMovie = () => {
     const [activeIndex, setActiveIndex] = useState(0);
     const [isVideoPlaying, setIsVideoPlaying] = useState(false);
     const [isMuted, setIsMuted] = useState(true);
 
-    const carouselData = [
-        {
-            id: "102", title: "John Wick 4",
-            description: "Enjoy exclusive Amazon Originals as well as popular movies and TV shows for USD 120z/month. Watch now, cancel anytime. ",
-            url: john_image,
-            videoUrl: john_video,
-            genre: "Action,Thriller",
-            year: "2023",
-            rating: "8.2",
-            timing: "1hr 25min"
-        },
-        {
-            id: "103", title: "Spider Man Memo",
-            description: "Enjoy exclusive Amazon Originals as well as popular movies and TV shows for USD 120z/month. Watch now, cancel anytime. ",
-            url: spider_image,
-            videoUrl: spider_video,
-            genre: "Action,Anime",
-            year: "2023",
-            rating: "8.2",
-            timing: "1hr 25min"
-        }
-    ];
+    const fetchBannerReducer = useSelector((state) => state.user.fetchBannerReducer);
+    const { data, loading } = fetchBannerReducer;
 
     const handleSelect = (selectedIndex) => {
         setActiveIndex(selectedIndex);
@@ -62,16 +43,16 @@ const CarouselMovie = () => {
     };
 
     const goToPrev = () => {
-        const newIndex = activeIndex === 0 ? carouselData.length - 1 : activeIndex - 1;
+        const newIndex = activeIndex === 0 ? data.length - 1 : activeIndex - 1;
         setActiveIndex(newIndex);
     };
 
     const goToNext = () => {
-        const newIndex = activeIndex === carouselData.length - 1 ? 0 : activeIndex + 1;
+        const newIndex = activeIndex === data.length - 1 ? 0 : activeIndex + 1;
         setActiveIndex(newIndex);
     };
 
-    const progressWidth = ((activeIndex + 1) / carouselData.length) * 100;
+    const progressWidth = ((activeIndex + 1) / data.length) * 100;
 
     return (
         <div className={styles.carouselContainer}>
@@ -79,7 +60,7 @@ const CarouselMovie = () => {
                 <img src={leftIcon} alt='prev icon' />
             </button>}
             <Carousel activeIndex={activeIndex} onSelect={handleSelect} className={styles.carousel} indicators={false} controls={false}>
-                {carouselData.map((item) => (
+                {data.map((item) => (
                     <Carousel.Item key={item.id} className={styles.itemP} interval={4000}>
                         {isVideoPlaying && activeIndex === parseInt(item.id) - 102 ? (
                             <video autoPlay className={styles.videoBackgroundHolder} muted={isMuted}>
@@ -119,7 +100,7 @@ const CarouselMovie = () => {
                                 <span className={styles.sliderControler}>
                                     <span style={{ width: `${progressWidth}%` }} className={styles.progressBar}></span>
                                 </span>
-                                <div className={styles.next} onClick={activeIndex === (carouselData?.length - 1) ? undefined : goToNext}>{activeIndex + 2}</div>
+                                <div className={styles.next} onClick={activeIndex === (data?.length - 1) ? undefined : goToNext}>{activeIndex + 2}</div>
                             </div>
                             <div className={styles.changeSpeaker} onClick={toggleMute}>
                                 <img src={isMuted ? muteIcon : unmuteIcon} alt="mute/unmute icon" />
@@ -128,7 +109,7 @@ const CarouselMovie = () => {
                     </Carousel.Item>
                 ))}
             </Carousel>
-            {(activeIndex !== (carouselData?.length - 1)) && <button className={`${styles.button} ${styles.nextButton}`} type='button' onClick={activeIndex === (carouselData?.length - 1) ? undefined : goToNext}>
+            {(activeIndex !== (data?.length - 1)) && <button className={`${styles.button} ${styles.nextButton}`} type='button' onClick={activeIndex === (data?.length - 1) ? undefined : goToNext}>
                 <img src={rightIon} alt='right icon' />
             </button>}
         </div>

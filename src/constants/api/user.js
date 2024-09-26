@@ -1,4 +1,4 @@
-export const userAPI = Object.freeze({
+export const ApiEndpoints  = Object.freeze({
     getBanner:{
         url: '/banner',
         method: "GET",

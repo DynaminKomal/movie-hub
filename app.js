@@ -1,11 +1,16 @@
 const express = require('express');
-const fs = require('fs')
+const fs = require('fs');
+const cors = require('cors');
 
 const port = 8005
 
 const app = express();
 
 app.use(express.json())
+
+app.use(cors({
+    origin: '*', // Allow this origin
+  }));
 
 const bannerData = JSON.parse(fs.readFileSync(`${__dirname}/Data/banner.json`, 'utf-8'));
 

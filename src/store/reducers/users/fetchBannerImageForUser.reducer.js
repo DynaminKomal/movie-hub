@@ -5,7 +5,6 @@ const initialState = {
     success: false,
     failure: false,
     status:'',
-    status_code:'',
     message:'',
     data:[]
 }
@@ -27,7 +26,6 @@ export default function returnstate(state = initialState, action) {
                 success: true,
                 failure: false,
                 status:action.payload.status,
-                status_code:action.payload.status_code,
                 message:action.payload.message,
                 data:action.payload.data
             };
@@ -39,7 +37,6 @@ export default function returnstate(state = initialState, action) {
                 success: false,
                 failure: true,
                 status:action.payload.status,
-                status_code:action.payload.status_code,
                 message:action.payload.message,
                 data:action.payload.data
             };
