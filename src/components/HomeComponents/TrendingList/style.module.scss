@@ -21,6 +21,7 @@
             font-size: 14px;
             font-weight: 700;
             line-height: 24px;
+            cursor: pointer;
         }
     }
 }
@@ -101,65 +102,4 @@
 
 .nextButton {
     right: 0.5%;
-}
-
-.tooltip {
-    position: absolute;
-    width: 428px;
-    background-color: #00031c;
-    padding: 5px 10px;
-    border-radius: 5px;
-    z-index: 10000;
-    transition: opacity 0.3s ease;
-    color: white;
-    transform-origin: left center;
-
-    
-
-    .videoBackgroundHolder {
-        width: 100%;
-        height: initial;
-        &:after {
-            position: absolute;
-            content: "";
-            width: 100%;
-            height: 100%;
-            top: 0;
-            left: 0;
-            z-index: 0;
-        }
-    }
-
-    .metaBox {
-        margin-bottom: 10px;
-        display: flex;
-        color: white;
-
-        ul {
-            display: flex;
-            margin-bottom: 0rem;
-
-            li {
-                margin: 0 16px;
-            }
-        }
-    }
-}
-
-.videoMeta {
-    padding: 0 20px 20px 20px;
-    background-color: #00031c;
-}
-
-
-.title {
-    font-size: 14px;
-    margin-bottom: 10px;
-}
-
-
-.buttonBox {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
 }
