@@ -6,6 +6,7 @@ import NewRelease from './NewRelease/NewRelease';
 import { useDispatch } from 'react-redux';
 import { fetchBanner } from '../../store/actions/user/fetchBanner.action';
 import TvSeries from './TvSeries/TvSeries';
+import MostPopularSeries from './MostPopularSeries/MostPopularSeries';
 
 const HomeComponent = () => {
 
@@ -20,7 +21,8 @@ const HomeComponent = () => {
             <CarouselMovie />
             <TrendingList name="Trending" />
             <NewRelease name="New Release" />
-            <TvSeries name="TV Series"/>
+            <TvSeries name="TV Series" />
+            <MostPopularSeries name="Deal of the Week" />
         </div>
     )
 }
