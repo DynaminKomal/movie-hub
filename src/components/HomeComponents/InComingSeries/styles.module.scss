@@ -1,0 +1,114 @@
+.moviesContainer {
+    background: black;
+    padding: 52px 70px;
+    width: 100%;
+    height: 100%;
+
+    .bannerImage {
+        position: relative;
+
+        .img {
+            background-position: center center;
+            background-size: cover;
+            transition: background 0.3s, border 0.3s, border-radius 0.3s, box-shadow 0.3s;
+            height: 100%;
+        }
+
+        .metaData {
+            color: white;
+            position: absolute;
+            display: flex;
+            top: 29%;
+            left: 38%;
+            z-index: 1000;
+
+            .content {
+                display: block;
+                text-align: center;
+
+                .des {
+                    line-height: 28px;
+                    letter-spacing: 4.5px;
+                }
+
+                .title {
+                    line-height: 56px;
+                    letter-spacing: 12px;
+                }
+            }
+
+        }
+
+        .button {
+            width: auto;
+            padding: 19px 31px 19px 31px;
+            font-size: 16px;
+            font-weight: 700;
+            outline: none;
+            border: none;
+            border-radius: 10px 10px 10px 10px;
+            color: #000000;
+            background: #FFFFFF;
+            position: absolute;
+            right: 10%;
+            top: 38%;
+
+            &:hover {
+                background: linear-gradient(248.28deg, var(--btn-bgcolor) 9.539999999999999%, rgba(142, 97, 255, 0) 32.8%), radial-gradient(81.70999999999999% 279.87% at -16.57% -92%, var(--btn-bgcolor2) 28.69%, rgba(205, 219, 248, 0) 69.54000000000001%), var(--btn-bgcolor3) !important;
+                box-shadow: 0 15px 40px -8px rgba(158, 97, 255, .5);
+                transform: translateY(-3px);
+                color: white;
+            }
+        }
+    }
+}
+
+
+
+.bannerBackGround {
+    background-color: #18133A;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    position: relative;
+    font-family: "Metropolitano", Sans-serif;
+    color: white;
+
+    .button {
+        width: auto;
+        padding: 19px 31px 19px 31px;
+        font-size: 16px;
+        font-weight: 700;
+        outline: none;
+        border: none;
+        border-radius: 10px 10px 10px 10px;
+        color: #000000;
+        height: 57px;
+        background: #FFFFFF;
+
+
+        &:hover {
+            background: linear-gradient(248.28deg, var(--btn-bgcolor) 9.539999999999999%, rgba(142, 97, 255, 0) 32.8%), radial-gradient(81.70999999999999% 279.87% at -16.57% -92%, var(--btn-bgcolor2) 28.69%, rgba(205, 219, 248, 0) 69.54000000000001%), var(--btn-bgcolor3) !important;
+            box-shadow: 0 15px 40px -8px rgba(158, 97, 255, .5);
+            transform: translateY(-3px);
+            color: white;
+        }
+    }
+
+    img {
+        height: fit-content;
+        max-width: 100%;
+        border: none;
+        border-radius: 0;
+        box-shadow: none;
+    }
+
+    .date {
+        font-weight: 700;
+        font-size: 37.9px;
+        line-height: 42.64px;
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+    }
+}
