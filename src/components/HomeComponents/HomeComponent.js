@@ -9,6 +9,7 @@ import TvSeries from './TvSeries/TvSeries';
 import MostPopularSeries from './MostPopularSeries/MostPopularSeries';
 import IncomingSeries from './InComingSeries/IncomingSeries';
 import SrcollTop from '../HOC/Footer/SrcollTop';
+import Artist from './Artist/Artist';
 
 const HomeComponent = () => {
 
@@ -28,6 +29,7 @@ const HomeComponent = () => {
                 <TvSeries name="TV Series" />
                 <MostPopularSeries name="Deal of the Week" />
                 <IncomingSeries />
+                <Artist />
             </div>
             <SrcollTop/>
         </div>
