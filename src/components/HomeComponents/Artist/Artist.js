@@ -15,7 +15,7 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
-const Artist = props => {
+const Artist = (props) => {
     const [currentIndex, setCurrentIndex] = useState(0);
     const itemsPerPage = 6;
 

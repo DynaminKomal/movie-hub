@@ -10,6 +10,7 @@ import MostPopularSeries from './MostPopularSeries/MostPopularSeries';
 import IncomingSeries from './InComingSeries/IncomingSeries';
 import SrcollTop from '../HOC/Footer/SrcollTop';
 import Artist from './Artist/Artist';
+import Footer from '../HOC/Footer/Footer';
 
 const HomeComponent = () => {
 
@@ -31,7 +32,8 @@ const HomeComponent = () => {
                 <IncomingSeries />
                 <Artist />
             </div>
-            <SrcollTop/>
+            <Footer />
+            <SrcollTop />
         </div>
     )
 }
