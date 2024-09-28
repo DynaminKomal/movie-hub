@@ -8,6 +8,7 @@ import { fetchBanner } from '../../store/actions/user/fetchBanner.action';
 import TvSeries from './TvSeries/TvSeries';
 import MostPopularSeries from './MostPopularSeries/MostPopularSeries';
 import IncomingSeries from './InComingSeries/IncomingSeries';
+import SrcollTop from '../HOC/Footer/SrcollTop';
 
 const HomeComponent = () => {
 
@@ -19,13 +20,16 @@ const HomeComponent = () => {
     return (
         <div>
             <NavigationMenu />
-            <CarouselMovie />
-            <TrendingList name="Trending" />
-            <NewRelease name="New Release" />
-            <IncomingSeries name="latest"/>
-            <TvSeries name="TV Series" />
-            <MostPopularSeries name="Deal of the Week" />
-            <IncomingSeries />
+            <div>
+                <CarouselMovie />
+                <TrendingList name="Trending" />
+                <NewRelease name="New Release" />
+                <IncomingSeries name="latest" />
+                <TvSeries name="TV Series" />
+                <MostPopularSeries name="Deal of the Week" />
+                <IncomingSeries />
+            </div>
+            <SrcollTop/>
         </div>
     )
 }
