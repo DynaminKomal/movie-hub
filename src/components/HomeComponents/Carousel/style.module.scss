@@ -175,7 +175,8 @@
   border: none;
   cursor: pointer;
   z-index: 1000;
-  img{
+
+  img {
     width: 10px;
   }
 
@@ -228,5 +229,20 @@
   img {
     width: 15px;
     margin-left: 10px;
+  }
+}
+
+
+
+@media (min-width: 1180px) and (max-width:1340px) {
+  .caption {
+    left: 42.8% !important;
+  }
+}
+
+
+@media (min-width: 1440px) and (max-width:1560px) {
+  .caption {
+    left: 42.8% !important;
   }
 }
