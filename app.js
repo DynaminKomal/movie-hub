@@ -2,8 +2,6 @@ const express = require('express');
 const fs = require('fs');
 const cors = require('cors');
 
-const port = 8005
-
 const app = express();
 
 app.use(express.json())
@@ -23,6 +21,5 @@ app.get('/api/banner', (req, res) => {
     })
 })
 
-app.listen(port, () => {
-    console.log("App listening port", port)
-})
+
+module.exports = app;
