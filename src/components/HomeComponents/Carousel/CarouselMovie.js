@@ -52,16 +52,16 @@ const CarouselMovie = () => {
     };
 
     const goToPrev = () => {
-        const newIndex = activeIndex === 0 ? data.length - 1 : activeIndex - 1;
+        const newIndex = activeIndex === 0 ? data?.length - 1 : activeIndex - 1;
         setActiveIndex(newIndex);
     };
 
     const goToNext = () => {
-        const newIndex = activeIndex === data.length - 1 ? 0 : activeIndex + 1;
+        const newIndex = activeIndex === data?.length - 1 ? 0 : activeIndex + 1;
         setActiveIndex(newIndex);
     };
 
-    const progressWidth = ((activeIndex + 1) / data.length) * 100;
+    const progressWidth = ((activeIndex + 1) / data?.length) * 100;
 
     return (
         <div className={styles.carouselContainer}>
@@ -69,7 +69,7 @@ const CarouselMovie = () => {
                 <img src={leftIcon} alt='prev icon' />
             </button>}
             <Carousel activeIndex={activeIndex} onSelect={handleSelect} className={styles.carousel} indicators={false} controls={false}>
-                {data.map((item) => (
+                {data?.map((item) => (
                     <Carousel.Item key={item.id} className={styles.itemP} interval={4000}>
                         {isVideoPlaying && activeIndex === parseInt(item.id) - 102 ? (
                             <video autoPlay className={styles.videoBackgroundHolder} muted={isMuted}>

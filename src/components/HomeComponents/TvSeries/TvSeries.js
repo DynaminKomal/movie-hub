@@ -33,7 +33,7 @@ const TvSeries = (props) => {
                 <span className={styles.viewAll}>View All</span>
             </div>
             <div className={styles.wrapper}>
-                {firstIndexData.map((item) => (
+                {firstIndexData?.map((item) => (
                     < div className={styles.box} key={item.id} >
                         <img src={item.image_url} alt={item.title} />
                         <div className={styles.metaData}>
@@ -44,7 +44,7 @@ const TvSeries = (props) => {
                     </div>
                 ))}
                 <div className={styles.boxContainer}>
-                    {data.map((item, index) => {
+                    {data?.map((item, index) => {
                         if (index === 0) {
                             return;
                         } else {

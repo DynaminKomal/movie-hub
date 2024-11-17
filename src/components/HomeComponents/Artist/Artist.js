@@ -48,7 +48,7 @@ const Artist = (props) => {
     const CustomNextArrow = (props) => {
         const { onClick } = props;
         return (
-            currentIndex + itemsPerPage < data.length && (
+            currentIndex + itemsPerPage < data?.length && (
                 <button className={`${styles.button} ${styles.nextButton}`} type='button' onClick={onClick}>
                     <img src={rightIcon} alt='next icon' />
                 </button>
@@ -75,7 +75,7 @@ const Artist = (props) => {
             </div>
             <div className={styles.wrapper}>
                 <Slider {...settings}>
-                    {data.map((item) => (
+                    {data?.map((item) => (
                         <div
                             className={styles.box}
                             key={item.id}>

@@ -11,7 +11,7 @@ const NavigationMenu = () => {
     <div className={styles.navbar}>
       <img src={logo} className={styles.logo} alt='logo' />
       <ul>
-        {navigation.map((nav, index) => {
+        {navigation?.map((nav, index) => {
           return (
             <li key={index}>{nav.name}</li>
           )
