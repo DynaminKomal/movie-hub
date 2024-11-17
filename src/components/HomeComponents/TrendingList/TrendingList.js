@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import ReactDOM from 'react-dom';
 import styles from './style.module.scss';
 import PropTypes from 'prop-types';
@@ -14,7 +14,8 @@ const TrendingList = (props) => {
     const { name } = props;
 
     const [currentIndex, setCurrentIndex] = useState(0);
-    const itemsPerPage = 6;
+    const [slidesToShow, setSlidesToShow] = useState(6);
+    const itemsPerPage = 4;
 
     const data = [
         { id: "1", image_url: johnImage, title: "John Wick 1", year: "2023", timing: "1hr 25m", genre: "Action", video_url: john_video },
@@ -57,12 +58,39 @@ const TrendingList = (props) => {
         dots: false,
         infinite: false,
         speed: 500,
-        slidesToShow: 6,
+        slidesToShow: slidesToShow,  // Dynamic slidesToShow
         slidesToScroll: 1,
         prevArrow: <CustomPrevArrow />,
         nextArrow: <CustomNextArrow />,
         beforeChange: handleBeforeChange,
     };
+
+
+    const handleResize = () => {
+        console.log("window.innerWidth", window.innerWidth);
+    
+        if (window.innerWidth >= 1560) {
+            setSlidesToShow(6); 
+        } else if (window.innerWidth >= 1440) {
+            setSlidesToShow(4); 
+        } else if (window.innerWidth >= 1340) {
+            setSlidesToShow(2); 
+        } else if (window.innerWidth >= 1180) {
+            setSlidesToShow(2); 
+        } else {
+            setSlidesToShow(1);
+        }
+    };
+    
+
+    useEffect(() => {
+        handleResize(); // Set initial slides to show
+        window.addEventListener('resize', handleResize); // Listen for window resize
+
+        return () => {
+            window.removeEventListener('resize', handleResize); // Cleanup the event listener
+        };
+    }, []);
 
     return (
         <section className={styles.moviesContainer}>
