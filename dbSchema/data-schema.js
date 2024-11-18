@@ -5,14 +5,15 @@
         "_id": "ObjectId",
         "firstName": "string",
         "lastName": "string",
-        "profileImage": "string",
-        "username": "string",
         "email": "string",
+        "profileImage": "string",
+        "userName": "string",
         "dob": "date",
         "gender": "string", // or enum
         "mobileNo": "string",
         "countryCode": "string",
         "userType": "string",
+        "password": "string",
         "isActive": "boolean",
         "createdAt": "date",
         "updatedAt": "date"
