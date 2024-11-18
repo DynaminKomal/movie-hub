@@ -24,7 +24,6 @@ const CarouselMovie = () => {
 
     const fetchBannerReducer = useSelector((state) => state.movie.fetchBannerReducer);
     const { data, loading } = fetchBannerReducer;
-    console.log("data", data)
     const images = {
         '/assets/banner/john.jpg': john_image,
         '/assets/banner/spider.jpg': spider_image,
@@ -73,7 +72,7 @@ const CarouselMovie = () => {
                     const date = new Date(item?.releaseDate);
                     const year = date.getFullYear();
                     return < Carousel.Item key={item._id} className={styles.itemP} interval={4000} >
-                        {isVideoPlaying && activeIndex === parseInt(item.id) - 102 ? (
+                        {isVideoPlaying && activeIndex === data.findIndex(item => item._id === data[activeIndex]?._id) ? (
                             <video autoPlay className={styles.videoBackgroundHolder} muted={isMuted}>
                                 <source src={videos[item.videoLink]} type="video/mp4" />
                                 Your browser does not support the video tag.
