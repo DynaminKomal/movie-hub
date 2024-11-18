@@ -128,21 +128,17 @@ userSchema.pre('save', async function (next) {
 //     return await bcrypt.compare(candidatePassword, userPassword)
 // }
 
-// userSchema.methods.changePassword = async function (JWTTimestamp) {
-//     if (this.passwordChangedAt) {
-//         const changeTimestamp = parseInt(this.passwordChangedAt.getTime() / 1000, 10);
-//         return JWTTimestamp < changeTimestamp;
-//     }
-//     return false;
-// }
+userSchema.methods.changePassword = async function (JWTTimestamp) {
+    if (this.passwordChangedAt) {
+        const changeTimestamp = parseInt(this.passwordChangedAt.getTime() / 1000, 10);
+        return JWTTimestamp < changeTimestamp;
+    }
+    return false;
+}
 
 // userSchema.methods.createPasswordResetToken = async function () {
 //     const resetToken = crypto.randomBytes(32).toString('hex');
 //     crypto.createHash('sha256').update(resetToken).digest('hex');
-// }
-
-// userSchema.statics.findEmail = function (email) {
-//     return this.findOne({ email })
 // }
 
 const User = mongoose.model('Users', userSchema);

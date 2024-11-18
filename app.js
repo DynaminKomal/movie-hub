@@ -4,8 +4,12 @@ const morgan = require('morgan');
 const mongoSanitize = require('express-mongo-sanitize');
 const router = require('./router');
 const { sendResponse } = require('./utility/response-utility');
+const cookieParser = require('cookie-parser');
 
 const app = express();
+
+// Use cookie-parser middleware
+app.use(cookieParser());
 
 //Body parser, reading data from body into req.body
 app.use(express.json({ limit: '10kb' }));
