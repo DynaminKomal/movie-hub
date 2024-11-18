@@ -30,7 +30,7 @@ exports.signup = grasp(async (req, res) => {
         const newUser = await User.create(req.body);
         const token = getToken(newUser._id);
         setCookies(token, res);
-        sendResponse(res, 201, "success", "A new user created successfully!", res);
+        sendResponse(res, 201, "success", "A new user created successfully!");
     } catch (error) {
         handleError(res, error);
     }
