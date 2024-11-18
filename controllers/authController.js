@@ -35,3 +35,28 @@ exports.signup = grasp(async (req, res) => {
         handleError(res, error);
     }
 })
+
+
+exports.login = grasp(async (req, res) => {
+    const { email, password } = req.body;
+    if (!email || !password) {
+        return sendResponse(res, 400, "fail", "Please provide email and password!");
+    }
+
+    try {
+        const user = await User.findOne({ email });
+        if (!user) {
+            return sendResponse(res, 401, "fail", "User does not exist.");
+        }
+        const checkPassword = await user.correctPassword(password, user.password);
+        if (!checkPassword) {
+            return sendResponse(res, 401, "fail", "Please provide the correct password!");
+        }
+
+        const token = getToken(user._id);
+        setCookies(token, res);
+        sendResponse(res, 200, "success", "You logged in successfully!");
+    } catch (error) {
+        handleError(res, error);
+    }
+});

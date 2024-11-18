@@ -124,9 +124,9 @@ userSchema.pre('save', async function (next) {
 
 
 
-// userSchema.methods.correctPassword = async function (candidatePassword, userPassword) {
-//     return await bcrypt.compare(candidatePassword, userPassword)
-// }
+userSchema.methods.correctPassword = async function (candidatePassword, userPassword) {
+    return await bcrypt.compare(candidatePassword, userPassword)
+}
 
 userSchema.methods.changePassword = async function (JWTTimestamp) {
     if (this.passwordChangedAt) {
