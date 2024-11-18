@@ -1,11 +1,14 @@
 const express = require('express');
 const fs = require('fs');
 const cors = require('cors');
-const morgan = require('morgan')
+const morgan = require('morgan');
+const mongoSanitize = require('express-mongo-sanitize');
+const router = require('./router');
 
 const app = express();
 
-app.use(express.json());
+//Body parser, reading data from body into req.body
+app.use(express.json({ limit: '10kb' }));
 
 if (process.env.NODE_ENV === "development") {
     app.use(morgan('tiny'))
@@ -14,6 +17,9 @@ if (process.env.NODE_ENV === "development") {
 app.use(cors({
     origin: '*', // Allow this origin
 }));
+
+//Data sanitization against NoSQL query injection
+app.use(mongoSanitize())
 
 const bannerData = JSON.parse(fs.readFileSync(`${__dirname}/Data/banner.json`, 'utf-8'));
 
@@ -24,6 +30,14 @@ app.get('/api/banner', (req, res) => {
         data: bannerData,
         message: "Data successfully fetched!"
     })
+})
+
+
+// All API Route
+app.use('/api',router)
+
+app.all("*", (req, res, next) => {
+    sendResponse(res, 404, "fail", `Can't find ${req.originalUrl} on this server!`)
 })
 
 
