@@ -24,6 +24,7 @@ const CarouselMovie = () => {
 
     const fetchBannerReducer = useSelector((state) => state.movie.fetchBannerReducer);
     const { data, loading } = fetchBannerReducer;
+    console.log("data", data)
     const images = {
         '/assets/banner/john.jpg': john_image,
         '/assets/banner/spider.jpg': spider_image,
@@ -68,8 +69,10 @@ const CarouselMovie = () => {
                 <img src={leftIcon} alt='prev icon' />
             </button>}
             <Carousel activeIndex={activeIndex} onSelect={handleSelect} className={styles.carousel} indicators={false} controls={false}>
-                {data?.map((item) => (
-                    <Carousel.Item key={item._id} className={styles.itemP} interval={4000}>
+                {data?.map((item) => {
+                    const date = new Date(item?.releaseDate);
+                    const year = date.getFullYear();
+                    return < Carousel.Item key={item._id} className={styles.itemP} interval={4000} >
                         {isVideoPlaying && activeIndex === parseInt(item.id) - 102 ? (
                             <video autoPlay className={styles.videoBackgroundHolder} muted={isMuted}>
                                 <source src={videos[item.videoLink]} type="video/mp4" />
@@ -77,9 +80,10 @@ const CarouselMovie = () => {
                             </video>
                         ) : (
                             <img src={images[item.imageLink]} alt="slides" style={{ width: '100%', height: 'auto' }} />
-                        )}
+                        )
+                        }
                         <Carousel.Caption className={styles.caption}>
-                            <div className={`${globalStyle.uppercase} ${styles.gener}`}>{item.genre}</div>
+                            <div className={`${globalStyle.uppercase} ${styles.gener}`}>{item.genres?.join(', ')}</div>
                             <h1 className={`${globalStyle.uppercase} ${styles.title}`}>{item.fullName}</h1>
                             <div className={styles.metaBox}>
                                 <div className={styles.rating}>
@@ -87,8 +91,8 @@ const CarouselMovie = () => {
                                     {item.rating}
                                 </div>
                                 <ul>
-                                    <li>{item.year}</li>
-                                    <li>{item.timing}</li>
+                                    <li>{year}</li>
+                                    <li>{item.duration}</li>
                                 </ul>
                             </div>
                             <p>{item.description}</p>
@@ -115,12 +119,14 @@ const CarouselMovie = () => {
                             </div>
                         </div>
                     </Carousel.Item>
-                ))}
+                })}
             </Carousel>
-            {(activeIndex !== (data?.length - 1)) && <button className={`${styles.button} ${styles.nextButton}`} type='button' onClick={activeIndex === (data?.length - 1) ? undefined : goToNext}>
-                <img src={rightIon} alt='right icon' />
-            </button>}
-        </div>
+            {
+                (activeIndex !== (data?.length - 1)) && <button className={`${styles.button} ${styles.nextButton}`} type='button' onClick={activeIndex === (data?.length - 1) ? undefined : goToNext}>
+                    <img src={rightIon} alt='right icon' />
+                </button>
+            }
+        </div >
     );
 };
 
