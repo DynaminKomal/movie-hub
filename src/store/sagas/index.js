@@ -1,8 +1,8 @@
 import { all } from "redux-saga/effects";
-import userSagas from './users/index'
+import moviesSagas from './movies/index'
 
 export default function* watchAll() {
   yield all([
-    ...userSagas
+    ...moviesSagas
   ]);
 }

@@ -1,8 +1,8 @@
 import { combineReducers } from 'redux'
 import fetchBannerReducer from './fetchBannerImageForUser.reducer'
 
-const userReducers = combineReducers({
+const movieReducers = combineReducers({
     fetchBannerReducer
 })
 
-export default userReducers;
+export default movieReducers;

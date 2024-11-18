@@ -22,16 +22,15 @@ const CarouselMovie = () => {
     const [isVideoPlaying, setIsVideoPlaying] = useState(false);
     const [isMuted, setIsMuted] = useState(true);
 
-    const fetchBannerReducer = useSelector((state) => state.user.fetchBannerReducer);
+    const fetchBannerReducer = useSelector((state) => state.movie.fetchBannerReducer);
     const { data, loading } = fetchBannerReducer;
-
     const images = {
-        '102': john_image,
-        '103': spider_image,
+        '/assets/banner/john.jpg': john_image,
+        '/assets/banner/spider.jpg': spider_image,
     };
     const videos = {
-        '102': john_video,
-        '103': spider_video,
+        'john_video': john_video,
+        'spider_video': spider_video,
     }
 
     const handleSelect = (selectedIndex) => {
@@ -70,18 +69,18 @@ const CarouselMovie = () => {
             </button>}
             <Carousel activeIndex={activeIndex} onSelect={handleSelect} className={styles.carousel} indicators={false} controls={false}>
                 {data?.map((item) => (
-                    <Carousel.Item key={item.id} className={styles.itemP} interval={4000}>
+                    <Carousel.Item key={item._id} className={styles.itemP} interval={4000}>
                         {isVideoPlaying && activeIndex === parseInt(item.id) - 102 ? (
                             <video autoPlay className={styles.videoBackgroundHolder} muted={isMuted}>
-                                <source src={videos[item.id]} type="video/mp4" />
+                                <source src={videos[item.videoLink]} type="video/mp4" />
                                 Your browser does not support the video tag.
                             </video>
                         ) : (
-                            <img src={images[item.id]} alt="slides" style={{ width: '100%', height: 'auto' }} />
+                            <img src={images[item.imageLink]} alt="slides" style={{ width: '100%', height: 'auto' }} />
                         )}
                         <Carousel.Caption className={styles.caption}>
                             <div className={`${globalStyle.uppercase} ${styles.gener}`}>{item.genre}</div>
-                            <h1 className={`${globalStyle.uppercase} ${styles.title}`}>{item.title}</h1>
+                            <h1 className={`${globalStyle.uppercase} ${styles.title}`}>{item.fullName}</h1>
                             <div className={styles.metaBox}>
                                 <div className={styles.rating}>
                                     <img src={ratingIcon} alt="rating icon" />

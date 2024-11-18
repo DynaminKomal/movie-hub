@@ -4,7 +4,7 @@ import CarouselMovie from './Carousel/CarouselMovie'
 import TrendingList from './TrendingList/TrendingList'
 import NewRelease from './NewRelease/NewRelease';
 import { useDispatch } from 'react-redux';
-import { fetchBanner } from '../../store/actions/user/fetchBanner.action';
+import { fetchBanner } from '../../store/actions/movies/fetchBanner.action';
 import TvSeries from './TvSeries/TvSeries';
 import MostPopularSeries from './MostPopularSeries/MostPopularSeries';
 import IncomingSeries from './InComingSeries/IncomingSeries';

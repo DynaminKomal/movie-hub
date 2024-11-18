@@ -1,4 +1,4 @@
-import * as fetchBanner from '../../actions/user/fetchBanner.action'
+import * as fetchBanner from '../../actions/movies/fetchBanner.action'
 
 const initialState = {
     loading: false,

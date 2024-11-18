@@ -67,8 +67,6 @@ const TrendingList = (props) => {
 
 
     const handleResize = () => {
-        console.log("window.innerWidth", window.innerWidth);
-    
         if (window.innerWidth >= 1560) {
             setSlidesToShow(6); 
         } else if (window.innerWidth >= 1440) {

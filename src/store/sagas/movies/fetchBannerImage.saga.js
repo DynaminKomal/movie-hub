@@ -1,10 +1,10 @@
 import { call, put, takeLatest } from "redux-saga/effects";
-import { userAPI } from "../../../services/users/index"
-import { fetchBanner, FETCH_BANNER } from "../../actions/user/fetchBanner.action"
+import { movieAPI } from "../../../services/movies/index"
+import { fetchBanner, FETCH_BANNER } from "../../actions/movies/fetchBanner.action"
 
 function* handleGetBannerImage() {
     try {
-        const { data: resData } = yield call(userAPI.getBannerDashboard);  
+        const { data: resData } = yield call(movieAPI.getBannerDashboard);  
         yield put(fetchBanner.success({
             status: resData?.status,
             message: resData?.message,

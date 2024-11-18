@@ -1,5 +1,4 @@
 const express = require('express');
-const fs = require('fs');
 const cors = require('cors');
 const morgan = require('morgan');
 const mongoSanitize = require('express-mongo-sanitize');
@@ -21,17 +20,6 @@ app.use(cors({
 
 //Data sanitization against NoSQL query injection
 app.use(mongoSanitize())
-
-const bannerData = JSON.parse(fs.readFileSync(`${__dirname}/Data/banner.json`, 'utf-8'));
-
-// get all banner data
-app.get('/api/banner', (req, res) => {
-    res.status(200).json({
-        status: 200,
-        data: bannerData,
-        message: "Data successfully fetched!"
-    })
-})
 
 
 // All API Route

@@ -1,7 +1,7 @@
 import fetchBannerImageSaga from "./fetchBannerImage.saga";
 
-const userSagas = [
+const moviesSagas = [
     fetchBannerImageSaga()
 ]
 
-export default userSagas;
+export default moviesSagas;
