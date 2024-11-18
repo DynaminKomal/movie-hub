@@ -1,6 +1,6 @@
 export const ApiEndpoints  = Object.freeze({
     getBanner:{
-        url: '/movies',
+        url: '/movies/movieBanner',
         method: "GET",
     }
 })

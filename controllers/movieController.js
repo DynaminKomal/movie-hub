@@ -20,3 +20,13 @@ exports.getAllMovies = grasp(async (req, res) => {
         handleError(res, error)
     }
 })
+
+exports.getBannerMovies = grasp(async (req, res) => {
+    try {
+        const getBannerMoviesData = await Movies.find().limit(3) ;
+        sendResponse(res, 201, "success", "Data fetch successfully!", getBannerMoviesData)
+
+    } catch (error) {
+        handleError(res, error)
+    }
+})
