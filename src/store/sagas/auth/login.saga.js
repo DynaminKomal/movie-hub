@@ -2,9 +2,9 @@ import { call, put, takeLatest } from "redux-saga/effects";
 import { loginAPI } from "../../../services/auth/index"
 import { login, LOGIN } from "../../actions/auth/login.action"
 
-function* handleLogin() {
+function* handleLogin(action) {
     try {
-        const { data: resData } = yield call(loginAPI.postLogin);
+        const { data: resData } = yield call(loginAPI.postLogin, action.payload);
         yield put(login.success({
             status: resData?.status,
             message: resData?.message,

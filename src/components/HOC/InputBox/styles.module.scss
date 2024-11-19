@@ -64,9 +64,14 @@ input {
   transition: border-color 0.2s ease, outline-color 0.2s ease;
 }
 
-.inputField:focus-within .label {
-  top: 3px; 
-  font-size: 0.725rem;
+.inputField:focus-within{
+  .labelAndInputContainer{
+    border: 1px solid #ffff;
+  }
+  .label {
+    top: 3px; 
+    font-size: 0.725rem;
+  }
 }
 
 .failure {

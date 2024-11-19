@@ -1,9 +1,19 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from './styles.module.scss';
 import InputBox from '../HOC/InputBox/InputBox';
 import Button from '../HOC/Button/Button';
+import { useDispatch, useSelector } from 'react-redux';
+import { login } from '../../store/actions/auth/login.action'
+import { useNavigate } from 'react-router-dom';
+import { paths } from '../../constants/paths/common';
 
 const Login = () => {
+
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+    const loginReducer = useSelector((state) => state.auth.loginReducer)
+    const { success, message } = loginReducer
+
     const [inputValues, setInputValues] = useState({
         emailOrMobile: "",
         password: ""
@@ -12,7 +22,7 @@ const Login = () => {
         emailOrMobile: "",
         password: ""
     });
-    const isPhoneNumber = /^[0-9]+$/.test(inputValues.emailOrMobile);
+    const isPhoneNumber = /^[0-9+]+$/.test(inputValues.emailOrMobile);
     const [selectedCountryCode, setSelectedCountryCode] = useState("In +91");
 
     const handleInputValue = (e) => {
@@ -32,10 +42,10 @@ const Login = () => {
         } else {
             const countryCode = selectedCountryCode?.split(' ')[1]
             const payload = {
-                email: (countryCode && isPhoneNumber) ? countryCode + inputValues.emailOrMobile : inputValues.emailOrMobile,
+                emailorMobile: (countryCode && isPhoneNumber) ? countryCode + inputValues.emailOrMobile : inputValues.emailOrMobile,
                 password: inputValues.password
             }
-            console.log("payload", payload)
+            dispatch(login.request(payload))
         }
     };
 
@@ -46,6 +56,12 @@ const Login = () => {
             [name]: ""
         }));
     };
+
+    useEffect(() => {
+        if (success === true && message === "You logged in successfully!") {
+            navigate(paths.HOME);
+        }
+    }, [success, message])
 
     const handleOnBlur = (e) => {
         const { name, value } = e.target;
@@ -94,7 +110,7 @@ const Login = () => {
                 } else {
                     setMultipleError((prev) => ({
                         ...prev,
-                        [name]: "Please enter a valid email address or phone number."
+                        [name]: "Please enter a valid email address."
                     }));
                 }
             }
