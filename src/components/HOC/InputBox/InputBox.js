@@ -4,7 +4,7 @@ import globalStyles from '../../../styles/globalStyle.module.scss';
 import errorIcon from '../../../assets/error.svg';
 
 const InputBox = (props) => {
-  const { id, name, value, onChange, label, error, onFocus, type, onBlur, isPhoneNumber } = props;
+  const { id, name, value, onChange, label, error, onFocus, type, onBlur, isPhoneNumber, countryCode, onCountryCodeChange } = props;
 
   return (
     <div className={`${styles.inputField}`}>
@@ -13,9 +13,11 @@ const InputBox = (props) => {
         <div className={styles.inputContainer}>
           {isPhoneNumber ? (
             <div className={styles.selectBox}>
-              <select>
+              <select value={countryCode} onChange={onCountryCodeChange}>
                 <option value="In +91">India +91</option>
-                {/* Add other options as necessary */}
+                <option value="US +1">USA +1</option>
+                <option value="UK +44">UK +44</option>
+                <option value="CA +1">Canada +1</option>
               </select>
             </div>
           ) : null}

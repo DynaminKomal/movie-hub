@@ -12,6 +12,8 @@ const Login = () => {
         emailOrMobile: "",
         password: ""
     });
+    const isPhoneNumber = /^[0-9]+$/.test(inputValues.emailOrMobile);
+    const [selectedCountryCode, setSelectedCountryCode] = useState("In +91");
 
     const handleInputValue = (e) => {
         const { name, value } = e.target;
@@ -27,6 +29,13 @@ const Login = () => {
                 emailOrMobile: "Please enter a valid email address or phone number.",
                 password: "Your password must contain between 4 and 60 characters."
             });
+        } else {
+            const countryCode = selectedCountryCode?.split(' ')[1]
+            const payload = {
+                email: (countryCode && isPhoneNumber) ? countryCode + inputValues.emailOrMobile : inputValues.emailOrMobile,
+                password: inputValues.password
+            }
+            console.log("payload", payload)
         }
     };
 
@@ -97,7 +106,12 @@ const Login = () => {
         }
     };
 
-    const isPhoneNumber = /^[0-9]+$/.test(inputValues.emailOrMobile);
+
+
+    const handleCountryCodeChange = (e) => {
+        const { value } = e.target;
+        setSelectedCountryCode(value);
+    };
 
     return (
         <div className={styles.loginContainer}>
@@ -115,6 +129,8 @@ const Login = () => {
                         onFocus={handleOnFocus}
                         onBlur={handleOnBlur}
                         isPhoneNumber={isPhoneNumber}
+                        countryCode={selectedCountryCode}
+                        onCountryCodeChange={handleCountryCodeChange}
                     />
                     <InputBox
                         id="password"
