@@ -5,7 +5,6 @@ import errorIcon from '../../../assets/error.svg';
 
 const InputBox = (props) => {
   const { id, name, value, onChange, label, error, onFocus, type, onBlur, isPhoneNumber, countryCode, onCountryCodeChange } = props;
-
   return (
     <div className={`${styles.inputField}`}>
       <div className={`${styles.labelAndInputContainer} ${error?.length ? styles.failure : ""}`}>
