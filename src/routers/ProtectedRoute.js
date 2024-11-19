@@ -1,15 +1,15 @@
-import React from "react";
-import { Navigate, Route } from "react-router-dom";
-
+import React from 'react';
+import { Navigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 function ProtectedRoute({ element, ...rest }) {
-    const isAuthenticated = false; 
+    const token = useSelector((state) => state.auth.loginReducer?.data?.token)
 
-    if (!isAuthenticated) {
+    if (!token) {
         return <Navigate to="/login" replace />;
     }
 
-    return element; 
+    return element;
 }
 
 export default ProtectedRoute;

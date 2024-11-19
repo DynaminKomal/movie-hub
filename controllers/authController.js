@@ -11,20 +11,6 @@ const getToken = (id) => {
     );
 };
 
-// Set JWT token in cookies
-const setCookies = (token, res) => {
-    const cookiesOptions = {
-        expires: new Date(Date.now() + process.env.JWT_COOKIES_EXPIRES_IN * 24 * 60 * 60 * 1000),
-        httpOnly: true
-    };
-
-    if (process.env.NODE_ENV === 'production') {
-        cookiesOptions.secure = true;
-    }
-
-    res.cookie('jwt', token, cookiesOptions);
-};
-
 exports.signup = grasp(async (req, res) => {
     try {
         const newUser = await User.create(req.body);
@@ -45,36 +31,30 @@ exports.login = grasp(async (req, res) => {
 
     try {
         const isPhoneNumber = /^[0-9+]+$/.test(emailorMobile);
+        let user;
         if (isPhoneNumber) {
             const extractedPhoneNo = await User.extractMobileNumber(emailorMobile)
             const { countryCallingCode, nationalNumber } = extractedPhoneNo;
 
-            const user = await User.findOne({ mobileNo: nationalNumber, countryCode: countryCallingCode });
-            if (!user) {
-                return sendResponse(res, 401, "fail", "User does not exist.");
-            }
-            const checkPassword = await user.correctPassword(password, user.password);
-            if (!checkPassword) {
-                return sendResponse(res, 401, "fail", "Please provide the correct password!");
-            }
+            user = await User.findOne({ mobileNo: nationalNumber, countryCode: countryCallingCode });
 
-            const token = getToken(user._id);
-            setCookies(token, res);
-            sendResponse(res, 200, "success", "You logged in successfully!");
         } else {
-            const user = await User.findOne({ email: emailorMobile });
-            if (!user) {
-                return sendResponse(res, 401, "fail", "User does not exist.");
-            }
-            const checkPassword = await user.correctPassword(password, user.password);
-            if (!checkPassword) {
-                return sendResponse(res, 401, "fail", "Please provide the correct password!");
-            }
-
-            const token = getToken(user._id);
-            setCookies(token, res);
-            sendResponse(res, 200, "success", "You logged in successfully!");
+            user = await User.findOne({ email: emailorMobile });
         }
+        if (!user) {
+            return sendResponse(res, 401, "fail", "User does not exist.");
+        }
+        const checkPassword = await user.correctPassword(password, user.password);
+        if (!checkPassword) {
+            return sendResponse(res, 401, "fail", "Please provide the correct password!");
+        }
+
+        const token = getToken(user._id);
+        const userData = {
+            token: token,
+            data: user
+        }
+        sendResponse(res, 200, "success", "You logged in successfully!", userData);
     } catch (error) {
         handleError(res, error);
     }
