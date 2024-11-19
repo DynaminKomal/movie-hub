@@ -17,6 +17,7 @@ function* handleLogin(action) {
             //storing the data in localstore after login apin success
             storeInLocalStorage.storeFirstName(data.data.firstName);
             storeInLocalStorage.storeEmail(data.data.email);
+            storeInLocalStorage.storeProfileImage(data.data.profileImage);
             saveAuthToken(data.token);
         } else {
             console.log("call in else")
