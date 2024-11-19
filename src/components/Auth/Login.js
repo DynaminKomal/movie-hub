@@ -1,18 +1,139 @@
-import React from 'react';
-import styles from './styles.module.scss'
+import React, { useState } from 'react';
+import styles from './styles.module.scss';
 import InputBox from '../HOC/InputBox/InputBox';
+import Button from '../HOC/Button/Button';
 
 const Login = () => {
+    const [inputValues, setInputValues] = useState({
+        emailOrMobile: "",
+        password: ""
+    });
+    const [multipleError, setMultipleError] = useState({
+        emailOrMobile: "",
+        password: ""
+    });
+
+    const handleInputValue = (e) => {
+        const { name, value } = e.target;
+        setInputValues((prevValues) => ({
+            ...prevValues,
+            [name]: value
+        }));
+    };
+
+    const handleSubmit = () => {
+        if (inputValues.emailOrMobile?.trim() === "" && inputValues.password?.trim() === "") {
+            setMultipleError({
+                emailOrMobile: "Please enter a valid email address or phone number.",
+                password: "Your password must contain between 4 and 60 characters."
+            });
+        }
+    };
+
+    const handleOnFocus = (e) => {
+        const { name } = e.target;
+        setMultipleError((prevValues) => ({
+            ...prevValues,
+            [name]: ""
+        }));
+    };
+
+    const handleOnBlur = (e) => {
+        const { name, value } = e.target;
+
+        if (value.trim() === "") {
+            if (name === "emailOrMobile") {
+                setMultipleError((prev) => ({
+                    ...prev,
+                    [name]: "Please enter a valid email address or phone number."
+                }));
+            } else if (name === "password") {
+                setMultipleError((prev) => ({
+                    ...prev,
+                    [name]: "Your password must contain between 4 and 60 characters."
+                }));
+            }
+        }
+        else if (name === "emailOrMobile") {
+            const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+            const phoneRegex = /^[0-9]{10,15}$/;
+
+            const isEmailValid = emailRegex.test(value);
+            const isPhoneValid = phoneRegex.test(value);
+
+            if (isEmailValid) {
+                setMultipleError((prev) => ({
+                    ...prev,
+                    [name]: ""
+                }));
+            } else if (isPhoneValid) {
+                setMultipleError((prev) => ({
+                    ...prev,
+                    [name]: ""
+                }));
+            } else {
+                if (value.includes('@')) {
+                    setMultipleError((prev) => ({
+                        ...prev,
+                        [name]: "Please enter a valid email address."
+                    }));
+                } else if (/^[0-9]+$/.test(value)) {
+                    setMultipleError((prev) => ({
+                        ...prev,
+                        [name]: "Please enter a valid phone number."
+                    }));
+                } else {
+                    setMultipleError((prev) => ({
+                        ...prev,
+                        [name]: "Please enter a valid email address or phone number."
+                    }));
+                }
+            }
+        } else if (name === "password" && (value.length < 4 || value.length > 60)) {
+            setMultipleError((prev) => ({
+                ...prev,
+                [name]: "Your password must contain between 4 and 60 characters."
+            }));
+        }
+    };
+
+    const isPhoneNumber = /^[0-9]+$/.test(inputValues.emailOrMobile);
+
     return (
         <div className={styles.loginContainer}>
             <div className={styles.formContainer}>
                 <h2>Sign In</h2>
-                <div>
-                    <InputBox/>
+                <div className={styles.fieldBox}>
+                    <InputBox
+                        id="emailOrMobile"
+                        name="emailOrMobile"
+                        type="text"
+                        value={inputValues.emailOrMobile}
+                        label="Email or mobile number"
+                        error={multipleError.emailOrMobile}
+                        onChange={handleInputValue}
+                        onFocus={handleOnFocus}
+                        onBlur={handleOnBlur}
+                        isPhoneNumber={isPhoneNumber}
+                    />
+                    <InputBox
+                        id="password"
+                        name="password"
+                        type="password"
+                        value={inputValues.password}
+                        label="Password"
+                        error={multipleError.password}
+                        onChange={handleInputValue}
+                        onFocus={handleOnFocus}
+                        onBlur={handleOnBlur}
+                    />
+                    <div className={styles.button}>
+                        <Button name="Sign in" text="button" onClick={handleSubmit} />
+                    </div>
                 </div>
             </div>
         </div>
-    )
-}
+    );
+};
 
-export default Login
+export default Login;
