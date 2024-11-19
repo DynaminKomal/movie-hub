@@ -1,8 +1,10 @@
 import { combineReducers } from 'redux';
-import movieReducers from './movies/index'; 
+import movieReducers from './movies/index';
+import authReducers from './auth/index';
 
 const createRootReducer = combineReducers({
-    movie: movieReducers, 
+    auth: authReducers,
+    movie: movieReducers,
 });
 
 const rootReducer = (state, action) => {

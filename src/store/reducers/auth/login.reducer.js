@@ -1,4 +1,4 @@
-import * as fetchBanner from '../../actions/movies/fetchBanner.action'
+import * as login from '../../actions/auth/login.action'
 
 const initialState = {
     loading: false,
@@ -13,14 +13,14 @@ const initialState = {
 export default function returnstate(state = initialState, action) {
 
     switch (action.type) {
-        case fetchBanner.FETCH_BANNER.REQUEST:
+        case login.LOGIN.REQUEST:
             return {
                 ...state,
                 loading: true,
                 success: false,
                 failure: false,
             };
-        case fetchBanner.FETCH_BANNER.SUCCESS:
+        case login.LOGIN.SUCCESS:
             return {
                 ...state,
                 loading: false,
@@ -32,7 +32,7 @@ export default function returnstate(state = initialState, action) {
                 data: action.payload.data
             };
 
-        case fetchBanner.FETCH_BANNER.FAILURE:
+        case login.LOGIN.FAILURE:
             return {
                 ...state,
                 loading: false,

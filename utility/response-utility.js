@@ -12,10 +12,12 @@ exports.grasp = (cb) => {
 // Utility function to send responses
 exports.sendResponse = (res, statusCode, status, message, data = null) => {
     res.status(statusCode).json({
+        statusCode,
         status,
         message,
         length: data === null ? 0 : data.length,
         data,
+
     });
 };
 
@@ -26,7 +28,7 @@ exports.handleError = (res, err) => {
 
     const errorDetails = process.env.NODE_ENV === 'production'
         ? 'An unexpected error occurred.'
-        : stringify(err);  
+        : stringify(err);
 
     if (process.env.NODE_ENV === 'production') {
         if (err.name === "TokenExpiredError") {

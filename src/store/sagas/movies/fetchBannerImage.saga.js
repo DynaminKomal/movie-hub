@@ -8,14 +8,16 @@ function* handleGetBannerImage() {
         yield put(fetchBanner.success({
             status: resData?.status,
             message: resData?.message,
-            data: resData?.data
+            data: resData?.data,
+            statusCode: resData?.statusCode
         }));
     } catch (e) {
         const { data: resData } = e
         yield put(fetchBanner.failure({
             status: resData?.status,
             message: resData?.message,
-            data: resData?.data
+            data: resData?.data,
+            statusCode: resData?.statusCode
         }));
     }
 }
