@@ -128,6 +128,10 @@ userSchema.methods.correctPassword = async function (candidatePassword, userPass
     return await bcrypt.compare(candidatePassword, userPassword)
 }
 
+userSchema.statics.extractMobileNumber = async function (mobileNumber) {
+    return parsePhoneNumberFromString(mobileNumber)
+}
+
 userSchema.methods.changePassword = async function (JWTTimestamp) {
     if (this.passwordChangedAt) {
         const changeTimestamp = parseInt(this.passwordChangedAt.getTime() / 1000, 10);

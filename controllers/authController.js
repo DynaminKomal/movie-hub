@@ -38,24 +38,43 @@ exports.signup = grasp(async (req, res) => {
 
 
 exports.login = grasp(async (req, res) => {
-    const { email, password } = req.body;
-    if (!email || !password) {
+    const { emailorMobile, password } = req.body;
+    if (!emailorMobile || !password) {
         return sendResponse(res, 400, "fail", "Please provide email and password!");
     }
 
     try {
-        const user = await User.findOne({ email });
-        if (!user) {
-            return sendResponse(res, 401, "fail", "User does not exist.");
-        }
-        const checkPassword = await user.correctPassword(password, user.password);
-        if (!checkPassword) {
-            return sendResponse(res, 401, "fail", "Please provide the correct password!");
-        }
+        const isPhoneNumber = /^[0-9+]+$/.test(emailorMobile);
+        if (isPhoneNumber) {
+            const extractedPhoneNo = await User.extractMobileNumber(emailorMobile)
+            const { countryCallingCode, nationalNumber } = extractedPhoneNo;
 
-        const token = getToken(user._id);
-        setCookies(token, res);
-        sendResponse(res, 200, "success", "You logged in successfully!");
+            const user = await User.findOne({ mobileNo: nationalNumber, countryCode: countryCallingCode });
+            if (!user) {
+                return sendResponse(res, 401, "fail", "User does not exist.");
+            }
+            const checkPassword = await user.correctPassword(password, user.password);
+            if (!checkPassword) {
+                return sendResponse(res, 401, "fail", "Please provide the correct password!");
+            }
+
+            const token = getToken(user._id);
+            setCookies(token, res);
+            sendResponse(res, 200, "success", "You logged in successfully!");
+        } else {
+            const user = await User.findOne({ email: emailorMobile });
+            if (!user) {
+                return sendResponse(res, 401, "fail", "User does not exist.");
+            }
+            const checkPassword = await user.correctPassword(password, user.password);
+            if (!checkPassword) {
+                return sendResponse(res, 401, "fail", "Please provide the correct password!");
+            }
+
+            const token = getToken(user._id);
+            setCookies(token, res);
+            sendResponse(res, 200, "success", "You logged in successfully!");
+        }
     } catch (error) {
         handleError(res, error);
     }
