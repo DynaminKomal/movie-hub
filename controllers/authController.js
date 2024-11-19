@@ -3,9 +3,12 @@ const { grasp, sendResponse, handleError } = require('../utility/response-utilit
 const jwt = require('jsonwebtoken')
 
 // Generate JWT token
-const getToken = (id) => {
+const getToken = (id,userType) => {
     return jwt.sign(
-        { id: id },
+        {
+            id: id,
+            userType: userType
+        },
         process.env.JWT_SECRET,
         { expiresIn: process.env.JWT_EXPIRES_IN }
     );
@@ -14,7 +17,7 @@ const getToken = (id) => {
 exports.signup = grasp(async (req, res) => {
     try {
         const newUser = await User.create(req.body);
-        const token = getToken(newUser._id);
+        const token = getToken(newUser._id, newUser.userType);
         setCookies(token, res);
         sendResponse(res, 201, "success", "A new user created successfully!");
     } catch (error) {
@@ -49,7 +52,7 @@ exports.login = grasp(async (req, res) => {
             return sendResponse(res, 401, "fail", "Please provide the correct password!");
         }
 
-        const token = getToken(user._id);
+        const token = getToken(user._id, user.userType);
         const userData = {
             token: token,
             data: user
