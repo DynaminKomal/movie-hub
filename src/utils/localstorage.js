@@ -7,6 +7,12 @@ export function fetchFromLocalStorage(field_name) {
 }
 
 export const storeInLocalStorage = {
+  storeFirstName: (name) => {
+    localStorage.setItem("user_first_name",name);
+  },
+  storeEmail: (email) => {
+    localStorage.setItem("user_email",email);
+  },
   storeloginCredential: (loginData) => {
     localStorage.setItem("login_credentials", loginData)
   }
