@@ -61,8 +61,7 @@
 
     .title {
         overflow: hidden;
-        display: -webkit-box;
-        display: box;
+        display: flex;
         -webkit-box-orient: vertical;
         box-orient: vertical;
         -webkit-line-clamp: 2;
@@ -183,7 +182,7 @@
 .description {
     overflow: hidden;
     text-align: left;
-    display: box;
+    display: flex;
     -webkit-box-orient: vertical;
     box-orient: vertical;
     -webkit-line-clamp: 8;

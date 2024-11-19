@@ -61,7 +61,7 @@ const Login = () => {
         if (success === true && message === "You logged in successfully!") {
             navigate(paths.HOME);
         }
-    }, [success, message])
+    }, [success, message, navigate])
 
     const handleOnBlur = (e) => {
         const { name, value } = e.target;
