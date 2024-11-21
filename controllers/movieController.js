@@ -60,7 +60,7 @@ exports.getTrendingMovie = grasp(async (req, res) => {
                     releaseDate: -1
                 }
             }
-        ]);
+        ]).limit(8);
         sendResponse(res, 201, "success", "Data fetch successfully!", getTrendingMovie)
 
     } catch (error) {
