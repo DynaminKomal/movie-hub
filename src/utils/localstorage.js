@@ -1,4 +1,4 @@
-export function removeFromLocalStorage(field_name) {
+export function removeDataFromLocalStorage(field_name) {
   localStorage.removeItem(field_name);
 }
 
@@ -30,3 +30,16 @@ export const saveAuthToken = (token) => {
 export const getAuthToken = () => {
   return fetchFromLocalStorage("login_credentials")
 };
+
+export const removeFromLocalStorage = {
+  signout: () => {
+    clearLocalStorage();
+  },
+}
+
+const clearLocalStorage = () => {
+  removeDataFromLocalStorage("login_credentials");
+  removeDataFromLocalStorage("user_first_name");
+  removeDataFromLocalStorage("user_email");
+  removeDataFromLocalStorage("profile_image");
+}
