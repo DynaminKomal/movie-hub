@@ -24,3 +24,9 @@ export const storeInLocalStorage = {
 export const saveAuthToken = (token) => {
   storeInLocalStorage.storeloginCredential(token);
 };
+
+
+
+export const getAuthToken = () => {
+  return fetchFromLocalStorage("login_credentials")
+};
