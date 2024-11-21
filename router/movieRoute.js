@@ -1,15 +1,16 @@
 const express = require('express');
-const { createMovie, getAllMovies , getBannerMovies, getTrendingMovie} = require('../controllers/movieController');
+const movieController = require('../controllers/movieController');
 const { tokenVerify } = require('../utility/token-verify');
 const router = express.Router();
 
 router.use(tokenVerify)
 
-router.post('/create', createMovie)
-router.post('/upcoming-movies', createMovie)
-router.get('/', getAllMovies)
-router.get('/movieBanner', getBannerMovies)
-router.get('/trending', getTrendingMovie)
+router.post('/create', movieController.createMovie)
+router.post('/upcoming-movies/create', movieController.createMovie)
+router.get('/', movieController.getAllMovies)
+router.get('/movieBanner', movieController.getBannerMovies)
+router.get('/trending', movieController.getTrendingMovie)
+router.get('/upcoming-movies', movieController.getUpcomingMovie)
 
 
 

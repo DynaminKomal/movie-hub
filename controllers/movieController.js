@@ -1,6 +1,7 @@
 const Movies = require("../models/movieModel");
 const UpcomingMovies = require("../models/upcomingMovie");
 const { grasp, handleError, sendResponse } = require("../utility/response-utility");
+const factory = require('./handleFactory')
 
 exports.createMovie = grasp(async (req, res) => {
     try {
@@ -20,25 +21,9 @@ exports.createMovie = grasp(async (req, res) => {
 })
 
 
-exports.getAllMovies = grasp(async (req, res) => {
-    try {
-        const getAllMoviesData = await Movies.find();
-        sendResponse(res, 201, "success", "Data fetch successfully!", getAllMoviesData)
+exports.getAllMovies = factory.getAllData(Movies)
 
-    } catch (error) {
-        handleError(res, error)
-    }
-})
-
-exports.getBannerMovies = grasp(async (req, res) => {
-    try {
-        const getBannerMoviesData = await Movies.find().limit(3);
-        sendResponse(res, 201, "success", "Data fetch successfully!", getBannerMoviesData)
-
-    } catch (error) {
-        handleError(res, error)
-    }
-})
+exports.getBannerMovies = factory.getAllData(Movies, 4)
 
 exports.getTrendingMovie = grasp(async (req, res) => {
     try {
@@ -64,7 +49,9 @@ exports.getTrendingMovie = grasp(async (req, res) => {
         sendResponse(res, 201, "success", "Data fetch successfully!", getTrendingMovie)
 
     } catch (error) {
-        console.log("error", error)
         handleError(res, error)
     }
 })
+
+
+exports.getUpcomingMovie = factory.getAllData(UpcomingMovies)
