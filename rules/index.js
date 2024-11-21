@@ -20,7 +20,8 @@ const rules = {
 
     //FOR ADMIN AND USER
     "GET /api/movies/": ruleTrue,
-    "GET /api/movies/movieBanner": ruleTrue
+    "GET /api/movies/movieBanner": ruleTrue,
+    "GET /api/movies/trending": ruleTrue
 };
 
 // Convert paths to regular expressions
