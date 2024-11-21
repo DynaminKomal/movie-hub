@@ -1,9 +1,18 @@
 const Movies = require("../models/movieModel");
+const UpcomingMovies = require("../models/upcomingMovie");
 const { grasp, handleError, sendResponse } = require("../utility/response-utility");
 
 exports.createMovie = grasp(async (req, res) => {
     try {
-        const newMovieData = await Movies.create(req.body)
+        const currentDate = new Date();
+        const releaseDate = new Date(req.body.releaseDate);
+        const checkRelaseDate = currentDate < releaseDate;
+        let newMovieData;
+        if (checkRelaseDate) {
+            newMovieData = await UpcomingMovies.create(req.body)
+        } else {
+            newMovieData = await Movies.create(req.body)
+        }
         sendResponse(res, 201, "success", "A new user created successfully!", newMovieData)
     } catch (error) {
         handleError(res, error)

@@ -17,6 +17,7 @@ const rules = {
 
     //FOR ADMIN
     "POST /api/movies/create": admin,
+    "POST /api/movies/upcoming-movies": admin,
 
     //FOR ADMIN AND USER
     "GET /api/movies/": ruleTrue,

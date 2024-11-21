@@ -52,7 +52,7 @@
         "_id": "ObjectId",
         "fullName": "string",
         "originalName": "string",
-        "summary": "string",
+        "description": "string",
         "imageLink": "string",
         "trailerLink": "string",
         "releaseDate": "date",

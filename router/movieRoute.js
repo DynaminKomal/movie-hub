@@ -6,6 +6,7 @@ const router = express.Router();
 router.use(tokenVerify)
 
 router.post('/create', createMovie)
+router.post('/upcoming-movies', createMovie)
 router.get('/', getAllMovies)
 router.get('/movieBanner', getBannerMovies)
 router.get('/trending', getTrendingMovie)
