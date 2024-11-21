@@ -1,11 +1,11 @@
 .loginContainer {
     background-image: url('../../assets/login-background.jpg');
     background-size: cover;
-    background-position: center; 
+    background-position: center;
     width: 100vw;
     height: 100vh;
     display: flex;
-    justify-content: center; 
+    justify-content: center;
     align-items: center;
     background-color: rgba(0, 0, 0, 0.5);
     overflow: hidden;
@@ -13,14 +13,15 @@
 
 .formContainer {
     width: 100%;
-    max-width: 400px; 
+    max-width: 400px;
     min-height: 707px;
     padding: 48px 68px;
     background-color: rgba(0, 0, 0, 0.8);
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); 
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
     color: white;
-    h2{
+
+    h2 {
         margin-bottom: 28px;
         padding: 0;
         color: rgb(255, 255, 255);
@@ -28,6 +29,7 @@
         font-weight: 700;
     }
 }
-.fieldBox{
+
+.fieldBox {
     position: relative;
 }

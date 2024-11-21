@@ -6,13 +6,15 @@ import { useDispatch, useSelector } from 'react-redux';
 import { login } from '../../store/actions/auth/login.action'
 import { useNavigate } from 'react-router-dom';
 import { paths } from '../../constants/paths/common';
+import Alert from '../HOC/Alert/Alert';
 
 const Login = () => {
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const loginReducer = useSelector((state) => state.auth.loginReducer)
-    const { success, message } = loginReducer
+    const { success, message, failure } = loginReducer;
+    const [isShow, setIsShow] = useState(false)
 
     const [inputValues, setInputValues] = useState({
         emailOrMobile: "",
@@ -59,7 +61,17 @@ const Login = () => {
 
     useEffect(() => {
         if (success === true && message === "You logged in successfully!") {
-            navigate(paths.HOME);
+            setIsShow(true)
+            setTimeout(() => {
+                setIsShow(false)
+                navigate(paths.HOME);
+            }, 3000)
+        }
+        if (failure) {
+            setIsShow(true)
+            setTimeout(() => {
+                setIsShow(false)
+            }, 3000)
         }
     }, [success, message, navigate])
 
@@ -163,6 +175,9 @@ const Login = () => {
                         <Button name="Sign in" text="button" onClick={handleSubmit} />
                     </div>
                 </div>
+                {isShow && <Alert
+                    message={message}
+                    type={success === true && failure === false ? "success" : success === false && failure === true ? "fail" : ""} setIsShow={setIsShow} />}
             </div>
         </div>
     );

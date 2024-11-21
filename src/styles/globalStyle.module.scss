@@ -14,3 +14,82 @@
         color: rgb(235, 57, 66);
     }
 }
+
+.alert {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-radius: 0.3em;
+    padding: 0 1em;
+    font-weight: 500;
+    z-index: 9999;
+    min-width: 285px;
+    max-width: 400px;
+    animation: bounce 0.5s ease-in-out;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 1px 10px 0 rgba(0, 0, 0, .1), 0 2px 15px 0 rgba(0, 0, 0, .05);
+
+    .closeIcon {
+        display: flex;
+        font-weight: bold;
+        justify-content: flex-end;
+        &:hover{
+            color: black;
+            cursor: pointer;
+        }
+    }
+
+    .text {
+        display: flex;
+        padding-bottom: 1em;
+
+        img {
+            margin-right: 10px;
+        }
+    }
+}
+
+.alertSuccess {
+    background: #07bc0c;
+    color: white;
+}
+
+.alertError {
+    background: #e74c3c;
+    color: white;
+}
+
+.alertBounce {
+    animation: bounce 0.5s ease-in-out;
+}
+
+@keyframes bounce {
+
+    0%,
+    100% {
+        transform: translateX(-50%) scale(1);
+    }
+
+    50% {
+        transform: translateX(-50%) scale(1.05);
+    }
+}
+
+.progress {
+    height: 4px;
+    background-color: #4CAF50;
+    animation: progress 2s linear forwards;
+    margin-bottom: 10px;
+}
+
+@keyframes progress {
+    0% {
+        width: 0%;
+    }
+
+    100% {
+        width: 100%;
+    }
+}
