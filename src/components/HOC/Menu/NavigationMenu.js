@@ -32,7 +32,7 @@ const NavigationMenu = () => {
         <img src={searchIcon} className={styles.searchIcon} alt='search icon' />
         {isAuthenticated() ? < div className={styles.loginBox}>
           <img
-            src={profileImage ? '../../../assets/user.svg' : userIcon}
+            src={profileImage ? profileImage : userIcon}
             className={styles.userIcon}
             alt={userName || 'Default User'}
           />
