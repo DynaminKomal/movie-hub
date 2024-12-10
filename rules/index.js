@@ -18,12 +18,14 @@ const rules = {
     //FOR ADMIN
     "POST /api/movies/create": admin,
     "POST /api/movies/upcoming-movies/create": admin,
-    
+    "POST /api/tv-series/create": admin,
+
     //FOR ADMIN AND USER
     "GET /api/movies/": ruleTrue,
     "GET /api/movies/movieBanner": ruleTrue,
     "GET /api/movies/trending": ruleTrue,
     "GET /api/movies/upcoming-movies": ruleTrue,
+
 };
 
 // Convert paths to regular expressions
