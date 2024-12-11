@@ -2,9 +2,9 @@ const mongoose = require('mongoose');
 
 // Season Schema
 const seasonSchema = mongoose.Schema({
-    seasonNumber: { type: Number, required: true },
+    seasonNumber: { type: Number, immutable: true },
     episodes: [{
-        episodeNumber: { type: Number, required: true },
+        episodeNumber: { type: Number, immutable: true },
         title: { type: String, required: true },
         description: { type: String },
         broadcastDate: { type: Date },
@@ -42,10 +42,7 @@ const tvseriesSchema = mongoose.Schema({
         type: String,
         required: [true, 'A series must have an image']
     },
-    seasons: {
-        type: [seasonSchema],
-        required: [true, 'A series must have at least one season']
-    },
+    seasons: [seasonSchema],
     genres: {
         type: [String]
     },
@@ -58,12 +55,52 @@ const tvseriesSchema = mongoose.Schema({
 
 
 tvseriesSchema.pre('save', async function (next) {
+
     if (!this.originalName) {
         this.originalName = this.fullName;
     }
-    next();
-})
+    for (let i = 0; i < this.seasons.length; i++) {
+        const season = this.seasons[i];
+        if (!season.seasonNumber) {
+            season.seasonNumber = i + 1
+        }
 
+        for (let j = 0; j < season.episodes.length; j++) {
+            const episode = season.episodes[j];
+            if (!episode.episodeNumber) {
+                episode.episodeNumber = j + 1;
+            }
+        }
+    }
+
+    next();
+});
+
+
+
+tvseriesSchema.methods.validateSeasonAndEpisodes = async function (newSeasons, season) {
+    let isValid = true, lastSeasonNumber = 0;
+
+    for (let season of newSeasons) {
+        if (season.seasonNumber !== lastSeasonNumber + 1) {
+            isValid = false;
+            break;
+        }
+        lastSeasonNumber = season.seasonNumber;
+        let lasEpisodeNumber = 0;
+        for (let episode of season.episodes) {
+            if (episode.episodeNumber !== lasEpisodeNumber + 1) {
+                isValid = false;
+                break;
+            }
+            lasEpisodeNumber = episode.episodeNumber;
+        }
+        if (!isValid) break;
+    }
+
+    return isValid;
+
+}
 
 const TvSeries = mongoose.model('TV-Series', tvseriesSchema);
 

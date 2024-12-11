@@ -19,12 +19,14 @@ const rules = {
     "POST /api/movies/create": admin,
     "POST /api/movies/upcoming-movies/create": admin,
     "POST /api/tv-series/create": admin,
-
+    "PATCH /api/tv-series/:id/seasons": admin,
+    
     //FOR ADMIN AND USER
     "GET /api/movies/": ruleTrue,
     "GET /api/movies/movieBanner": ruleTrue,
     "GET /api/movies/trending": ruleTrue,
     "GET /api/movies/upcoming-movies": ruleTrue,
+    "GET /api/tv-series/": ruleTrue,
 
 };
 
