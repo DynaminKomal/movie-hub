@@ -12,7 +12,7 @@ exports.createTvSeries = grasp(async (req, res) => {
     }
 })
 
-exports.updateTvSeries = grasp(async (req, res) => {
+exports.updateTvSeriesSeaons = grasp(async (req, res) => {
     try {
         const { id } = req.params;
         const { season_id, episode_id } = req.query;
@@ -91,6 +91,29 @@ exports.updateTvSeries = grasp(async (req, res) => {
         handleError(res, error);
     }
 });
+
+
+exports.updateTvSeries = grasp(async (req, res) => {
+    try {
+
+        const { id } = req.params;
+        if (req.body.seasons || req.body.episodes) {
+            return sendResponse(res, 400, "Fail", "Invalid parameters.");
+        }
+
+        const updatedData = await TvSeries.findByIdAndUpdate(id, req.body, {
+            new: true,
+            runValidators: true,
+        })
+        if (!updatedData) {
+            return sendResponse(res, 404, "fail", "This series is unavailable or no longer exists.")
+        }
+        return sendResponse(res, 200, "success", "Tv series updated successfully.")
+
+    } catch (error) {
+        handleError(res, error)
+    }
+})
 
 
 
