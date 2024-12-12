@@ -13,7 +13,7 @@ const Login = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const loginReducer = useSelector((state) => state.auth.loginReducer)
-    const { success, message, failure } = loginReducer;
+    const { success, message, failure, data } = loginReducer;
     const [isShow, setIsShow] = useState(false)
 
     const [inputValues, setInputValues] = useState({
@@ -64,7 +64,13 @@ const Login = () => {
             setIsShow(true)
             setTimeout(() => {
                 setIsShow(false)
-                navigate(paths.HOME);
+                if (data.userType === "user") {
+                    navigate(paths.HOME);
+                }
+                else if (data.userType === "admin") {
+                    navigate(paths.ADMIN);
+                }
+
             }, 3000)
         }
         if (failure) {
@@ -73,7 +79,7 @@ const Login = () => {
                 setIsShow(false)
             }, 3000)
         }
-    }, [success, message, navigate])
+    }, [success, message, navigate, data])
 
     const handleOnBlur = (e) => {
         const { name, value } = e.target;

@@ -1,12 +1,15 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Navigate } from 'react-router-dom';
-import { jwtDecode } from "jwt-decode";
-import { isAuthenticated } from '../utils/helper';
+import { isAuthenticated, getUserRole } from '../utils/helper';
 
-function ProtectedRoute({ element, ...rest }) {
-
+function ProtectedRoute({ element, requiredRole, ...rest }) {
     if (!isAuthenticated()) {
         return <Navigate to="/login" replace />;
+    }
+
+    const userRole = getUserRole();
+    if (requiredRole && requiredRole !== userRole) {
+        return <Navigate to="/unauthorized" replace />;
     }
 
     return element;
