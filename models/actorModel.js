@@ -10,7 +10,8 @@ const actorSchema = new mongoose.Schema({
         lowercase: true
     },
     profileImage: {
-        type: String
+        type: String,
+        required: [true, "An actor must have a profile image"]
     },
     dateOfBirth: {
         type: Date,

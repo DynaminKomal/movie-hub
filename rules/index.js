@@ -22,7 +22,9 @@ const rules = {
     "PATCH /api/tv-series/:id/seasons": admin,
     "DELETE /api/tv-series/:id": admin,
     "PATCH /api/tv-series/:id/update": admin,
-    
+    "POST /api/actor/create": admin,
+    "PATCH /api/actor/:id/update": admin,
+
     //FOR ADMIN AND USER
     "GET /api/movies/": ruleTrue,
     "GET /api/movies/movieBanner": ruleTrue,
