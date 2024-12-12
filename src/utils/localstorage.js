@@ -18,6 +18,9 @@ export const storeInLocalStorage = {
   },
   storeloginCredential: (loginData) => {
     localStorage.setItem("login_credentials", loginData)
+  },
+  storeUserType: (userType) => {
+    localStorage.setItem("user_type", userType)
   }
 }
 
@@ -37,9 +40,14 @@ export const removeFromLocalStorage = {
   },
 }
 
+export const signout = () => {
+  clearLocalStorage();
+}
+
 const clearLocalStorage = () => {
   removeDataFromLocalStorage("login_credentials");
   removeDataFromLocalStorage("user_first_name");
   removeDataFromLocalStorage("user_email");
   removeDataFromLocalStorage("profile_image");
+  removeDataFromLocalStorage("user_type");
 }

@@ -7,6 +7,7 @@ import { login } from '../../store/actions/auth/login.action'
 import { useNavigate } from 'react-router-dom';
 import { paths } from '../../constants/paths/common';
 import Alert from '../HOC/Alert/Alert';
+import { signout } from '../../utils/localstorage'
 
 const Login = () => {
 
@@ -60,17 +61,15 @@ const Login = () => {
     };
 
     useEffect(() => {
+        signout()
+    }, [])
+
+    useEffect(() => {
         if (success === true && message === "You logged in successfully!") {
             setIsShow(true)
             setTimeout(() => {
                 setIsShow(false)
-                if (data.userType === "user") {
-                    navigate(paths.HOME);
-                }
-                else if (data.userType === "admin") {
-                    navigate(paths.ADMIN);
-                }
-
+                navigate(paths.GOTODASHBOARD);
             }, 3000)
         }
         if (failure) {

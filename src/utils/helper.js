@@ -1,4 +1,4 @@
-import { fetchFromLocalStorage, removeFromLocalStorage } from "./localstorage";
+import { fetchFromLocalStorage, removeFromLocalStorage, storeInLocalStorage } from "./localstorage";
 import { jwtDecode } from 'jwt-decode';
 
 export const isAuthenticated = () => {
@@ -23,6 +23,7 @@ export function getUserRole() {
 
   try {
     const decodedToken = jwtDecode(token);
+    storeInLocalStorage.storeUserType(decodedToken.userType)
     return decodedToken.userType;
   } catch (error) {
     return null;
