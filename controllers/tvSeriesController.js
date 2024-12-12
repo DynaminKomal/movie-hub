@@ -94,4 +94,60 @@ exports.updateTvSeries = grasp(async (req, res) => {
 
 
 
+exports.deleteTvSeries = grasp(async (req, res) => {
+    try {
+        const { id } = req.params;
+        const { season_id, episode_id } = req.query;
+        if (id && !season_id && !episode_id) {
+            const deletedDoc = await TvSeries.findByIdAndDelete(id)
+            if (!deletedDoc) {
+                return sendResponse(res, 404, "fail", `This series is unavailable or no longer exists.`)
+            }
+            return sendResponse(res, 200, "success", `${deletedDoc.fullName} deleted successfully.`)
+        }
+        if (id && season_id && !episode_id) {
+            const tvSeries = await TvSeries.findById(id);
+            if (!tvSeries) {
+                return sendResponse(res, 404, "fail", "TV series not found!");
+            }
+            const seasonIndex = tvSeries.seasons.findIndex(season => season._id.toString() === season_id);
+            if (seasonIndex === -1) {
+                return sendResponse(res, 404, "fail", "Season not found!");
+            }
+            const seasonNumber = tvSeries.seasons[seasonIndex].seasonNumber;
+            tvSeries.seasons.splice(seasonIndex, 1);
+            await tvSeries.save();
+
+            return sendResponse(res, 200, "success", `Season ${seasonNumber} deleted successfully from ${tvSeries.fullName}.`);
+        }
+
+        if (id && season_id && episode_id) {
+            const tvSeries = await TvSeries.findById(id);
+            if (!tvSeries) {
+                return sendResponse(res, 404, "fail", "TV series not found!");
+            }
+            const season = tvSeries.seasons.id(season_id);
+            if (!season) {
+                return sendResponse(res, 404, "fail", "Season not found");
+            }
+            const episodeIndex = season.episodes.findIndex(episode => episode._id.toString() === episode_id);
+            if (episodeIndex === -1) {
+                return sendResponse(res, 404, "fail", "Episode not found!");
+            }
+            const episodeNumber = season.episodes[episodeIndex].episodeNumber;
+            season.episodes.splice(episodeIndex, 1);
+
+            await tvSeries.save();
+
+            return sendResponse(res, 200, "success", `Episode ${episodeNumber} deleted successfully from Season ${season.seasonNumber} of ${tvSeries.fullName}.`);
+        }
+        return sendResponse(res, 400, "Fail", "Invalid request, missing parameters.");
+
+    } catch (error) {
+        handleError(res, error)
+    }
+})
+
+
+
 exports.getAllTvSeries = factory.getAllData(TvSeries)

@@ -5,8 +5,12 @@ const router = express.Router();
 
 router.use(tokenVerify)
 
-router.post('/create', tvSeriesController.createTvSeries); // create a new tv series
-router.patch('/:id/seasons', tvSeriesController.updateTvSeries); // update exist series
+// create a new tv series
+router.post('/create', tvSeriesController.createTvSeries); 
+// update exist series
+router.patch('/:id/seasons', tvSeriesController.updateTvSeries); 
+// delete series
+router.delete('/:id', tvSeriesController.deleteTvSeries); 
 router.get('/', tvSeriesController.getAllTvSeries);
 
 
