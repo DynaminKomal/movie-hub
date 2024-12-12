@@ -27,13 +27,15 @@ exports.updateTvSeries = grasp(async (req, res) => {
             if (seasonEpisodeData.seasonNumber) {
                 return sendResponse(res, 400, "fail", "You cannot manually set a season number.");
             }
-            const isEpisodeNumberExit = seasonEpisodeData.episodes.some(item => item.hasOwnProperty('episodeNumber'));
+            const isEpisodeNumberExit = seasonEpisodeData.episodes && seasonEpisodeData.episodes.some(item => item.hasOwnProperty('episodeNumber'));
             if (isEpisodeNumberExit) {
                 return sendResponse(res, 400, "fail", "You cannot manually set a episode number.");
             }
-            tvSeries.seasons.push(seasonEpisodeData);
-            await tvSeries.save();
-            return sendResponse(res, 200, "success", "New seasons added successfully.");
+            if (seasonEpisodeData.episodes) {
+                tvSeries.seasons.push(seasonEpisodeData);
+                await tvSeries.save();
+                return sendResponse(res, 200, "success", "New seasons added successfully.");
+            }
 
         }
 
@@ -42,14 +44,16 @@ exports.updateTvSeries = grasp(async (req, res) => {
             if (!season) {
                 return sendResponse(res, 404, "fail", "Season not found");
             }
-
+            if (!Array.isArray(seasonEpisodeData)) {
+                return sendResponse(res, 400, "Fail", "Invalid request, missing parameters.");
+            }
             const isEpisodeNumberExit = seasonEpisodeData.some(item => item.hasOwnProperty('episodeNumber'));
             if (isEpisodeNumberExit) {
                 return sendResponse(res, 400, "fail", "You cannot manually set a episode number.");
             }
 
             // Add new episodes if season exists
-            if (seasonEpisodeData && seasonEpisodeData.length > 0) {
+            if (seasonEpisodeData && Array.isArray(seasonEpisodeData) && seasonEpisodeData.length > 0) {
                 seasonEpisodeData.forEach(episodeData => {
                     const newEpisode = {
                         ...episodeData,
@@ -81,7 +85,7 @@ exports.updateTvSeries = grasp(async (req, res) => {
             await tvSeries.save()
             return sendResponse(res, 200, "success", "Episode updated successfully.");
         }
-        
+
         return sendResponse(res, 400, "Fail", "Invalid request, missing parameters.");
     } catch (error) {
         handleError(res, error);
