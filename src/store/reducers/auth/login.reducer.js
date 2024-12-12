@@ -13,6 +13,17 @@ const initialState = {
 export default function returnstate(state = initialState, action) {
 
     switch (action.type) {
+        case login.RESET_LOGIN:
+            return {
+                ...state,
+                loading: false,
+                success: false,
+                failure: false,
+                status: '',
+                statusCode: '',
+                message: '',
+                data: []
+            };
         case login.LOGIN.REQUEST:
             return {
                 ...state,

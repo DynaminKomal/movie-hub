@@ -12,9 +12,11 @@ import globalStyle from '../../../styles/globalStyle.module.scss';
 import plusIcon from '../../../assets/plusIcon.svg';
 import starIcon from '../../../assets/star.svg';
 import logoutIcon from '../../../assets/logout.svg';
+import { useDispatch } from 'react-redux';
+import { resetLogin } from '../../../store/actions/auth/login.action';
 
 const NavigationMenu = () => {
-
+  const dispatch = useDispatch();
   const [isShow, setIsShow] = useState(false);
   const dropdownRef = useRef(null);
   const navigate = useNavigate();
@@ -47,6 +49,7 @@ const NavigationMenu = () => {
   }, []);
 
   const handleLogout = () => {
+    dispatch(resetLogin())
     removeFromLocalStorage.signout()
     navigate('/login')
   }
