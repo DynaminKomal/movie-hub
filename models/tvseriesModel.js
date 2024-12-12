@@ -50,7 +50,6 @@ const tvseriesSchema = mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Actor'
     }],
-    deletedAt: { type: Date }
 }, { timestamps: true });
 
 

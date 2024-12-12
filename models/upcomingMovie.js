@@ -40,10 +40,7 @@ const upcomingMovieSchema = new mongoose.Schema({
     actors: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Actor'
-    }],
-    deletedAt: {
-        type: Date,
-    }
+    }]
 }, { timestamps: true });
 
 

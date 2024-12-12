@@ -50,10 +50,7 @@ const movieSchema = new mongoose.Schema({
     actors: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Actor'
-    }],
-    deletedAt: {
-        type: Date,
-    }
+    }]
 }, { timestamps: true });
 
 movieSchema.pre('save', async function (next) {
