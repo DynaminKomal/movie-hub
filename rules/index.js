@@ -14,6 +14,8 @@ const admin = { ...ruleFalse, admin: true }
 const rules = {
     //FOR AUTH
     "POST /api/auth/login": ruleTrue,
+    "POST /api/auth/forget-password": ruleTrue,
+    "PATCH /api/auth/reset-password/:token": ruleTrue,
 
     //FOR ADMIN
     "POST /api/movies/create": admin,
