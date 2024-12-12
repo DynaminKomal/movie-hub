@@ -18,7 +18,7 @@ const HomeComponent = () => {
 
     useEffect(() => {
         dispatch(fetchBanner.request())
-    }, [])
+    }, [dispatch])
     return (
         <div>
             <NavigationMenu />

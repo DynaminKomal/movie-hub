@@ -1,6 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
 import styles from './style.module.scss';
-import PropTypes from 'prop-types';
 import logo from '../../../assets/logo.png';
 import searchIcon from '../../../assets/search.svg';
 import userIcon from '../../../assets/user.svg';
