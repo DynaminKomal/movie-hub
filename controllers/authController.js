@@ -93,7 +93,7 @@ exports.forgetPassWord = grasp(async (req, res) => {
         const userHistory = new UserHistory({ userEmailorMobile: emailorMobile });
         const resetToken = await userHistory.createPasswordResetToken();
         await userHistory.save();
-        const resetUrl = `${req.protocol}://${req.get('host')}/api/v1/users/reset-password/${resetToken}`
+        const resetUrl = `${process.env.BASE_URL}/reset-password/${resetToken}`
         const message = `Forget Your Password? Submit a PATCH request with new password and passwordConfirm to: ${resetUrl}\n
         If you didn't forget your passwors, please ignore this email.`
         try {
