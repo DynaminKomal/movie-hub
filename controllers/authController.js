@@ -82,7 +82,11 @@ exports.forgetPassWord = grasp(async (req, res) => {
         const isPhoneNumber = /^[0-9+]+$/.test(emailorMobile);
         let user;
         if (isPhoneNumber) {
-            user = await User.findOne({ mobileNo: emailorMobile })
+            const extractedPhoneNo = await User.extractMobileNumber(emailorMobile)
+            const { countryCallingCode, nationalNumber } = extractedPhoneNo;
+
+            user = await User.findOne({ mobileNo: nationalNumber, countryCode: countryCallingCode });
+
         }
         else {
             user = await User.findOne({ email: emailorMobile });
@@ -136,7 +140,11 @@ exports.resetPassword = grasp(async (req, res) => {
         let userExist;
         const isPhoneNumber = /^[0-9+]+$/.test(user.userEmailorMobile);
         if (isPhoneNumber) {
-            userExist = await User.findOne({ mobileNo: user.userEmailorMobile })
+            const extractedPhoneNo = await User.extractMobileNumber(user.userEmailorMobile)
+            const { countryCallingCode, nationalNumber } = extractedPhoneNo;
+
+            user = await User.findOne({ mobileNo: nationalNumber, countryCode: countryCallingCode });
+
         }
         else {
             userExist = await User.findOne({ email: user.userEmailorMobile });
