@@ -13,12 +13,26 @@ const updateProfile = grasp(async (req, res, next) => {
         })
         req.body = await schema.validateAsync(req.body);
         next();
-    }catch(error){
+    } catch (error) {
+        handleError(res, error)
+    }
+})
+
+
+const serachQuery = grasp(async (req, res, next) => {
+    try {
+        const querySchema = Joi.object({
+            query: Joi.string().required()
+        })
+        req.query = await querySchema.validateAsync(req.query);
+        next();
+    } catch (error) {
         handleError(res, error)
     }
 })
 
 
 module.exports = {
-    updateProfile
+    updateProfile,
+    serachQuery
 }

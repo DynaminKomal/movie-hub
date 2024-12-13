@@ -34,7 +34,24 @@ const updateUserProfile = grasp(async (req, res) => {
 });
 
 
+const serachQuery = grasp(async (req, res) => {
+    try {
+        const { id } = req.params
+        const { query } = req.query;
+        const user = await User.findById(id)
+        if (!user) {
+            return sendResponse(res, 400, "fail", "User does not exists.")
+        }
+
+        res.send("Done")
+
+    } catch (error) {
+        handleError(res, error);
+    }
+})
+
 
 module.exports = {
-    updateUserProfile
+    updateUserProfile,
+    serachQuery
 }
