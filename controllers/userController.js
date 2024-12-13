@@ -5,18 +5,18 @@ const cloudinary = require("cloudinary").v2
 exports.updateUserProfile = grasp(async (req, res) => {
     try {
         const { id, firstName, lastName } = req.user;
-        const file = req.files.profileImage;
+        if (req.files) {
+            const file = req.files.profileImage;
+            const uploadResult = await cloudinary.uploader.upload(file.tempFilePath, {
+                folder: "User",
+                public_id: file.name.replace(/\.(jpg|jpeg|png)$/, ""),
+            });
 
-        const uploadResult = await cloudinary.uploader.upload(file.tempFilePath, {
-            folder: "User",
-            public_id: file.name.replace(/\.(jpg|jpeg|png)$/, ""),
-        });
-
-        if (!uploadResult.url) {
-            return sendResponse(res, 400, "fail", "Profile image is not uploaded. Please try again.");
+            if (!uploadResult.url) {
+                return sendResponse(res, 400, "fail", "Profile image is not uploaded. Please try again.");
+            }
+            req.body.profileImage = uploadResult.url;
         }
-
-        req.body.profileImage = uploadResult.url;
 
         const updateUserData = await User.findByIdAndUpdate(id, req.body, {
             new: true,
