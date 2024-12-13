@@ -9,6 +9,7 @@ const ruleTrue = {
 }
 
 const admin = { ...ruleFalse, admin: true }
+const user = { ...ruleFalse, user: true }
 
 
 const rules = {
@@ -33,6 +34,9 @@ const rules = {
     "GET /api/movies/trending": ruleTrue,
     "GET /api/movies/upcoming-movies": ruleTrue,
     "GET /api/tv-series/": ruleTrue,
+
+    //FOR User
+    "PATCH /api/user/update-profile": user,
 
 };
 
