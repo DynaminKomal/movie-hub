@@ -3,7 +3,7 @@ const UpcomingMovies = require("../models/upcomingMovie");
 const { grasp, handleError, sendResponse } = require("../utility/response-utility");
 const factory = require('./handleFactory')
 
-exports.createMovie = grasp(async (req, res) => {
+const createMovie = grasp(async (req, res) => {
     try {
         const currentDate = new Date();
         const releaseDate = new Date(req.body.releaseDate);
@@ -21,11 +21,11 @@ exports.createMovie = grasp(async (req, res) => {
 })
 
 
-exports.getAllMovies = factory.getAllData(Movies)
+const getAllMovies = factory.getAllData(Movies)
 
-exports.getBannerMovies = factory.getAllData(Movies, 4)
+const getBannerMovies = factory.getAllData(Movies, 4)
 
-exports.getTrendingMovie = grasp(async (req, res) => {
+const getTrendingMovie = grasp(async (req, res) => {
     try {
         const currentDate = new Date();
         const thirtyDaysAgo = new Date(currentDate.setDate(currentDate.getDate() - 30));
@@ -54,4 +54,13 @@ exports.getTrendingMovie = grasp(async (req, res) => {
 })
 
 
-exports.getUpcomingMovie = factory.getAllData(UpcomingMovies)
+const getUpcomingMovie = factory.getAllData(UpcomingMovies)
+
+
+module.exports = {
+    createMovie,
+    getAllMovies,
+    getBannerMovies,
+    getTrendingMovie,
+    getUpcomingMovie
+}
