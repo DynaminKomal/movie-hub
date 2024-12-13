@@ -2,7 +2,7 @@ const TvSeries = require("../models/tvseriesModel")
 const { grasp, handleError, sendResponse } = require("../utility/response-utility");
 const factory = require("./handleFactory")
 
-exports.createTvSeries = grasp(async (req, res) => {
+const createTvSeries = grasp(async (req, res) => {
     try {
         const newTvSeriesData = await TvSeries.create(req.body);
         sendResponse(res, 201, "success", "A new Tv serires added successfully!", newTvSeriesData)
@@ -12,7 +12,7 @@ exports.createTvSeries = grasp(async (req, res) => {
     }
 })
 
-exports.updateTvSeriesSeaons = grasp(async (req, res) => {
+const updateTvSeriesSeaons = grasp(async (req, res) => {
     try {
         const { id } = req.params;
         const { season_id, episode_id } = req.query;
@@ -93,7 +93,7 @@ exports.updateTvSeriesSeaons = grasp(async (req, res) => {
 });
 
 
-exports.updateTvSeries = grasp(async (req, res) => {
+const updateTvSeries = grasp(async (req, res) => {
     try {
 
         const { id } = req.params;
@@ -117,7 +117,7 @@ exports.updateTvSeries = grasp(async (req, res) => {
 
 
 
-exports.deleteTvSeries = grasp(async (req, res) => {
+const deleteTvSeries = grasp(async (req, res) => {
     try {
         const { id } = req.params;
         const { season_id, episode_id } = req.query;
@@ -173,4 +173,14 @@ exports.deleteTvSeries = grasp(async (req, res) => {
 
 
 
-exports.getAllTvSeries = factory.getAllData(TvSeries)
+const getAllTvSeries = factory.getAllData(TvSeries)
+
+
+module.exports = {
+    createTvSeries,
+    updateTvSeriesSeaons,
+    updateTvSeries,
+    deleteTvSeries,
+    getAllTvSeries
+
+}
