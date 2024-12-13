@@ -2,7 +2,7 @@ const User = require('../models/userModel')
 const { grasp, handleError, sendResponse } = require("../utility/response-utility");
 const cloudinary = require("cloudinary").v2
 
-exports.updateUserProfile = grasp(async (req, res) => {
+const updateUserProfile = grasp(async (req, res) => {
     try {
         const { id, firstName, lastName } = req.user;
         if (req.files) {
@@ -32,3 +32,9 @@ exports.updateUserProfile = grasp(async (req, res) => {
         handleError(res, error);
     }
 });
+
+
+
+module.exports = {
+    updateUserProfile
+}

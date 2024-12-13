@@ -1,7 +1,7 @@
 const { grasp, handleError } = require("../utility/response-utility");
 const Joi = require('joi')
 
-exports.updateProfile = grasp(async (req, res, next) => {
+const updateProfile = grasp(async (req, res, next) => {
     try {
         const schema = Joi.object({
             profileImage: Joi.string(),
@@ -17,3 +17,8 @@ exports.updateProfile = grasp(async (req, res, next) => {
         handleError(res, error)
     }
 })
+
+
+module.exports = {
+    updateProfile
+}
