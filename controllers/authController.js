@@ -17,7 +17,7 @@ const getToken = (id, userType) => {
     );
 };
 
-exports.signup = grasp(async (req, res) => {
+const signup = grasp(async (req, res) => {
     try {
         await User.create(req.body);
         sendResponse(res, 201, "success", "A new user created successfully!");
@@ -27,7 +27,7 @@ exports.signup = grasp(async (req, res) => {
 })
 
 
-exports.login = grasp(async (req, res) => {
+const login = grasp(async (req, res) => {
     const { emailorMobile, password } = req.body;
 
     try {
@@ -62,19 +62,9 @@ exports.login = grasp(async (req, res) => {
 });
 
 
-exports.checkExits = (req, res, next) => {
-    if (Object.keys(req.body).length > 1) {
-        return sendResponse(res, 400, "fail", "Only emailorMobile field is allowed")
-    }
-    next()
-}
-
-exports.forgetPassWord = grasp(async (req, res) => {
+const forgetPassword = grasp(async (req, res) => {
 
     const { emailorMobile } = req.body;
-    if (!emailorMobile) {
-        return sendResponse(res, 400, "fail", "Email or mobile number is required.")
-    }
     try {
         const isPhoneNumber = /^[0-9+]+$/.test(emailorMobile);
         let user;
@@ -120,7 +110,7 @@ exports.forgetPassWord = grasp(async (req, res) => {
 })
 
 
-exports.resetPassword = grasp(async (req, res) => {
+const resetPassword = grasp(async (req, res) => {
     try {
         const { password, passwordConfirm } = req.body;
         //Get user based token
@@ -167,3 +157,11 @@ exports.resetPassword = grasp(async (req, res) => {
         handleError(res, err);
     }
 })
+
+
+module.exports = {
+    login,
+    signup,
+    forgetPassword,
+    resetPassword
+}
