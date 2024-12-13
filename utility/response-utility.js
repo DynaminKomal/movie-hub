@@ -25,7 +25,6 @@ exports.sendResponse = (res, statusCode, status, message, data = null) => {
 
 exports.handleError = (res, err) => {
     const statusCode = err.statusCode || 400;
-
     const errorDetails = process.env.NODE_ENV === 'production'
         ? 'An unexpected error occurred.'
         : stringify(err);
@@ -44,7 +43,10 @@ exports.handleError = (res, err) => {
             this.sendResponse(res, statusCode, "fail", `Token Expired. Please log in again. Details: ${err.message}`);
         } else if (err.name === 'JsonWebTokenError') {
             this.sendResponse(res, statusCode, "fail", `Invalid Token. Please log in again. Details: ${err.message}`);
-        } else {
+        } else if (err.name === "ValidationError") {
+            this.sendResponse(res, statusCode, "fail", `${err.message}`);
+        }
+        else {
             this.sendResponse(res, statusCode, "fail", `An unexpected error occurred. Details: ${errorDetails}`);
         }
     }

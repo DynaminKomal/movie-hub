@@ -2,16 +2,6 @@ const User = require('../models/userModel')
 const { grasp, handleError, sendResponse } = require("../utility/response-utility");
 const cloudinary = require("cloudinary").v2
 
-
-exports.checkBodyData = (req, res, next) => {
-    if (req.body.password || req.body.passwordConfirm || req.body.passwordChangedAt) {
-        return sendResponse(res, 400,"fail", "You can't change a password from here.Please you update password api.")
-    }
-    if(req.body.userType){
-        return sendResponse(res, 400,"fail", "You can't change your user type.")
-    }
-}
-
 exports.updateUserProfile = grasp(async (req, res) => {
     try {
         const { id, firstName, lastName } = req.user;
