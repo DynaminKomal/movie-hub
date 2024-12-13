@@ -1,7 +1,7 @@
 const Actor = require('../models/actorModel')
 const { grasp, handleError, sendResponse } = require("../utility/response-utility");
 
-exports.createActor = grasp(async (req, res) => {
+const createActor = grasp(async (req, res) => {
     try {
         const newActorData = await Actor.create(req.body);
         sendResponse(res, 201, "success", "New Actor added successfully!", newActorData)
@@ -11,7 +11,7 @@ exports.createActor = grasp(async (req, res) => {
     }
 })
 
-exports.updateActor = grasp(async (req, res) => {
+const updateActor = grasp(async (req, res) => {
     try {
         const { id } = req.params;
 
@@ -29,3 +29,9 @@ exports.updateActor = grasp(async (req, res) => {
         handleError(res, error)
     }
 })
+
+
+module.exports = {
+    createActor,
+    updateActor
+}
