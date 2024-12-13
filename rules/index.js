@@ -34,9 +34,9 @@ const rules = {
     "GET /api/movies/trending": ruleTrue,
     "GET /api/movies/upcoming-movies": ruleTrue,
     "GET /api/tv-series/": ruleTrue,
+    "PATCH /api/user/update-profile": ruleTrue,
 
     //FOR User
-    "PATCH /api/user/update-profile": ruleTrue,
 
 };
 
