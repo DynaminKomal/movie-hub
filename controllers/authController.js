@@ -29,9 +29,6 @@ exports.signup = grasp(async (req, res) => {
 
 exports.login = grasp(async (req, res) => {
     const { emailorMobile, password } = req.body;
-    if (!emailorMobile || !password) {
-        return sendResponse(res, 400, "fail", "Please provide email and password!");
-    }
 
     try {
         const isPhoneNumber = /^[0-9+]+$/.test(emailorMobile);
