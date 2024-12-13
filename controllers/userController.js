@@ -34,10 +34,10 @@ exports.updateUserProfile = grasp(async (req, res) => {
         });
 
         if (!updateUserData) {
-            return sendResponse(res, 404, "fail", `${firstName} ${lastName} not found`);
+            return sendResponse(res, 404, "fail", `${firstName} ${lastName} data not found`);
         }
 
-        sendResponse(res, 200, "success", `${firstName} ${lastName} updated successfully.`);
+        sendResponse(res, 200, "success", `${firstName} ${lastName} data updated successfully.`);
     } catch (error) {
         handleError(res, error);
     }
