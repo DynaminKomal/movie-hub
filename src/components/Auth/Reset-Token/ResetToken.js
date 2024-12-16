@@ -1,10 +1,22 @@
 import React, { useEffect, useState } from 'react';
 import NavigationMenu from '../../HOC/Header/NavigationMenu';
 import styles from './styles.module.scss';
-import globalStyle from '../../../styles/globalStyle.module.scss'
 import InputBlackBox from '../../HOC/InputBox/InputBlackBox/InputBlackBox';
+import { useDispatch, useSelector } from 'react-redux';
+import { reset_resetToken, resetToken } from '../../../store/actions/auth/resetToken.action';
+import { useNavigate, useParams } from 'react-router-dom';
+import { paths } from '../../../constants/paths/common';
 
 const ResetToken = () => {
+
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+    const params = useParams();
+    const { token } = params;
+    const [isShow, setIsShow] = useState(true)
+    const resetPasswordReducer = useSelector((state) => state.auth.resetTokenReducer)
+    const { success, failure, message } = resetPasswordReducer
+
     const [inputValues, setInputValues] = useState({
         password: "", confirmPassword: ""
     })
@@ -67,8 +79,26 @@ const ResetToken = () => {
                 password: "Please provide password.",
                 confirmPassword: "Please provide confirm password."
             })
-        }else{
-
+        } else if (inputValues.password.trim() !== "" && inputValues.confirmPassword.trim() === "") {
+            setMultipleError({
+                password: "",
+                confirmPassword: "Please provide confirm password."
+            })
+        }
+        else if (inputValues.password.trim() === "" && inputValues.confirmPassword.trim() !== "") {
+            setMultipleError({
+                password: "Please provide password.",
+                confirmPassword: ""
+            })
+        }
+        else {
+            const payload = {
+                token: token,
+                password: inputValues.password,
+                confirmPassword: inputValues.confirmPassword,
+            }
+            setIsDisabled(true);
+            dispatch(resetToken.request(payload))
         }
     }
     useEffect(() => {
@@ -76,45 +106,65 @@ const ResetToken = () => {
             setIsDisabled(true);
         } else if (multipleError.password !== "") {
             setIsDisabled(true);
-        }else {
+        } else {
             setIsDisabled(false);
         }
     }, [multipleError])
 
+    useEffect(() => {
+        if (success === true && message === "Token sent to email") {
+            setIsShow(true)
+            setTimeout(() => {
+                setIsShow(false)
+                dispatch(reset_resetToken())
+                setIsDisabled(false)
+                navigate(paths.GOTODASHBOARD)
+            }, 3000)
+        }
+        if (failure) {
+            setIsShow(true)
+            setTimeout(() => {
+                setIsShow(false)
+                setIsDisabled(false)
+            }, 3000)
+        }
+    }, [success, message, failure])
 
     return (
         <div className={styles.resetTokenContainer}>
             <NavigationMenu />
-            <div className={styles.resetPopup}>
-                <div className={styles.resetBody}>
-                    <h3>Reset your password</h3>
-                    <div className={styles.formContainer}>
-                        <InputBlackBox
-                            id="password"
-                            name="password"
-                            type="password"
-                            label="New Password"
-                            value={inputValues.password}
-                            onChange={handleOnChange}
-                            onFocus={handleOnFocus}
-                            onBlur={handleOnBlur}
-                            error={multipleError.password}
-                        />
-                        <InputBlackBox
-                            id="confirmPassword"
-                            name="confirmPassword"
-                            type="password"
-                            label="Confrim New Password"
-                            value={inputValues.confirmPassword}
-                            onChange={handleOnChange}
-                            onFocus={handleOnFocus}
-                            onBlur={handleOnBlur}
-                            error={multipleError.confirmPassword}
-                        />
-                        <button className={styles.emailBtn} onClick={handleSaveNewPassword} disabled={isDisabled}>Save</button>
+            <div className={styles.popupContainer}>
+                <div className={styles.resetPopup}>
+                    <div className={styles.resetBody}>
+                        <h3>Reset your password</h3>
+                        <div className={styles.formContainer}>
+                            <InputBlackBox
+                                id="password"
+                                name="password"
+                                type="password"
+                                label="New Password"
+                                value={inputValues.password}
+                                onChange={handleOnChange}
+                                onFocus={handleOnFocus}
+                                onBlur={handleOnBlur}
+                                error={multipleError.password}
+                            />
+                            <InputBlackBox
+                                id="confirmPassword"
+                                name="confirmPassword"
+                                type="password"
+                                label="Confrim New Password"
+                                value={inputValues.confirmPassword}
+                                onChange={handleOnChange}
+                                onFocus={handleOnFocus}
+                                onBlur={handleOnBlur}
+                                error={multipleError.confirmPassword}
+                            />
+                            <button className={styles.emailBtn} onClick={handleSaveNewPassword} disabled={isDisabled}>Save</button>
+                        </div>
                     </div>
-                </div>
 
+                </div>
             </div>
         </div>
     )

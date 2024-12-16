@@ -12,6 +12,14 @@
     z-index: -1;
 }
 
+.popupContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+
 .forgetPopup {
     background-color: transparent;
     margin: 0 auto -236px;

@@ -12,3 +12,12 @@ export const forgetPasswordAPI = {
         return axiosInstance.post(ApiEndpoints.forgetPassword.url, data);
     },
 }
+
+export const resetTokenAPI = {
+    patchResetToken: (data) => {
+        return axiosInstance.patch(ApiEndpoints.resetToken.url.replace(':token', data.token), {
+            password: data.password,
+            passwordConfirm: data.confirmPassword
+        });
+    },
+}

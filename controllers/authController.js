@@ -63,7 +63,6 @@ const login = grasp(async (req, res) => {
 
 
 const forgetPassword = grasp(async (req, res) => {
-
     const { emailorMobile } = req.body;
     const requestTimestamp = new Date();
 
@@ -79,13 +78,12 @@ const forgetPassword = grasp(async (req, res) => {
         const isPhoneNumber = /^[0-9+]+$/.test(emailorMobile);
         let user;
         if (isPhoneNumber) {
-            const extractedPhoneNo = await User.extractMobileNumber(emailorMobile)
+            const extractedPhoneNo = await User.extractMobileNumber(emailorMobile);
             const { countryCallingCode, nationalNumber } = extractedPhoneNo;
 
             user = await User.findOne({ mobileNo: nationalNumber, countryCode: countryCallingCode });
 
-        }
-        else {
+        } else {
             user = await User.findOne({ email: emailorMobile });
         }
         if (!user) {
@@ -94,14 +92,14 @@ const forgetPassword = grasp(async (req, res) => {
         const userHistory = new UserHistory({ userEmailorMobile: emailorMobile });
         const resetToken = await userHistory.createPasswordResetToken();
         await userHistory.save();
-        const resetUrl = `${process.env.BASE_URL}/reset-password/${resetToken}`
+        const resetUrl = `${process.env.BASE_URL}/reset-password/${resetToken}`;
         const message = `<h4>Reset Password</h4>
                         <p>A password reset event has been triggered. The password reset window is limited to 10 minutes.</p>
                         <p>If you do not reset your password within 10 minutes, you will need to submit a new request.</p>
                         <p> To complete the password reset process, visit the following link:</p>
                         <p><a href="${resetUrl}">${resetUrl}</a></p>
                         <p>Username <a href="mailto:${user.userName}">${user.userName}</a></p>
-                        <p>Request Timestamp ${formattedTimestamp}</p>`
+                        <p>Request Timestamp ${formattedTimestamp}</p>`;
 
         try {
             await sendEmail({
@@ -109,19 +107,17 @@ const forgetPassword = grasp(async (req, res) => {
                 subject: 'Password Reset',
                 message,
                 isHtml: true
-            }, res)
-            sendResponse(res, 200, "success", "Token sent to email")
+            }, res);
+            return sendResponse(res, 200, "success", "Token sent to email");
         } catch (err) {
-            userHistory.passwordResetToken = undefined
-            userHistory.passwordResetExpire = undefined
+            userHistory.passwordResetToken = undefined;
+            userHistory.passwordResetExpire = undefined;
             await userHistory.save({ validateBeforeSave: false });
-            return sendResponse(res, 500, "fail", "There was an error sending the email. Try again later!")
         }
     } catch (error) {
-        handleError(res, error)
+        handleError(res, error);
     }
-})
-
+});
 
 const resetPassword = grasp(async (req, res) => {
     try {

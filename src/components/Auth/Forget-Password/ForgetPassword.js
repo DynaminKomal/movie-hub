@@ -74,19 +74,21 @@ const ForgetPassword = () => {
     return (
         <div className={styles.forgetPasswordContainer}>
             <NavigationMenu />
-            <div className={styles.forgetPopup}>
-                <div className={styles.forgetBody}>
-                    <h1>Forget Password</h1>
-                    <p>We will send you an email with instructions on how to reset your password.</p>
-                    <div className={`${styles.inputField} ${error.length > 0 ? globalStyle.failure : ""}`}>
-                        <input type="text" value={email} name="email" placeholder='name@example.com' onChange={handleOnchange} onBlur={handleOnBlur} />
-                        <span className={globalStyle.error}>{error}</span>
+            <div className={styles.popupContainer}>
+                <div className={styles.forgetPopup}>
+                    <div className={styles.forgetBody}>
+                        <h1>Forget Password</h1>
+                        <p>We will send you an email with instructions on how to reset your password.</p>
+                        <div className={`${styles.inputField} ${error.length > 0 ? globalStyle.failure : ""}`}>
+                            <input type="text" value={email} name="email" placeholder='name@example.com' onChange={handleOnchange} onBlur={handleOnBlur} />
+                            <span className={globalStyle.error}>{error}</span>
+                        </div>
+                        <button className={styles.emailBtn} onClick={handleForgetEmailRequest} disabled={error.length > 0 || isClicked}>Email Me</button>
                     </div>
-                    <button className={styles.emailBtn} onClick={handleForgetEmailRequest} disabled={error.length > 0 || isClicked}>Email Me</button>
+                    {isShow && <Alert
+                        message={message}
+                        type={success === true && failure === false ? "success" : success === false && failure === true ? "fail" : ""} setIsShow={setIsShow} />}
                 </div>
-                {isShow && <Alert
-                    message={message}
-                    type={success === true && failure === false ? "success" : success === false && failure === true ? "fail" : ""} setIsShow={setIsShow} />}
             </div>
         </div>
     )
