@@ -146,6 +146,10 @@ const Login = () => {
         setSelectedCountryCode(value);
     };
 
+    const handleForgetPassword = ()=>{
+        navigate(paths.LOGINHELP)
+    }
+
     return (
         <div className={styles.loginContainer}>
             <div className={styles.formContainer}>
@@ -178,6 +182,9 @@ const Login = () => {
                     />
                     <div className={styles.button}>
                         <Button name="Sign in" text="button" onClick={handleSubmit} />
+                    </div>
+                    <div className={styles.forgetPasswordText} onClick={handleForgetPassword}>
+                        Forget Password?
                     </div>
                 </div>
                 {isShow && <Alert

@@ -1,16 +1,15 @@
-const HOME = "/"
 const LOGIN = '/login'
 const GOTODASHBOARD = '/dashborad'
 const SIGNUP = '/sign-in'
 const UNAUTHORIZED = "/unauthorized"
-const ADMIN = "/admin"
+const LOGINHELP = "/LoginHelp"
+
 
 
 export const paths = {
-    HOME,
     LOGIN,
     SIGNUP,
     UNAUTHORIZED,
     GOTODASHBOARD,
-    ADMIN
+    LOGINHELP
 }

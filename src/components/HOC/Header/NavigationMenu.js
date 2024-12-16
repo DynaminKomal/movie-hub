@@ -21,6 +21,7 @@ const NavigationMenu = () => {
   const navigate = useNavigate();
   const userName = fetchFromLocalStorage("user_first_name") ? fetchFromLocalStorage("user_first_name") : "";
   const profileImage = fetchFromLocalStorage("profile_image") ? fetchFromLocalStorage("profile_image") : "";
+  const isLogin = isAuthenticated()
 
   // Handle navigation
   const handleNavigation = (path) => {
@@ -53,50 +54,54 @@ const NavigationMenu = () => {
     navigate('/login')
   }
   return (
-    <div className={styles.navbar}>
+    <div className={isLogin ? styles.navbar : styles.transparentNavBar}>
       <img src={logo} className={styles.logo} alt='logo' onClick={() => handleNavigation('/')} />
-      <ul>
-        {navigation?.map((nav, index) => {
-          return (
-            <li key={index} onClick={() => handleNavigation(nav.path)}>{nav.name}</li>
-          )
-        })}
-      </ul>
-      <div className={styles.searchBox}>
-        <img src={searchIcon} className={styles.searchIcon} alt='search icon' />
-        {isAuthenticated() ?
-          <div>
-            < div className={styles.loginBox} onClick={handleDropDownShow}>
-              <img
-                src={profileImage ? profileImage : userIcon}
-                className={styles.userIcon}
-                alt={userName || 'Default User'}
-              />
-              <span className={globalStyle.uppercase}>{userName}</span>
-            </div>
-            {isShow && <div className={styles.dropDown} ref={dropdownRef}>
-              <ul>
-                <li>
-                  <img src={userIcon} className={styles.userIcon} alt='user icon' />
-                  My Account
-                </li>
-                <li>
-                  <img src={plusIcon} className={styles.userIcon} alt='watchlist icon' />
-                  Watchlist
-                </li>
-                <li>
-                  <img src={starIcon} className={styles.userIcon} alt='Subscription icon' />
-                  Subscription
-                </li>
-                <li onClick={handleLogout}>
-                  <img src={logoutIcon} className={styles.userIcon} alt='Logout icon' />
-                  Logout
-                </li>
-              </ul>
-            </div>}
-          </div> : <></>}
-      </div>
 
+      {!isLogin ? <div className={styles.signIn}>Sign In</div> :
+        <div className={styles.navContainer}>
+          <ul>
+            {navigation?.map((nav, index) => {
+              return (
+                <li key={index} onClick={() => handleNavigation(nav.path)}>{nav.name}</li>
+              )
+            })}
+          </ul>
+          <div className={styles.searchBox}>
+            <img src={searchIcon} className={styles.searchIcon} alt='search icon' />
+            {isAuthenticated() ?
+              <div>
+                < div className={styles.loginBox} onClick={handleDropDownShow}>
+                  <img
+                    src={profileImage ? profileImage : userIcon}
+                    className={styles.userIcon}
+                    alt={userName || 'Default User'}
+                  />
+                  <span className={globalStyle.uppercase}>{userName}</span>
+                </div>
+                {isShow && <div className={styles.dropDown} ref={dropdownRef}>
+                  <ul>
+                    <li>
+                      <img src={userIcon} className={styles.userIcon} alt='user icon' />
+                      My Account
+                    </li>
+                    <li>
+                      <img src={plusIcon} className={styles.userIcon} alt='watchlist icon' />
+                      Watchlist
+                    </li>
+                    <li>
+                      <img src={starIcon} className={styles.userIcon} alt='Subscription icon' />
+                      Subscription
+                    </li>
+                    <li onClick={handleLogout}>
+                      <img src={logoutIcon} className={styles.userIcon} alt='Logout icon' />
+                      Logout
+                    </li>
+                  </ul>
+                </div>}
+              </div> : <></>}
+          </div>
+        </div>
+      }
     </div >
   )
 }

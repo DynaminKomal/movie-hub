@@ -11,6 +11,7 @@ import { userPaths } from "../constants/paths/userPaths";
 import { adminPaths } from "../constants/paths/adminPaths";
 import AdminRoute from "./AdminRoute";
 import UserRoute from "./UserRoute";
+import ForgetPasswordPage from "../pages/Auth/ForgetPasswordPage";
 
 export default function AppRoutes() {
     return (
@@ -21,6 +22,7 @@ export default function AppRoutes() {
                 <Route path={paths.SIGNUP} element={<SignUpPage />} />
                 <Route path={paths.UNAUTHORIZED} element={<UnauthorizedPage />} />
                 <Route path={paths.GOTODASHBOARD} element={<CommanDashBoardPage />} />
+                <Route path={paths.LOGINHELP} element={<ForgetPasswordPage />} />
 
                 <Route path={adminPaths.ADMINDASHBOARD} element={<AdminRoute><AdminDashBoard /></AdminRoute>} />
                 <Route path={userPaths.USERDASHBOARD} element={<UserRoute><UserDashboard /></UserRoute>} />

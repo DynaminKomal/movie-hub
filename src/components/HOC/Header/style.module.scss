@@ -60,29 +60,59 @@
     background: black;
     overflow: hidden;
     right: 10px;
-    width: 200px;;
+    width: 200px;
+    ;
 
     ul {
         margin: 0;
         padding: 0;
         list-style: none;
         text-align: left;
-        li{
+
+        li {
             width: 100%;
             margin: 0;
             padding: 10px 0px;
             text-transform: none;
             border-bottom: 1px solid grey;
             margin-left: 10px;
-            img{
+
+            img {
                 width: 20px;
                 height: 20px;
                 margin-right: 10px;
             }
 
-            &:last-child{
+            &:last-child {
                 border: none;
             }
         }
     }
+}
+
+.navContainer {
+    display: flex;
+    width: 100%;
+}
+
+.transparentNavBar {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: transparent;
+    padding: 15px 70px;
+    color: #ffffff;
+    position: relative;
+    top: 0;
+    z-index: 100;
+
+    .logo {
+        width: 160px;
+        cursor: pointer;
+    }
+}
+.signIn{
+    color: #7d68f4;
+    font-size: 25px;
 }
