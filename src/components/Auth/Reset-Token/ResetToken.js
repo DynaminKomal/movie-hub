@@ -112,7 +112,7 @@ const ResetToken = () => {
     }, [multipleError])
 
     useEffect(() => {
-        if (success === true && message === "Token sent to email") {
+        if (success === true && message === "You logged in successfully!") {
             setIsShow(true)
             setTimeout(() => {
                 setIsShow(false)

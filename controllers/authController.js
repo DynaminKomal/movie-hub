@@ -139,7 +139,7 @@ const resetPassword = grasp(async (req, res) => {
             const extractedPhoneNo = await User.extractMobileNumber(user.userEmailorMobile)
             const { countryCallingCode, nationalNumber } = extractedPhoneNo;
 
-            user = await User.findOne({ mobileNo: nationalNumber, countryCode: countryCallingCode });
+            userExist = await User.findOne({ mobileNo: nationalNumber, countryCode: countryCallingCode });
 
         }
         else {
@@ -157,7 +157,7 @@ const resetPassword = grasp(async (req, res) => {
         const token = getToken(userExist._id, userExist.userType)
         const userData = {
             token: token,
-            data: user
+            data: userExist
         }
         sendResponse(res, 200, "success", "You logged in successfully!", userData);
 
