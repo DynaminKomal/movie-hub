@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react'
-import NavigationMenu from '../HOC/Header/NavigationMenu';
+import NavigationMenu from '../../HOC/Header/NavigationMenu';
 import styles from './styles.module.scss';
-import globalStyle from '../../styles/globalStyle.module.scss'
+import globalStyle from '../../../styles/globalStyle.module.scss'
 import { useDispatch, useSelector } from 'react-redux';
-import { forgetPassword, resetForgetPassword } from '../../store/actions/auth/forgetPassword.action';
-import Alert from '../HOC/Alert/Alert';
+import { forgetPassword, resetForgetPassword } from '../../../store/actions/auth/forgetPassword.action';
+import Alert from '../../HOC/Alert/Alert';
 
 const ForgetPassword = () => {
 

@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import styles from './styles.module.scss';
-import InputBox from '../HOC/InputBox/InputBox';
-import Button from '../HOC/Button/Button';
+import InputBox from '../../HOC/InputBox/InputBox';
+import Button from '../../HOC/Button/Button';
 import { useDispatch, useSelector } from 'react-redux';
-import { login } from '../../store/actions/auth/login.action'
+import { login } from '../../../store/actions/auth/login.action'
 import { useNavigate } from 'react-router-dom';
-import { paths } from '../../constants/paths/common';
-import Alert from '../HOC/Alert/Alert';
-import { signout } from '../../utils/localstorage'
+import { paths } from '../../../constants/paths/common';
+import Alert from '../../HOC/Alert/Alert';
+import { signout } from '../../../utils/localstorage'
 
 const Login = () => {
 
@@ -147,7 +147,7 @@ const Login = () => {
     };
 
     const handleForgetPassword = ()=>{
-        navigate(paths.LOGINHELP)
+        navigate(paths.FORGETPASSWORD)
     }
 
     return (

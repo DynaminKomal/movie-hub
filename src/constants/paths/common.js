@@ -2,7 +2,8 @@ const LOGIN = '/login'
 const GOTODASHBOARD = '/dashborad'
 const SIGNUP = '/sign-in'
 const UNAUTHORIZED = "/unauthorized"
-const LOGINHELP = "/LoginHelp"
+const FORGETPASSWORD = "/forget-password"
+const RESETTOKEN = "/reset-password/:token"
 
 
 
@@ -11,5 +12,6 @@ export const paths = {
     SIGNUP,
     UNAUTHORIZED,
     GOTODASHBOARD,
-    LOGINHELP
+    FORGETPASSWORD,
+    RESETTOKEN
 }
