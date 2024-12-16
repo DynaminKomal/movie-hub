@@ -38,7 +38,7 @@ const rules = {
     "PATCH /api/user/update-profile": ruleTrue,
     
     //FOR User
-    "GET /api/user/:id/search-query": user,
+    "GET /api/user/search-query": user,
 
 };
 

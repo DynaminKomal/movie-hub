@@ -7,7 +7,7 @@ const router = express.Router();
 
 router.use(tokenVerify)
 router.patch('/update-profile', userValidator.updateProfile, userController.updateUserProfile)
-router.get('/:id/search-query', userValidator.serachQuery, userController.serachQuery)
+router.get('/search-query', userValidator.serachQuery, userController.serachQuery)
 
 
 

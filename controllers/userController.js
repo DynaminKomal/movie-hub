@@ -1,6 +1,9 @@
 const User = require('../models/userModel')
 const { grasp, handleError, sendResponse } = require("../utility/response-utility");
-const cloudinary = require("cloudinary").v2
+const cloudinary = require("cloudinary").v2;
+const Movies = require("../models/movieModel");
+const TvSeries = require("../models/tvseriesModel");
+const UserSearchHistory = require("../models/userSearchHistory");
 
 const updateUserProfile = grasp(async (req, res) => {
     try {
@@ -36,14 +39,42 @@ const updateUserProfile = grasp(async (req, res) => {
 
 const serachQuery = grasp(async (req, res) => {
     try {
-        const { id } = req.params
+        const { id } = req.user;
         const { query } = req.query;
         const user = await User.findById(id)
         if (!user) {
             return sendResponse(res, 400, "fail", "User does not exists.")
         }
+        let getAllData = []
+        if (query) {
+            const movieData = await Movies.find({
+                fullName: {
+                    $regex: query, $options: 'i'
+                }
+            })
+            const tvSeriesData = await TvSeries.find({
+                fullName: {
+                    $regex: query, $options: 'i'
+                }
+            })
+            getAllData = [...movieData, ...tvSeriesData];
+        }
+        let userSerachHistoryData = {
+            userId: id,
+            serchQuery: query,
+            found: false
+        }
+        if (getAllData.length === 0) {
 
-        res.send("Done")
+            await UserSearchHistory.create(userSerachHistoryData)
+            return sendResponse(res, 404, "fail", "Data not found.");
+        } else {
+            userSerachHistoryData.found = true;
+            await UserSearchHistory.create(userSerachHistoryData)
+            return sendResponse(res, 200, "success", "Data successfully fetch.", getAllData);
+        }
+
+
 
     } catch (error) {
         handleError(res, error);

@@ -6,9 +6,9 @@ const userSearchHistorySchema = mongoose.Schema({
         ref: 'User'
     },
     serchQuery: String,
-    find: Boolean,
-    timestamps: true
-});
+    found: Boolean,
+
+}, { timestamps: true });
 
 
 const UserSearchHistory = mongoose.model('serach-history', userSearchHistorySchema);
