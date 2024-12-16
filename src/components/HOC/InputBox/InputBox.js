@@ -1,10 +1,20 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styles from './styles.module.scss';
 import globalStyles from '../../../styles/globalStyle.module.scss';
 import errorIcon from '../../../assets/error.svg';
+import eyeIcon from '../../../assets/white-eye.svg'
+import eyeSlashIcons from '../../../assets/white-eye-slash.svg'
 
 const InputBox = (props) => {
   const { id, name, value, onChange, label, error, onFocus, type, onBlur, isPhoneNumber, countryCode, onCountryCodeChange } = props;
+  const [inputType, setInputType] = useState(type || 'password');
+  const handleToggleEye = (event) => {
+    event.preventDefault();
+    if (name == "password") {
+      setInputType(prevType => (prevType === 'password' ? 'text' : 'password'));
+    }
+  }
+  console.log("type", inputType)
   return (
     <div className={`${styles.inputField}`}>
       <div className={`${styles.labelAndInputContainer} ${error?.length ? styles.failure : ""}`}>
@@ -21,7 +31,7 @@ const InputBox = (props) => {
             </div>
           ) : null}
           <input
-            type={type}
+            type={inputType}
             id={id}
             name={name}
             value={value}
@@ -29,7 +39,11 @@ const InputBox = (props) => {
             onFocus={onFocus}
             onBlur={onBlur}
           />
-        </div></div>
+          {name === "password" && <img src={inputType === "text" ? eyeSlashIcons : eyeIcon}
+            className={styles.eyeIcon}
+            onMouseDown={handleToggleEye} />}
+        </div>
+      </div>
       {error?.length > 0 && (
         <div className={globalStyles.errorBox}>
           <img src={errorIcon} alt="error" />
