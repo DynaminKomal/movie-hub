@@ -1,0 +1,62 @@
+
+.resetTokenContainer {
+    background-image: url('../../../assets/forget-background.jpg');
+    background-color: transparent;
+    overflow: hidden;
+    background-size: cover;
+    display: block;
+    height: 100%;
+    min-height: 100vh;
+    overflow: hidden;
+    position: absolute;
+    width: 100%;
+    z-index: -1;
+}
+
+.resetPopup {
+    background-color: transparent;
+    margin: 0 auto -236px;
+    max-width: 450px;
+    min-height: 100vh;
+}
+
+.resetBody {
+    background-color: #f3f3f3;
+    padding: 40px;
+}
+
+.inputField {
+    border: 1px solid #b3b3b3;
+    height: 40px;
+    width: 100%;
+    margin-bottom: 20px;
+
+    input {
+        width: 100%;
+        height: 100%;
+        border: none;
+        outline: none;
+        background-color: white;
+        padding: 10px;
+        color: #000;
+    }
+}
+
+.emailBtn {
+    background: #0080ff;
+    text-align: center;
+    width: 100%;
+    font-size: 20px;
+    border: none;
+    outline: none;
+    color: white;
+    padding: 8px 2em;
+    margin-top: 10px;
+    cursor: pointer;
+    box-shadow: inset 0 1px 0 hsla(0, 0%, 100%, .3), 0 1px 0 rgba(0, 0, 0, .55);
+
+    &:disabled {
+        background-color: #89b5ef;
+        cursor: default;
+    }
+}

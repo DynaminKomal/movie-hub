@@ -92,7 +92,7 @@ const Login = () => {
             } else if (name === "password") {
                 setMultipleError((prev) => ({
                     ...prev,
-                    [name]: "Your password must contain between 4 and 60 characters."
+                    [name]: "Your password must contain between 8 and 60 characters."
                 }));
             }
         }
@@ -131,10 +131,10 @@ const Login = () => {
                     }));
                 }
             }
-        } else if (name === "password" && (value.length < 4 || value.length > 60)) {
+        } else if (name === "password" && (value.length < 8 || value.length > 60)) {
             setMultipleError((prev) => ({
                 ...prev,
-                [name]: "Your password must contain between 4 and 60 characters."
+                [name]: "Your password must contain between 8 and 60 characters."
             }));
         }
     };
