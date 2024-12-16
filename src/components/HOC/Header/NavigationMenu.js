@@ -57,7 +57,7 @@ const NavigationMenu = () => {
     <div className={isLogin ? styles.navbar : styles.transparentNavBar}>
       <img src={logo} className={styles.logo} alt='logo' onClick={() => handleNavigation('/')} />
 
-      {!isLogin ? <div className={styles.signIn}>Sign In</div> :
+      {!isLogin ? <div className={styles.signIn} onClick={() => handleNavigation('/')}>Sign In</div> :
         <div className={styles.navContainer}>
           <ul>
             {navigation?.map((nav, index) => {

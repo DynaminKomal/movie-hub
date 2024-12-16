@@ -65,6 +65,16 @@ const login = grasp(async (req, res) => {
 const forgetPassword = grasp(async (req, res) => {
 
     const { emailorMobile } = req.body;
+    const requestTimestamp = new Date();
+
+    const year = requestTimestamp.getUTCFullYear();
+    const month = String(requestTimestamp.getUTCMonth() + 1).padStart(2, '0');
+    const day = String(requestTimestamp.getUTCDate()).padStart(2, '0');
+    const hours = String(requestTimestamp.getUTCHours()).padStart(2, '0');
+    const minutes = String(requestTimestamp.getUTCMinutes()).padStart(2, '0');
+
+    const formattedTimestamp = `${year}/${month}/${day} ${hours}:${minutes} GMT`;
+
     try {
         const isPhoneNumber = /^[0-9+]+$/.test(emailorMobile);
         let user;
@@ -85,24 +95,27 @@ const forgetPassword = grasp(async (req, res) => {
         const resetToken = await userHistory.createPasswordResetToken();
         await userHistory.save();
         const resetUrl = `${process.env.BASE_URL}/reset-password/${resetToken}`
-        const message = `Forget Your Password? Submit a PATCH request with new password and passwordConfirm to: ${resetUrl}\n
-        If you didn't forget your passwors, please ignore this email.`
+        const message = `<h4>Reset Password</h4>
+                        <p>A password reset event has been triggered. The password reset window is limited to 10 minutes.</p>
+                        <p>If you do not reset your password within 10 minutes, you will need to submit a new request.</p>
+                        <p> To complete the password reset process, visit the following link:</p>
+                        <p><a href="${resetUrl}">${resetUrl}</a></p>
+                        <p>Username <a href="mailto:${user.userName}">${user.userName}</a></p>
+                        <p>Request Timestamp ${formattedTimestamp}</p>`
+
         try {
             await sendEmail({
                 userEmail: user.email,
-                subject: 'Your password reset token (valid for 10 min)',
-                message
+                subject: 'Password Reset',
+                message,
+                isHtml: true
             }, res)
             sendResponse(res, 200, "success", "Token sent to email")
         } catch (err) {
             userHistory.passwordResetToken = undefined
             userHistory.passwordResetExpire = undefined
-            const error = {
-                statusCode: 500,
-                message: 'There was an error sending the email. Try again later!'
-            }
             await userHistory.save({ validateBeforeSave: false });
-            handleError(res, error);
+            return sendResponse(res, 500, "fail", "There was an error sending the email. Try again later!")
         }
     } catch (error) {
         handleError(res, error)

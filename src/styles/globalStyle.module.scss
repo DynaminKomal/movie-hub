@@ -7,14 +7,13 @@
     gap: 5px;
     align-items: center;
     margin-top: 0.375rem;
-
-    .error {
-        font-size: 0.8125rem;
-        font-weight: 400;
-        color: rgb(235, 57, 66);
-    }
 }
 
+.error {
+    font-size: 0.8125rem;
+    font-weight: 400;
+    color: rgb(235, 57, 66);
+}
 .alert {
     position: fixed;
     top: 20px;
@@ -35,7 +34,8 @@
         display: flex;
         font-weight: bold;
         justify-content: flex-end;
-        &:hover{
+
+        &:hover {
             color: black;
             cursor: pointer;
         }
@@ -92,4 +92,8 @@
     100% {
         width: 100%;
     }
+}
+
+.failure {
+    border: 1px solid red !important;
 }

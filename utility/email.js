@@ -17,13 +17,11 @@ const sendEmail = async (options, res) => {
         from: "Komal <komalp@techoon.in>",
         to: options.userEmail,
         subject: options.subject,
-        text: options.message
+        text: options.message,
+        html: options.isHtml ? options.message : undefined
     };
-    try {
-        await transporter.sendMail(mailOptions);
-    } catch (error) {
-        handleError(res, error)
-    }
+    await transporter.sendMail(mailOptions);
+
 }
 
 
