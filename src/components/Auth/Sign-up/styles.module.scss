@@ -1,0 +1,82 @@
+.signUpContainer {
+    background-image: url('../../../assets/login-background.jpg');
+    background-size: cover;
+    background-position: center;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.5);
+    overflow: hidden;
+}
+
+.signUpForm {
+    background-color: transparent;
+    margin: 0 auto -236px;
+    max-width: 500px;
+    min-height: 100vh;
+}
+
+.formContainer {
+    width: 100%;
+    background-color: #f3f3f3;
+    padding: 40px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    color: black;
+
+    h2 {
+        padding: 0;
+        font-size: 2rem;
+        font-weight: 700;
+        text-align: center;
+    }
+
+    p {
+        text-align: center;
+        color: #333549;
+    }
+}
+
+.fieldBox {
+    position: relative;
+}
+.row{
+    display: flex;
+    gap: 10px;
+}
+
+.forgetPasswordText {
+    text-align: right;
+    padding-bottom: 20px;
+    cursor: pointer;
+    color: #6e54f1;
+}
+
+.signUptext {
+    margin-top: 10px;
+    text-align: center;
+
+    span {
+        color: #6e54f1;
+        cursor: pointer;
+    }
+}
+
+.message {
+    text-align: center;
+    margin-top: 30px;
+    color: #333549;
+}
+
+.termsCondition,
+.privacy {
+    color: #000;
+    font-weight: 600;
+
+    &:hover {
+        color: #6e54f1;
+        cursor: pointer;
+    }
+}

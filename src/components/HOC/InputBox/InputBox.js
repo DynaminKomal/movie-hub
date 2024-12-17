@@ -10,17 +10,17 @@ const InputBox = (props) => {
   const [inputType, setInputType] = useState(type || 'password');
   const handleToggleEye = (event) => {
     event.preventDefault();
-    if (name == "password") {
+    if (name == "password" || name == "confirmPassword") {
       setInputType(prevType => (prevType === 'password' ? 'text' : 'password'));
     }
   }
-  console.log("type", inputType)
+
   return (
     <div className={`${styles.inputField}`}>
       <div className={`${styles.labelAndInputContainer} ${error?.length ? styles.failure : ""}`}>
         <label htmlFor={id} className={`${styles.label} ${value.length > 0 ? styles.labelOnValue : ""}`}>{label}</label>
         <div className={styles.inputContainer}>
-          {isPhoneNumber ? (
+          {(isPhoneNumber && (name === "mobileNumber" || name === "emailOrMobile")) ? (
             <div className={styles.selectBox}>
               <select value={countryCode} onChange={onCountryCodeChange}>
                 <option value="In +91">India +91</option>
@@ -39,7 +39,7 @@ const InputBox = (props) => {
             onFocus={onFocus}
             onBlur={onBlur}
           />
-          {name === "password" && <img src={inputType === "text" ? eyeSlashIcons : eyeIcon}
+          {(name === "password" || name === "confirmPassword") && <img src={inputType === "text" ? eyeSlashIcons : eyeIcon}
             className={styles.eyeIcon}
             onMouseDown={handleToggleEye} />}
         </div>

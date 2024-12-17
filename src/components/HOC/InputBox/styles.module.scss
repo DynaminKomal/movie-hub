@@ -7,7 +7,7 @@
   background-color: transparent;
 }
 .labelAndInputContainer{
-  border: 1px solid rgba(0, 3, 28, .1);;
+  border: 1px solid rgba(0, 3, 28, .1);
   padding-top: 14px; 
   padding-bottom: 10px; 
   padding-left: 10px; 
@@ -41,8 +41,8 @@
     padding: 2px 0px;
     border-radius: 4px;
     background-color: transparent; 
-    color: #fff;
-    border: none; 
+    color: #000;
+    border: 1px solid rgba(0, 3, 28, .1);
     font-size: 14px;
     outline: none;
     cursor: pointer;

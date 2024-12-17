@@ -1,9 +1,10 @@
 import React from 'react'
+import SignUp from '../../components/Auth/Sign-up/SignUp'
 
-const signUpPage = () => {
+const SignUpPage = () => {
   return (
-    <div>signUpPage</div>
+    <SignUp/>
   )
 }
 
-export default signUpPage
+export default SignUpPage
