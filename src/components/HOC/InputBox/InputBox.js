@@ -18,13 +18,17 @@ const InputBox = (props) => {
   const handleFocus = (event) => {
     setIsFocused(true);
     if (onFocus) {
-      onFocus(event); 
+      onFocus(event);
     }
   };
   const handleBlur = (event) => {
-    setIsFocused(false);
+    if (isPhoneNumber && value.length > 0) {
+      setIsFocused(true);
+    } else {
+      setIsFocused(false);
+    }
     if (onBlur) {
-      onBlur(event); 
+      onBlur(event);
     }
   };
   return (

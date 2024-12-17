@@ -47,10 +47,17 @@ const SignUp = () => {
 
     const handleInputValue = (e) => {
         const { name, value } = e.target;
-        setInputValues((prevValues) => ({
-            ...prevValues,
-            [name]: value
-        }));
+        if (/^[a-zA-Z]+$/.test(value)) {
+            setInputValues((prevValues) => ({
+                ...prevValues,
+                [name]: value
+            }));
+        } else if (!/^[A-Za-z0-9]+$/.test(value) || !/[!@#$%^&*(),.?":{}|<>]/.test(value)) {
+            setInputValues((prevValues) => ({
+                ...prevValues,
+                [name]: ""
+            }))
+        }
     };
 
     const handlePasswordValue = (e) => {
@@ -61,12 +68,26 @@ const SignUp = () => {
         }));
     };
 
-    const handleMobileNumber = (e) => {
-        const {value} = e.target;
-        if(/^[0-9+]+$/.test(value)){
+    const handleEmail = (e) => {
+        setEmail(e.target.value)
+    }
 
+    const handleMobileNumber = (e) => {
+        const { value, name } = e.target;
+        if (/^[0-9+]+$/.test(value)) {
+            setMobileNumber(value)
+            setMultipleError((prevValues) => ({
+                ...prevValues,
+                [name]: ""
+            }));
+        } else if (!/^[A-Za-z0-9]+$/.test(value)) {
+            setMobileNumber("")
+            setMultipleError((prevValues) => ({
+                ...prevValues,
+                [name]: ""
+            }));
         }
-        
+
     };
 
     const handleSubmit = () => {
@@ -103,6 +124,62 @@ const SignUp = () => {
 
     const handleOnBlur = (e) => {
         const { name, value } = e.target;
+        if (name === "email" && value.length > 0) {
+            const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+            const isEmailValid = emailRegex.test(value);
+            if (isEmailValid) {
+            } else {
+                setMultipleError((prevValues) => ({
+                    ...prevValues,
+                    [name]: "Please enter a valid email address."
+                }));
+            }
+        }
+        if (name === "mobileNumber" && value.length !== 10 && (/^[0-9+]+$/.test(value))) {
+            setMultipleError((prevValues) => ({
+                ...prevValues,
+                [name]: "Only numbers are allowed and mobile number must have 10 digits."
+            }));
+        }
+
+        if (name === "password" || name === "confirmPassword") {
+            const text = name === "confirmPassword" ? " Confirm Password" : "Password";
+            if (value.length < 8) {
+                setMultipleError((prevValues) => ({
+                    ...prevValues,
+                    [name]: `${text} must contain between 8 and 60 characters.`
+                }));
+            }
+            else if (!/[A-Z]/.test(value) && !/[!@#$%^&*(),.?":{}|<>]/.test(value)) {
+                setMultipleError((prevValues) => ({
+                    ...prevValues,
+                    [name]: `${text} must at least one capital letter and special character.`
+                }));
+            }
+            else if (!/[A-Z]/.test(value)) {
+                setMultipleError((prevValues) => ({
+                    ...prevValues,
+                    [name]: `${text} must at least one capital letter and special character.`
+                }));
+            }
+            else if (!/[!@#$%^&*(),.?":{}|<>]/.test(value)) {
+                setMultipleError((prevValues) => ({
+                    ...prevValues,
+                    [name]: `${text} must at least one capital letter and special character.`
+                }));
+            }
+        }
+
+        if ((name === "firstName" || name === "lastName")) {
+            const text = name === "firstName" ? "first" : "last";
+            if (!/^[a-zA-Z]+$/.test(value) || value.length > 10) {
+                setMultipleError((prevValues) => ({
+                    ...prevValues,
+                    [name]: `Only letters are allowed and ${text} name must have at most 10 letters.`
+                }));
+            }
+
+        }
     };
 
 
@@ -158,60 +235,36 @@ const SignUp = () => {
                                 onCountryCodeChange={handleCountryCodeChange}
                             />
                         </div>
-                        <InputBox
-                            id="email"
-                            name="email"
-                            type="text"
-                            value={email}
-                            label="Email *"
-                            error={multipleError.email}
-                            onChange={handleInputValue}
-                            onFocus={handleOnFocus}
-                            onBlur={handleOnBlur}
-                            isPhoneNumber={false}
-                            countryCode={selectedCountryCode}
-                            onCountryCodeChange={handleCountryCodeChange}
-                        />
-                        <InputBox
-                            id="mobileNumber"
-                            name="mobileNumber"
-                            type="text"
-                            value={mobileNumber}
-                            label="Mobile Number *"
-                            error={multipleError.mobileNumber}
-                            onChange={handleInputValue}
-                            onFocus={handleOnFocus}
-                            onBlur={handleOnBlur}
-                            isPhoneNumber={true}
-                            countryCode={selectedCountryCode}
-                            onCountryCodeChange={handleCountryCodeChange}
-                        />
-                        <InputBox
-                            id="password"
-                            name="password"
-                            type="password"
-                            value={passwordValues.password}
-                            label="Password *"
-                            error={multipleError.password}
-                            onChange={handlePasswordValue}
-                            onFocus={handleOnFocus}
-                            onBlur={handleOnBlur}
-                            isPhoneNumber={false}
-                            countryCode={selectedCountryCode}
-                            onCountryCodeChange={handleCountryCodeChange}
-                        />
-                        <InputBox
-                            id="confirmPassword"
-                            name="confirmPassword"
-                            type="password"
-                            value={passwordValues.confirmPassword}
-                            label="Confirm Password *"
-                            error={multipleError.confirmPassword}
-                            onChange={handlePasswordValue}
-                            onFocus={handleOnFocus}
-                            onBlur={handleOnBlur}
-                            isPhoneNumber={false}
-                        />
+                        <div className={styles.row}>
+                            <InputBox
+                                id="email"
+                                name="email"
+                                type="text"
+                                value={email}
+                                label="Email *"
+                                error={multipleError.email}
+                                onChange={handleEmail}
+                                onFocus={handleOnFocus}
+                                onBlur={handleOnBlur}
+                                isPhoneNumber={false}
+                                countryCode={selectedCountryCode}
+                                onCountryCodeChange={handleCountryCodeChange}
+                            />
+                            <InputBox
+                                id="mobileNumber"
+                                name="mobileNumber"
+                                type="text"
+                                value={mobileNumber}
+                                label="Mobile Number *"
+                                error={multipleError.mobileNumber}
+                                onChange={handleMobileNumber}
+                                onFocus={handleOnFocus}
+                                onBlur={handleOnBlur}
+                                isPhoneNumber={true}
+                                countryCode={selectedCountryCode}
+                                onCountryCodeChange={handleCountryCodeChange}
+                            />
+                        </div>
                         <div className={styles.row}>
                             <InputBox
                                 id="dob"
@@ -240,6 +293,34 @@ const SignUp = () => {
                                 isPhoneNumber={false}
                                 countryCode={selectedCountryCode}
                                 onCountryCodeChange={handleCountryCodeChange}
+                            />
+                        </div>
+                        <div className={styles.row}>
+                            <InputBox
+                                id="password"
+                                name="password"
+                                type="password"
+                                value={passwordValues.password}
+                                label="Password *"
+                                error={multipleError.password}
+                                onChange={handlePasswordValue}
+                                onFocus={handleOnFocus}
+                                onBlur={handleOnBlur}
+                                isPhoneNumber={false}
+                                countryCode={selectedCountryCode}
+                                onCountryCodeChange={handleCountryCodeChange}
+                            />
+                            <InputBox
+                                id="confirmPassword"
+                                name="confirmPassword"
+                                type="password"
+                                value={passwordValues.confirmPassword}
+                                label="Confirm Password *"
+                                error={multipleError.confirmPassword}
+                                onChange={handlePasswordValue}
+                                onFocus={handleOnFocus}
+                                onBlur={handleOnBlur}
+                                isPhoneNumber={false}
                             />
                         </div>
                         <div className={styles.button}>
