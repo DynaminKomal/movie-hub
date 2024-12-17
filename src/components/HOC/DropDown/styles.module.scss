@@ -1,0 +1,90 @@
+.customDropdownContainer {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+    width: 100%;
+    position: relative;
+    background-color: transparent;
+    cursor: pointer;
+}
+
+.labelAndInputContainer {
+    border: 1px solid rgba(0, 3, 28, .1);
+    padding-top: 14px;
+    padding-bottom: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
+    border-radius: 10px;
+}
+
+.label {
+    color: #333549;
+    font-size: 1rem;
+    margin-bottom: 5px;
+    position: absolute;
+    top: 14px;
+    left: 10px;
+    z-index: 1;
+    background: transparent;
+    cursor: pointer;
+    transition: top 0.2s ease, font-size 0.2s ease;
+}
+
+.isOpen {
+    border: 1px solid #6e54f1;
+  
+    .label {
+      top: 3px;
+      font-size: 0.725rem;
+    }
+  }
+
+.inputContainer {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    margin-top: 3px;
+    span{
+        height: 24px;
+    }
+  }
+
+.labelOnValue {
+    top: 3px;
+    font-size: 0.725rem;
+}
+
+.dropDown {
+    border: 1px solid rgba(0, 3, 28, .1);
+    border-radius: 10px;
+    position: absolute;
+    width: 100%;
+    max-height: 200px;
+    top: 50px;
+    z-index: 30;
+    background-color: #f3f3f3;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding: 0;
+
+    li {
+        list-style: none;
+        padding: 10px;
+        border-bottom: 1px solid rgba(0, 3, 28, .1);
+        cursor: pointer;
+
+        &:first-child {
+            border-radius: 10px 10px 0 0;
+        }
+
+        &:last-child {
+            border-radius: 0 0 10px 10px;
+            border-bottom: none;
+        }
+
+        &:hover {
+            background-color: #6e54f1;
+            color: white;
+        }
+    }
+}

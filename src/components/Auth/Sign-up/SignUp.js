@@ -10,6 +10,7 @@ import Alert from '../../HOC/Alert/Alert';
 import { signout } from '../../../utils/localstorage';
 import lodingIcon from '../../../assets/loding.svg';
 import globalStyle from '../../../styles/globalStyle.module.scss';
+import CustomDropDown from '../../HOC/DropDown/CustomDropDown';
 
 
 const SignUp = () => {
@@ -195,6 +196,10 @@ const SignUp = () => {
         }
     }
 
+    const handleSelectGender = (value) => {
+        setGender(value)
+    }
+
     return (
         <div className={loading ? `${styles.signUpContainer} ${globalStyle.disabled}` : styles.signUpContainer}>
             <div className={styles.signUpForm}>
@@ -280,7 +285,15 @@ const SignUp = () => {
                                 countryCode={selectedCountryCode}
                                 onCountryCodeChange={handleCountryCodeChange}
                             />
-                            <InputBox
+                            <CustomDropDown
+                                id="gender"
+                                name="gender"
+                                label="Gender *"
+                                value={gender}
+                                error={multipleError.gender}
+                                handleClick={handleSelectGender}
+                            />
+                            {/* <InputBox
                                 id="gender"
                                 name="gender"
                                 type="text"
@@ -293,7 +306,7 @@ const SignUp = () => {
                                 isPhoneNumber={false}
                                 countryCode={selectedCountryCode}
                                 onCountryCodeChange={handleCountryCodeChange}
-                            />
+                            /> */}
                         </div>
                         <div className={styles.row}>
                             <InputBox
