@@ -8,19 +8,31 @@ import eyeSlashIcons from '../../../assets/eye-slash.svg'
 const InputBox = (props) => {
   const { id, name, value, onChange, label, error, onFocus, type, onBlur, isPhoneNumber, countryCode, onCountryCodeChange } = props;
   const [inputType, setInputType] = useState(type || 'password');
+  const [isFocused, setIsFocused] = useState(false);
   const handleToggleEye = (event) => {
     event.preventDefault();
     if (name == "password" || name == "confirmPassword") {
       setInputType(prevType => (prevType === 'password' ? 'text' : 'password'));
     }
   }
-
+  const handleFocus = (event) => {
+    setIsFocused(true);
+    if (onFocus) {
+      onFocus(event); 
+    }
+  };
+  const handleBlur = (event) => {
+    setIsFocused(false);
+    if (onBlur) {
+      onBlur(event); 
+    }
+  };
   return (
     <div className={`${styles.inputField}`}>
       <div className={`${styles.labelAndInputContainer} ${error?.length ? styles.failure : ""}`}>
         <label htmlFor={id} className={`${styles.label} ${value.length > 0 ? styles.labelOnValue : ""}`}>{label}</label>
         <div className={styles.inputContainer}>
-          {(isPhoneNumber && (name === "mobileNumber" || name === "emailOrMobile")) ? (
+          {(isPhoneNumber && (name === "mobileNumber" || name === "emailOrMobile") && isFocused) ? (
             <div className={styles.selectBox}>
               <select value={countryCode} onChange={onCountryCodeChange}>
                 <option value="In +91">India +91</option>
@@ -36,8 +48,8 @@ const InputBox = (props) => {
             name={name}
             value={value}
             onChange={onChange}
-            onFocus={onFocus}
-            onBlur={onBlur}
+            onFocus={handleFocus}
+            onBlur={handleBlur}
           />
           {(name === "password" || name === "confirmPassword") && <img src={inputType === "text" ? eyeSlashIcons : eyeIcon}
             className={styles.eyeIcon}

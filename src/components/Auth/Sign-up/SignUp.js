@@ -22,14 +22,17 @@ const SignUp = () => {
 
     const [inputValues, setInputValues] = useState({
         firstName: "",
-        lastName: "",
-        email: "",
-        mobileNumber: "",
-        password: "",
-        confirmPassword: "",
-        dob: "",
-        gender: ""
+        lastName: ""
     });
+    const [passwordValues, setPasswordValues] = useState({
+        password: "",
+        confirmPassword: ""
+    });
+
+    const [dob, setDOB] = useState("");
+    const [mobileNumber, setMobileNumber] = useState("");
+    const [email, setEmail] = useState("");
+    const [gender, setGender] = useState("");
     const [multipleError, setMultipleError] = useState({
         firstName: "",
         lastName: "",
@@ -40,7 +43,6 @@ const SignUp = () => {
         dob: "",
         gender: ""
     });
-    const isPhoneNumber = /^[0-9+]+$/.test(inputValues.mobileNumber);
     const [selectedCountryCode, setSelectedCountryCode] = useState("In +91");
 
     const handleInputValue = (e) => {
@@ -51,8 +53,24 @@ const SignUp = () => {
         }));
     };
 
+    const handlePasswordValue = (e) => {
+        const { name, value } = e.target;
+        setPasswordValues((prevValues) => ({
+            ...prevValues,
+            [name]: value
+        }));
+    };
+
+    const handleMobileNumber = (e) => {
+        const {value} = e.target;
+        if(/^[0-9+]+$/.test(value)){
+
+        }
+        
+    };
+
     const handleSubmit = () => {
-      
+
     };
 
     const handleOnFocus = (e) => {
@@ -121,7 +139,7 @@ const SignUp = () => {
                                 onChange={handleInputValue}
                                 onFocus={handleOnFocus}
                                 onBlur={handleOnBlur}
-                                isPhoneNumber={isPhoneNumber}
+                                isPhoneNumber={false}
                                 countryCode={selectedCountryCode}
                                 onCountryCodeChange={handleCountryCodeChange}
                             />
@@ -135,7 +153,7 @@ const SignUp = () => {
                                 onChange={handleInputValue}
                                 onFocus={handleOnFocus}
                                 onBlur={handleOnBlur}
-                                isPhoneNumber={isPhoneNumber}
+                                isPhoneNumber={false}
                                 countryCode={selectedCountryCode}
                                 onCountryCodeChange={handleCountryCodeChange}
                             />
@@ -144,13 +162,13 @@ const SignUp = () => {
                             id="email"
                             name="email"
                             type="text"
-                            value={inputValues.email}
+                            value={email}
                             label="Email *"
                             error={multipleError.email}
                             onChange={handleInputValue}
                             onFocus={handleOnFocus}
                             onBlur={handleOnBlur}
-                            isPhoneNumber={isPhoneNumber}
+                            isPhoneNumber={false}
                             countryCode={selectedCountryCode}
                             onCountryCodeChange={handleCountryCodeChange}
                         />
@@ -158,13 +176,13 @@ const SignUp = () => {
                             id="mobileNumber"
                             name="mobileNumber"
                             type="text"
-                            value={inputValues.mobileNumber}
+                            value={mobileNumber}
                             label="Mobile Number *"
                             error={multipleError.mobileNumber}
                             onChange={handleInputValue}
                             onFocus={handleOnFocus}
                             onBlur={handleOnBlur}
-                            isPhoneNumber={isPhoneNumber}
+                            isPhoneNumber={true}
                             countryCode={selectedCountryCode}
                             onCountryCodeChange={handleCountryCodeChange}
                         />
@@ -172,13 +190,13 @@ const SignUp = () => {
                             id="password"
                             name="password"
                             type="password"
-                            value={inputValues.password}
+                            value={passwordValues.password}
                             label="Password *"
                             error={multipleError.password}
-                            onChange={handleInputValue}
+                            onChange={handlePasswordValue}
                             onFocus={handleOnFocus}
                             onBlur={handleOnBlur}
-                            isPhoneNumber={isPhoneNumber}
+                            isPhoneNumber={false}
                             countryCode={selectedCountryCode}
                             onCountryCodeChange={handleCountryCodeChange}
                         />
@@ -186,25 +204,26 @@ const SignUp = () => {
                             id="confirmPassword"
                             name="confirmPassword"
                             type="password"
-                            value={inputValues.confirmPassword}
+                            value={passwordValues.confirmPassword}
                             label="Confirm Password *"
                             error={multipleError.confirmPassword}
-                            onChange={handleInputValue}
+                            onChange={handlePasswordValue}
                             onFocus={handleOnFocus}
                             onBlur={handleOnBlur}
+                            isPhoneNumber={false}
                         />
                         <div className={styles.row}>
                             <InputBox
                                 id="dob"
                                 name="dob"
                                 type="text"
-                                value={inputValues.dob}
+                                value={dob}
                                 label="Date of Birth *"
                                 error={multipleError.dob}
                                 onChange={handleInputValue}
                                 onFocus={handleOnFocus}
                                 onBlur={handleOnBlur}
-                                isPhoneNumber={isPhoneNumber}
+                                isPhoneNumber={false}
                                 countryCode={selectedCountryCode}
                                 onCountryCodeChange={handleCountryCodeChange}
                             />
@@ -212,13 +231,13 @@ const SignUp = () => {
                                 id="gender"
                                 name="gender"
                                 type="text"
-                                value={inputValues.gender}
+                                value={gender}
                                 label="Gender *"
                                 error={multipleError.gender}
                                 onChange={handleInputValue}
                                 onFocus={handleOnFocus}
                                 onBlur={handleOnBlur}
-                                isPhoneNumber={isPhoneNumber}
+                                isPhoneNumber={false}
                                 countryCode={selectedCountryCode}
                                 onCountryCodeChange={handleCountryCodeChange}
                             />
