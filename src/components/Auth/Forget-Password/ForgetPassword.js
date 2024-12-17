@@ -5,6 +5,7 @@ import globalStyle from '../../../styles/globalStyle.module.scss'
 import { useDispatch, useSelector } from 'react-redux';
 import { forgetPassword, resetForgetPassword } from '../../../store/actions/auth/forgetPassword.action';
 import Alert from '../../HOC/Alert/Alert';
+import lodingIcon from '../../../assets/loding.svg';
 
 const ForgetPassword = () => {
 
@@ -14,7 +15,7 @@ const ForgetPassword = () => {
     const [isClicked, setIsClicked] = useState(false);
     const forgetPasswordReducer = useSelector((state) => state.auth.forgetPasswordReducer);
     const [isShow, setIsShow] = useState(true)
-    const { success, failure, message } = forgetPasswordReducer;
+    const { success, failure, message, loading } = forgetPasswordReducer;
 
     const handleOnchange = (e) => {
         const { value } = e.target;
@@ -74,7 +75,10 @@ const ForgetPassword = () => {
     return (
         <div className={styles.forgetPasswordContainer}>
             <NavigationMenu />
-            <div className={styles.popupContainer}>
+            <div className={loading ? `${styles.popupContainer} ${globalStyle.disabled}` : styles.popupContainer}>
+                {loading && <div className={globalStyle.loader}>
+                    <img src={lodingIcon} alt="Loading icon" className={globalStyle.loadingImg} />
+                </div>}
                 <div className={styles.forgetPopup}>
                     <div className={styles.forgetBody}>
                         <h1>Forget Password</h1>
@@ -90,7 +94,7 @@ const ForgetPassword = () => {
                         type={success === true && failure === false ? "success" : success === false && failure === true ? "fail" : ""} setIsShow={setIsShow} />}
                 </div>
             </div>
-        </div>
+        </div >
     )
 }
 

@@ -7,14 +7,16 @@ import { login } from '../../../store/actions/auth/login.action'
 import { useNavigate } from 'react-router-dom';
 import { paths } from '../../../constants/paths/common';
 import Alert from '../../HOC/Alert/Alert';
-import { signout } from '../../../utils/localstorage'
+import { signout } from '../../../utils/localstorage';
+import lodingIcon from '../../../assets/loding.svg';
+import globalStyle from '../../../styles/globalStyle.module.scss'
 
 const Login = () => {
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const loginReducer = useSelector((state) => state.auth.loginReducer)
-    const { success, message, failure, data } = loginReducer;
+    const { success, message, failure, data, loading } = loginReducer;
     const [isShow, setIsShow] = useState(false)
 
     const [inputValues, setInputValues] = useState({
@@ -146,50 +148,59 @@ const Login = () => {
         setSelectedCountryCode(value);
     };
 
-    const handleForgetPassword = ()=>{
+    const handleForgetPassword = () => {
         navigate(paths.FORGETPASSWORD)
     }
 
     return (
-        <div className={styles.loginContainer}>
-            <div className={styles.formContainer}>
-                <h2>Sign In</h2>
-                <div className={styles.fieldBox}>
-                    <InputBox
-                        id="emailOrMobile"
-                        name="emailOrMobile"
-                        type="text"
-                        value={inputValues.emailOrMobile}
-                        label="Email or mobile number"
-                        error={multipleError.emailOrMobile}
-                        onChange={handleInputValue}
-                        onFocus={handleOnFocus}
-                        onBlur={handleOnBlur}
-                        isPhoneNumber={isPhoneNumber}
-                        countryCode={selectedCountryCode}
-                        onCountryCodeChange={handleCountryCodeChange}
-                    />
-                    <InputBox
-                        id="password"
-                        name="password"
-                        type="password"
-                        value={inputValues.password}
-                        label="Password"
-                        error={multipleError.password}
-                        onChange={handleInputValue}
-                        onFocus={handleOnFocus}
-                        onBlur={handleOnBlur}
-                    />
-                    <div className={styles.button}>
-                        <Button name="Sign in" text="button" onClick={handleSubmit} />
+        <div className={loading ? `${styles.loginContainer} ${globalStyle.disabled}` : styles.loginContainer}>
+            <div className={styles.loginForm}>
+                <div className={styles.formContainer}>
+                    {loading && <div className={globalStyle.loader}>
+                        <img src={lodingIcon} alt="Loading icon" className={globalStyle.loadingImg} />
+                    </div>} 
+                    <h2>Sign In</h2>
+                    <div className={styles.fieldBox}>
+                        <InputBox
+                            id="emailOrMobile"
+                            name="emailOrMobile"
+                            type="text"
+                            value={inputValues.emailOrMobile}
+                            label="Email or mobile number"
+                            error={multipleError.emailOrMobile}
+                            onChange={handleInputValue}
+                            onFocus={handleOnFocus}
+                            onBlur={handleOnBlur}
+                            isPhoneNumber={isPhoneNumber}
+                            countryCode={selectedCountryCode}
+                            onCountryCodeChange={handleCountryCodeChange}
+                        />
+                        <InputBox
+                            id="password"
+                            name="password"
+                            type="password"
+                            value={inputValues.password}
+                            label="Password"
+                            error={multipleError.password}
+                            onChange={handleInputValue}
+                            onFocus={handleOnFocus}
+                            onBlur={handleOnBlur}
+                        />
+                        <div className={styles.forgetPasswordText} onClick={handleForgetPassword}>
+                            Forget Password?
+                        </div>
+                        <div className={styles.button}>
+                            <Button name="Sign in" text="button" onClick={handleSubmit} />
+                        </div>
+                        <div className={styles.signUptext} onClick={handleForgetPassword}>
+                            Not sign up yet? <span >Sign up</span>
+                        </div>
+                        <p className={styles.message}>By registered, you agree to Movie Hub <span className={styles.termsCondition}>Terms of use</span> and <span className={styles.privacy}>Privacy Policy</span></p>
                     </div>
-                    <div className={styles.forgetPasswordText} onClick={handleForgetPassword}>
-                        Forget Password?
-                    </div>
+                    {isShow && <Alert
+                        message={message}
+                        type={success === true && failure === false ? "success" : success === false && failure === true ? "fail" : ""} setIsShow={setIsShow} />}
                 </div>
-                {isShow && <Alert
-                    message={message}
-                    type={success === true && failure === false ? "success" : success === false && failure === true ? "fail" : ""} setIsShow={setIsShow} />}
             </div>
         </div>
     );

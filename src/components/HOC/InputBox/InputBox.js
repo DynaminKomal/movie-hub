@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import styles from './styles.module.scss';
 import globalStyles from '../../../styles/globalStyle.module.scss';
 import errorIcon from '../../../assets/error.svg';
-import eyeIcon from '../../../assets/white-eye.svg'
-import eyeSlashIcons from '../../../assets/white-eye-slash.svg'
+import eyeIcon from '../../../assets/eyeIcon.svg'
+import eyeSlashIcons from '../../../assets/eye-slash.svg'
 
 const InputBox = (props) => {
   const { id, name, value, onChange, label, error, onFocus, type, onBlur, isPhoneNumber, countryCode, onCountryCodeChange } = props;

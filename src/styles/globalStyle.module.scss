@@ -14,6 +14,7 @@
     font-weight: 400;
     color: rgb(235, 57, 66);
 }
+
 .alert {
     position: fixed;
     top: 20px;
@@ -95,4 +96,27 @@
 
 .failure {
     border: 1px solid red !important;
+}
+
+.loader {
+    position: absolute;
+    top: 35%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 10;
+}
+
+.loadingImg {
+    width: 50px;
+    height: 50px;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.disabled {
+    pointer-events: none;
 }

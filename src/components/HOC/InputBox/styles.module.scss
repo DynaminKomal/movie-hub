@@ -7,7 +7,7 @@
   background-color: transparent;
 }
 .labelAndInputContainer{
-  border: 1px solid #5e5e5e;
+  border: 1px solid rgba(0, 3, 28, .1);;
   padding-top: 14px; 
   padding-bottom: 10px; 
   padding-left: 10px; 
@@ -15,7 +15,7 @@
   border-radius: 10px;
 }
 .label {
-  color: #fff; 
+  color: #333549; 
   font-size: 1rem;
   margin-bottom: 5px;
   position: absolute;
@@ -59,14 +59,14 @@ input {
   border: none;
   outline: none;
   background-color: transparent;
-  color: #fff;
+  color: #000;
   font-size: 16px;
   transition: border-color 0.2s ease, outline-color 0.2s ease;
 }
 
 .inputField:focus-within{
   .labelAndInputContainer{
-    border: 1px solid #ffff;
+    border: 1px solid #6e54f1;
   }
   .label {
     top: 3px; 

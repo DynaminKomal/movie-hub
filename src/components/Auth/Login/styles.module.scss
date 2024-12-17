@@ -10,21 +10,24 @@
     background-color: rgba(0, 0, 0, 0.5);
     overflow: hidden;
 }
+.loginForm{
+    background-color: transparent;
+    margin: 0 auto -236px;
+    max-width: 500px;
+    min-height: 100vh;
+}
 
 .formContainer {
     width: 100%;
-    max-width: 400px;
-    min-height: 707px;
-    padding: 48px 68px;
-    background-color: rgba(0, 0, 0, 0.8);
+    background-color: #f3f3f3;
+    padding: 40px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
-    color: white;
+    color: black;
 
     h2 {
         margin-bottom: 28px;
         padding: 0;
-        color: rgb(255, 255, 255);
         font-size: 2rem;
         font-weight: 700;
     }
@@ -35,7 +38,33 @@
 }
 
 .forgetPasswordText {
-    text-align: center;
-    padding-top: 20px;
+    text-align: right;
+    padding-bottom: 20px;
     cursor: pointer;
+    color: #6e54f1;
+}
+
+.signUptext {
+    margin-top: 10px;
+    text-align: center;
+
+    span {
+        color: #6e54f1;
+        cursor: pointer;
+    }
+}
+.message{
+    text-align: center;
+    margin-top: 30px;
+    color: #333549;
+}
+
+.termsCondition,
+.privacy {
+    color: #000;
+    font-weight: 600;
+    &:hover {
+        color: #6e54f1;
+        cursor: pointer;
+    }
 }

@@ -6,6 +6,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { reset_resetToken, resetToken } from '../../../store/actions/auth/resetToken.action';
 import { useNavigate, useParams } from 'react-router-dom';
 import { paths } from '../../../constants/paths/common';
+import Alert from '../../HOC/Alert/Alert';
+import lodingIcon from '../../../assets/loding.svg';
+import globalStyle from '../../../styles/globalStyle.module.scss'
 
 const ResetToken = () => {
 
@@ -15,7 +18,7 @@ const ResetToken = () => {
     const { token } = params;
     const [isShow, setIsShow] = useState(true)
     const resetPasswordReducer = useSelector((state) => state.auth.resetTokenReducer)
-    const { success, failure, message } = resetPasswordReducer
+    const { success, failure, message, loading } = resetPasswordReducer
 
     const [inputValues, setInputValues] = useState({
         password: "", confirmPassword: ""
@@ -114,12 +117,10 @@ const ResetToken = () => {
     useEffect(() => {
         if (success === true && message === "You logged in successfully!") {
             setIsShow(true)
-            setTimeout(() => {
-                setIsShow(false)
-                dispatch(reset_resetToken())
-                setIsDisabled(false)
-                navigate(paths.GOTODASHBOARD)
-            }, 3000)
+            navigate(paths.GOTODASHBOARD)
+            setIsShow(false)
+            setIsDisabled(false)
+
         }
         if (failure) {
             setIsShow(true)
@@ -133,7 +134,10 @@ const ResetToken = () => {
     return (
         <div className={styles.resetTokenContainer}>
             <NavigationMenu />
-            <div className={styles.popupContainer}>
+            <div className={loading ? `${styles.popupContainer} ${globalStyle.disabled}` : styles.popupContainer}>
+                {loading && <div className={globalStyle.loader}>
+                    <img src={lodingIcon} alt="Loading icon" className={globalStyle.loadingImg} />
+                </div>}
                 <div className={styles.resetPopup}>
                     <div className={styles.resetBody}>
                         <h3>Reset your password</h3>
@@ -163,7 +167,9 @@ const ResetToken = () => {
                             <button className={styles.emailBtn} onClick={handleSaveNewPassword} disabled={isDisabled}>Save</button>
                         </div>
                     </div>
-
+                    {isShow && <Alert
+                        message={message}
+                        type={success === true && failure === false ? "success" : success === false && failure === true ? "fail" : ""} setIsShow={setIsShow} />}
                 </div>
             </div>
         </div>
