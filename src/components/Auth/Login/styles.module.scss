@@ -40,8 +40,10 @@
 .forgetPasswordText {
     text-align: right;
     padding-bottom: 20px;
-    cursor: pointer;
     color: #6e54f1;
+    span{
+        cursor: pointer;    
+    }
 }
 
 .signUptext {

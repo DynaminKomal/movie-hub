@@ -190,8 +190,8 @@ const Login = () => {
                             onFocus={handleOnFocus}
                             onBlur={handleOnBlur}
                         />
-                        <div className={styles.forgetPasswordText} onClick={() => handleNavigation('forget')}>
-                            Forget Password?
+                        <div className={styles.forgetPasswordText} >
+                            <span onClick={() => handleNavigation('forget')}>Forget Password?</span>
                         </div>
                         <div className={styles.button}>
                             <Button name="Sign in" text="button" onClick={handleSubmit} />
