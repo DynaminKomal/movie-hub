@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import NavigationMenu from '../../HOC/Header/NavigationMenu';
 import styles from './styles.module.scss';
-import InputBlackBox from '../../HOC/InputBox/InputBlackBox/InputBlackBox';
 import { useDispatch, useSelector } from 'react-redux';
-import { reset_resetToken, resetToken } from '../../../store/actions/auth/resetToken.action';
+import { resetToken } from '../../../store/actions/auth/resetToken.action';
 import { useNavigate, useParams } from 'react-router-dom';
 import { paths } from '../../../constants/paths/common';
 import Alert from '../../HOC/Alert/Alert';
 import lodingIcon from '../../../assets/loding.svg';
 import globalStyle from '../../../styles/globalStyle.module.scss'
+import InputBox from '../../HOC/InputBox/InputBox';
 
 const ResetToken = () => {
 
@@ -132,9 +132,9 @@ const ResetToken = () => {
     }, [success, message, failure])
 
     return (
-        <div className={styles.resetTokenContainer}>
+        <div className={loading ? `${styles.resetTokenContainer} ${globalStyle.disabled}`: styles.resetTokenContainer}>
             <NavigationMenu />
-            <div className={loading ? `${styles.popupContainer} ${globalStyle.disabled}` : styles.popupContainer}>
+            <div className={styles.popupContainer}>
                 {loading && <div className={globalStyle.loader}>
                     <img src={lodingIcon} alt="Loading icon" className={globalStyle.loadingImg} />
                 </div>}
@@ -142,7 +142,7 @@ const ResetToken = () => {
                     <div className={styles.resetBody}>
                         <h3>Reset your password</h3>
                         <div className={styles.formContainer}>
-                            <InputBlackBox
+                            <InputBox
                                 id="password"
                                 name="password"
                                 type="password"
@@ -153,7 +153,7 @@ const ResetToken = () => {
                                 onBlur={handleOnBlur}
                                 error={multipleError.password}
                             />
-                            <InputBlackBox
+                            <InputBox
                                 id="confirmPassword"
                                 name="confirmPassword"
                                 type="password"
