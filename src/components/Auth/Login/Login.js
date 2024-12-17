@@ -148,8 +148,12 @@ const Login = () => {
         setSelectedCountryCode(value);
     };
 
-    const handleForgetPassword = () => {
-        navigate(paths.FORGETPASSWORD)
+    const handleNavigation = (name) => {
+        if (name === "forget") {
+            navigate(paths.FORGETPASSWORD)
+        } else if (name === "sign up") {
+            navigate(paths.SIGNUP)
+        }
     }
 
     return (
@@ -158,7 +162,7 @@ const Login = () => {
                 <div className={styles.formContainer}>
                     {loading && <div className={globalStyle.loader}>
                         <img src={lodingIcon} alt="Loading icon" className={globalStyle.loadingImg} />
-                    </div>} 
+                    </div>}
                     <h2>Sign In</h2>
                     <div className={styles.fieldBox}>
                         <InputBox
@@ -186,13 +190,13 @@ const Login = () => {
                             onFocus={handleOnFocus}
                             onBlur={handleOnBlur}
                         />
-                        <div className={styles.forgetPasswordText} onClick={handleForgetPassword}>
+                        <div className={styles.forgetPasswordText} onClick={() => handleNavigation('forget')}>
                             Forget Password?
                         </div>
                         <div className={styles.button}>
                             <Button name="Sign in" text="button" onClick={handleSubmit} />
                         </div>
-                        <div className={styles.signUptext} onClick={handleForgetPassword}>
+                        <div className={styles.signUptext} onClick={() => handleNavigation('sign up')}>
                             Not sign up yet? <span >Sign up</span>
                         </div>
                         <p className={styles.message}>By registered, you agree to Movie Hub <span className={styles.termsCondition}>Terms of use</span> and <span className={styles.privacy}>Privacy Policy</span></p>
