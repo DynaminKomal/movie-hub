@@ -11,6 +11,7 @@ import { signout } from '../../../utils/localstorage';
 import lodingIcon from '../../../assets/loding.svg';
 import globalStyle from '../../../styles/globalStyle.module.scss';
 import CustomDropDown from '../../HOC/DropDown/CustomDropDown';
+import DateComponent from '../../HOC/UI/DateComponent';
 
 
 const SignUp = () => {
@@ -19,7 +20,8 @@ const SignUp = () => {
     const navigate = useNavigate();
     const loginReducer = useSelector((state) => state.auth.loginReducer)
     const { success, message, failure, data, loading } = loginReducer;
-    const [isShow, setIsShow] = useState(false)
+    const [isShow, setIsShow] = useState(false);
+    const [error, setError] = useState("");
 
     const [inputValues, setInputValues] = useState({
         firstName: "",
@@ -271,20 +273,15 @@ const SignUp = () => {
                             />
                         </div>
                         <div className={styles.row}>
-                            <InputBox
-                                id="dob"
+                            <DateComponent
                                 name="dob"
-                                type="text"
-                                value={dob}
+                                dob={dob}
+                                setdob={setDOB}
                                 label="Date of Birth *"
-                                error={multipleError.dob}
-                                onChange={handleInputValue}
-                                onFocus={handleOnFocus}
-                                onBlur={handleOnBlur}
-                                isPhoneNumber={false}
-                                countryCode={selectedCountryCode}
-                                onCountryCodeChange={handleCountryCodeChange}
+                                error={error}
+                                setError={setError}
                             />
+                            
                             <CustomDropDown
                                 id="gender"
                                 name="gender"
@@ -293,21 +290,8 @@ const SignUp = () => {
                                 error={multipleError.gender}
                                 handleClick={handleSelectGender}
                             />
-                            {/* <InputBox
-                                id="gender"
-                                name="gender"
-                                type="text"
-                                value={gender}
-                                label="Gender *"
-                                error={multipleError.gender}
-                                onChange={handleInputValue}
-                                onFocus={handleOnFocus}
-                                onBlur={handleOnBlur}
-                                isPhoneNumber={false}
-                                countryCode={selectedCountryCode}
-                                onCountryCodeChange={handleCountryCodeChange}
-                            /> */}
                         </div>
+
                         <div className={styles.row}>
                             <InputBox
                                 id="password"

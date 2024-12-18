@@ -21,3 +21,13 @@ body {
 h1, h2, h3, p, span, div {
   font-family: 'Metropolitano', sans-serif;
 }
+
+
+.react-datepicker-popper {
+  z-index: 8 !important;
+}
+
+
+.react-datepicker__header {
+  background-color: white !important;
+}

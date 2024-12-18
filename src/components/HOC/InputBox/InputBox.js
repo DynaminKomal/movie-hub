@@ -33,7 +33,7 @@ const InputBox = (props) => {
   };
   return (
     <div className={`${styles.inputField}`}>
-      <div className={`${styles.labelAndInputContainer} ${error?.length ? styles.failure : ""}`}>
+      <div className={`${styles.labelAndInputContainer} ${error?.length ? globalStyles.failure : ""}`}>
         <label htmlFor={id} className={`${styles.label} ${value.length > 0 ? styles.labelOnValue : ""}`}>{label}</label>
         <div className={styles.inputContainer}>
           {(isPhoneNumber && (name === "mobileNumber" || name === "emailOrMobile") && isFocused) ? (
