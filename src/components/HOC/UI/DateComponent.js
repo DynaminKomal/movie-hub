@@ -16,7 +16,7 @@ const DateComponent = ({ name, dob, setdob, label, error, setError }) => {
 
     const validDate = (newValue) => {
         const parsedDate = parse(newValue, 'MM/dd/yyyy', new Date());
-        if (newValue.length === 10) {
+        if (newValue.length >= 8) {
             if (!isValid(parsedDate)) {
                 setError("Date is invalid.");
                 return false;
@@ -29,6 +29,7 @@ const DateComponent = ({ name, dob, setdob, label, error, setError }) => {
                 setError("Year is out of valid range.");
                 return false;
             }
+            setdob(parsedDate)
             setError("");
             return true;
         }
@@ -85,7 +86,7 @@ const DateComponent = ({ name, dob, setdob, label, error, setError }) => {
                 <div className={styles.inputContainer}>
                     <input
                         name={name}
-                        id="date"
+                        id={name}
                         value={inputValue}
                         placeholder={isFocused ? "MM/DD/YYYY" : ""}
                         onChange={handleChangeDob}

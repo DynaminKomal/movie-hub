@@ -22,6 +22,7 @@ const SignUp = () => {
     const { success, message, failure, data, loading } = loginReducer;
     const [isShow, setIsShow] = useState(false);
     const [error, setError] = useState("");
+    const [isAlert, setIsAlert] = useState(false)
 
     const [inputValues, setInputValues] = useState({
         firstName: "",
@@ -94,7 +95,15 @@ const SignUp = () => {
     };
 
     const handleSubmit = () => {
-
+        if (inputValues.firstName.trim() === "" &&
+            inputValues.lastName.trim() === "" &&
+            mobileNumber.trim() === "" &&
+            gender === "" &&
+            passwordValues.password.trim() === "" &&
+            passwordValues.confirmPassword.trim() === "" &&
+            email.trim() === "" && dob === "") {
+            setIsAlert(true)
+        }
     };
 
     const handleOnFocus = (e) => {
@@ -106,8 +115,12 @@ const SignUp = () => {
     };
 
     useEffect(() => {
-        signout()
-    }, [])
+        if (isAlert) {
+            setTimeout(() => {
+                setIsAlert(false)
+            },2000)
+        }
+    }, [isAlert])
 
     useEffect(() => {
         if (success === true && message === "You logged in successfully!") {
@@ -281,7 +294,7 @@ const SignUp = () => {
                                 error={error}
                                 setError={setError}
                             />
-                            
+
                             <CustomDropDown
                                 id="gender"
                                 name="gender"
@@ -331,6 +344,10 @@ const SignUp = () => {
                     {isShow && <Alert
                         message={message}
                         type={success === true && failure === false ? "success" : success === false && failure === true ? "fail" : ""} setIsShow={setIsShow} />}
+
+                    {isAlert && <Alert
+                        message="Please fill all mendatory fields"
+                        type={"fail"} setIsShow={setIsAlert} />}
                 </div>
             </div>
         </div>
