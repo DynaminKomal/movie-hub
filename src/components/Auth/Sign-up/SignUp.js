@@ -12,14 +12,16 @@ import lodingIcon from '../../../assets/loding.svg';
 import globalStyle from '../../../styles/globalStyle.module.scss';
 import CustomDropDown from '../../HOC/DropDown/CustomDropDown';
 import DateComponent from '../../HOC/UI/DateComponent';
+import moment from 'moment'
+import { resetSignup, signUp } from '../../../store/actions/auth/signup.action';
 
 
 const SignUp = () => {
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const loginReducer = useSelector((state) => state.auth.loginReducer)
-    const { success, message, failure, data, loading } = loginReducer;
+    const signupRedcuer = useSelector((state) => state.auth.signupRedcuer)
+    const { success, message, failure, data, loading } = signupRedcuer;
     const [isShow, setIsShow] = useState(false);
     const [error, setError] = useState("");
     const [isAlert, setIsAlert] = useState(false)
@@ -94,6 +96,47 @@ const SignUp = () => {
 
     };
 
+    function validation() {
+        let errors = {
+            firstName: true,
+            lastName: true,
+            dob: true,
+            mobileNumber: true,
+            password: true,
+            confirmPassword: true,
+            gender: true,
+            email: true,
+        }
+
+        if (inputValues.firstName.trim() === "" || multipleError.firstName !== "") {
+            errors.firstName = false;
+        }
+        if (inputValues.lastName.trim() === "" || multipleError.lastName !== "") {
+            errors.lastName = false;
+        }
+        if (passwordValues.password.trim() === "" || multipleError.password !== "") {
+            errors.password = false;
+        }
+        if (passwordValues.confirmPassword.trim() === "" || multipleError.confirmPassword !== "") {
+            errors.confirmPassword = false;
+        }
+        if (dob === "" || error !== "") {
+            errors.dob = false;
+        }
+        if (mobileNumber.trim() === "" || multipleError.mobileNumber !== "") {
+            errors.mobileNumber = false;
+        }
+        if (gender.trim() === "" || multipleError.gender !== "") {
+            errors.gender = false;
+        }
+        if (email.trim() === "" || multipleError.email !== "") {
+            errors.email = false;
+        }
+
+        const isValid = Object.values(errors).every(value => value === true);
+        return isValid;
+    }
+
     const handleSubmit = () => {
         if (inputValues.firstName.trim() === "" &&
             inputValues.lastName.trim() === "" &&
@@ -103,6 +146,19 @@ const SignUp = () => {
             passwordValues.confirmPassword.trim() === "" &&
             email.trim() === "" && dob === "") {
             setIsAlert(true)
+        } else if (validation()) {
+            const countryCode = selectedCountryCode?.split(' ')[1]
+            const payload = {
+                firstName: inputValues.firstName.trim(),
+                lastName: inputValues.lastName.trim(),
+                email: email.trim(),
+                mobileNo: (countryCode) ? countryCode + mobileNumber : "",
+                dob: dob ? moment(dob).format("YYYY-MM-DD") : null,
+                gender: gender,
+                password: passwordValues.password.trim(),
+                confirmPassword: passwordValues.confirmPassword.trim(),
+            }
+            dispatch(signUp.request(payload))
         }
     };
 
@@ -118,16 +174,17 @@ const SignUp = () => {
         if (isAlert) {
             setTimeout(() => {
                 setIsAlert(false)
-            },2000)
+            }, 2000)
         }
     }, [isAlert])
 
     useEffect(() => {
-        if (success === true && message === "You logged in successfully!") {
+        if (success === true && message === "A new user created successfully!") {
             setIsShow(true)
             setTimeout(() => {
                 setIsShow(false)
-                navigate(paths.GOTODASHBOARD);
+                dispatch(resetSignup());
+                navigate(paths.LOGIN);
             }, 3000)
         }
         if (failure) {
@@ -158,7 +215,7 @@ const SignUp = () => {
             }));
         }
 
-        if (name === "password" || name === "confirmPassword") {
+        if ((name === "password" || name === "confirmPassword") && value.length !== 0) {
             const text = name === "confirmPassword" ? " Confirm Password" : "Password";
             if (value.length < 8) {
                 setMultipleError((prevValues) => ({
@@ -186,7 +243,7 @@ const SignUp = () => {
             }
         }
 
-        if ((name === "firstName" || name === "lastName")) {
+        if ((name === "firstName" || name === "lastName") && value.length !== 0) {
             const text = name === "firstName" ? "first" : "last";
             if (!/^[a-zA-Z]+$/.test(value) || value.length > 10) {
                 setMultipleError((prevValues) => ({

@@ -21,3 +21,9 @@ export const resetTokenAPI = {
         });
     },
 }
+
+export const signUpdAPI = {
+    postSignup: (data) => {
+        return axiosInstance.post(ApiEndpoints.signup.url, data);
+    },
+}

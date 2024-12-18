@@ -10,5 +10,9 @@ export const ApiEndpoints  = Object.freeze({
     resetToken:{
         url: '/auth/reset-password/:token',
         method: "PATCH",
-    }
+    },
+    signup:{
+        url: '/auth/signup',
+        method: "POST",
+    },
 })
