@@ -1,8 +1,15 @@
-import React from 'react'
+import React from 'react';
+import styles from './styles.module.scss';
+import AdminHeader from '../../HOC/Header/Admin/AdminHeader';
 
 const AdminLandingPage = () => {
     return (
-        <div>AdminLandingPage</div>
+        <div className={styles.adminDasboard}>
+            <AdminHeader />
+            <div className={styles.main}>
+layouts
+            </div>
+        </div>
     )
 }
 
