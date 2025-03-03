@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import NavigationMenu from '../../HOC/Header/NavigationMenu';
+import NavigationMenu from '../../HOC/Header/User/NavigationMenu';
 import styles from './styles.module.scss';
 import globalStyle from '../../../styles/globalStyle.module.scss'
 import { useDispatch, useSelector } from 'react-redux';

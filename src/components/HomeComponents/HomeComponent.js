@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import NavigationMenu from '../HOC/Header/NavigationMenu'
+import NavigationMenu from '../HOC/Header/User/NavigationMenu'
 import CarouselMovie from './Carousel/CarouselMovie'
 import TrendingList from './TrendingList/TrendingList'
 import NewRelease from './NewRelease/NewRelease';

@@ -1,18 +1,18 @@
 import React, { useEffect, useRef, useState } from 'react';
 import styles from './style.module.scss';
-import logo from '../../../assets/logo.png';
-import searchIcon from '../../../assets/search.svg';
-import userIcon from '../../../assets/user.svg';
-import { navigation } from '../../../constants/naviagtionList/navigation'
+import logo from '../../../../assets/logo.png';
+import searchIcon from '../../../../assets/search.svg';
+import userIcon from '../../../../assets/user.svg';
+import { navigation } from '../../../../constants/naviagtionList/navigation'
 import { useNavigate } from 'react-router-dom';
-import { isAuthenticated } from '../../../utils/helper';
-import { fetchFromLocalStorage, removeFromLocalStorage } from '../../../utils/localstorage';
-import globalStyle from '../../../styles/globalStyle.module.scss';
-import plusIcon from '../../../assets/plusIcon.svg';
-import starIcon from '../../../assets/star.svg';
-import logoutIcon from '../../../assets/logout.svg';
+import { isAuthenticated } from '../../../../utils/helper';
+import { fetchFromLocalStorage, removeFromLocalStorage } from '../../../../utils/localstorage';
+import globalStyle from '../../../../styles/globalStyle.module.scss';
+import plusIcon from '../../../../assets/plusIcon.svg';
+import starIcon from '../../../../assets/star.svg';
+import logoutIcon from '../../../../assets/logout.svg';
 import { useDispatch } from 'react-redux';
-import { resetLogin } from '../../../store/actions/auth/login.action';
+import { resetLogin } from '../../../../store/actions/auth/login.action';
 
 const NavigationMenu = () => {
   const dispatch = useDispatch();
