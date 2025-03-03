@@ -28,6 +28,7 @@ export default function AppRoutes() {
 
                 < Route element={< AdminRoute />}>
                     <Route path={adminPaths.ADMINDASHBOARD} element={<AdminDashBoard />} />
+                    <Route path={adminPaths.ADMINCREATEMOVIE} element={<AdminDashBoard />} />
                 </Route >
                 <Route path={userPaths.USERDASHBOARD} element={<UserRoute><UserDashboard /></UserRoute>} />
 

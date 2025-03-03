@@ -1,14 +1,16 @@
 import React from "react"
-import { Navigate } from "react-router-dom";
+import { Navigate, Outlet } from "react-router-dom";
 import AdminLayout from "../layouts/AdminLayout"
 import { userType } from "../constants/enums";
 import { getUserRole } from "../utils/helper";
 
-const AdminRoute = ({ children }) => {
+const AdminRoute = () => {
     const user = getUserRole()
     return (
         <>
-            {user === userType.admin ? <AdminLayout children={children} /> :
+            {user === userType.admin ? <AdminLayout>
+                <Outlet />
+            </AdminLayout> :
                 <Navigate to='/login' />
             }
         </>
