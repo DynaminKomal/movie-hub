@@ -7,7 +7,7 @@ import 'react-datepicker/dist/react-datepicker.css';
 import globalStyles from "../../../styles/globalStyle.module.scss";
 import errorIcon from '../../../assets/error.svg';
 
-const DateComponent = ({ name, dob, setdob, label, error, setError }) => {
+const DateComponent = ({ name, dob, setdob, label, error, setError, onKeyDown }) => {
     const currentYear = new Date().getFullYear();
     const fromYear = currentYear - 80;
     const toYear = currentYear - 18;
@@ -79,6 +79,14 @@ const DateComponent = ({ name, dob, setdob, label, error, setError }) => {
         }
     }, [dob]);
 
+    const handleEnterKey = (e)=>{
+        if(e.key === 'Enter'){
+            handleDateBlur();
+            onKeyDown();
+        }
+
+    }
+
     return (
         <div className={styles.dateContainer}>
             <div className={`${styles.labelAndInputContainer} ${error?.length ? globalStyles.failure : ""}`}>
@@ -92,6 +100,7 @@ const DateComponent = ({ name, dob, setdob, label, error, setError }) => {
                         onChange={handleChangeDob}
                         onBlur={handleDateBlur}
                         onFocus={handleDateFocus}
+                        onKeyDown={handleEnterKey}
                     />
                     <DatePicker
                         renderCustomHeader={({ date, changeYear, changeMonth }) => {

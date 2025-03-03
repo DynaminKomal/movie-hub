@@ -271,7 +271,12 @@ const SignUp = () => {
     const handleSelectGender = (value) => {
         setGender(value)
     }
-
+    const handleEnterKeyPressed = (e) => {
+        if (e.key === 'Enter') {
+            handleOnBlur(e);
+            handleSubmit()
+        }
+    }
     return (
         <div className={loading ? `${styles.signUpContainer} ${globalStyle.disabled}` : styles.signUpContainer}>
             <div className={styles.signUpForm}>
@@ -296,6 +301,7 @@ const SignUp = () => {
                                 isPhoneNumber={false}
                                 countryCode={selectedCountryCode}
                                 onCountryCodeChange={handleCountryCodeChange}
+                                onKeyDown={handleEnterKeyPressed}
                             />
                             <InputBox
                                 id="lastName"
@@ -310,6 +316,7 @@ const SignUp = () => {
                                 isPhoneNumber={false}
                                 countryCode={selectedCountryCode}
                                 onCountryCodeChange={handleCountryCodeChange}
+                                onKeyDown={handleEnterKeyPressed}
                             />
                         </div>
                         <div className={styles.row}>
@@ -326,6 +333,7 @@ const SignUp = () => {
                                 isPhoneNumber={false}
                                 countryCode={selectedCountryCode}
                                 onCountryCodeChange={handleCountryCodeChange}
+                                onKeyDown={handleEnterKeyPressed}
                             />
                             <InputBox
                                 id="mobileNumber"
@@ -340,6 +348,7 @@ const SignUp = () => {
                                 isPhoneNumber={true}
                                 countryCode={selectedCountryCode}
                                 onCountryCodeChange={handleCountryCodeChange}
+                                onKeyDown={handleEnterKeyPressed}
                             />
                         </div>
                         <div className={styles.row}>
@@ -350,6 +359,7 @@ const SignUp = () => {
                                 label="Date of Birth *"
                                 error={error}
                                 setError={setError}
+                                onKeyDown={handleEnterKeyPressed}
                             />
 
                             <CustomDropDown
@@ -376,6 +386,7 @@ const SignUp = () => {
                                 isPhoneNumber={false}
                                 countryCode={selectedCountryCode}
                                 onCountryCodeChange={handleCountryCodeChange}
+                                onKeyDown={handleEnterKeyPressed}
                             />
                             <InputBox
                                 id="confirmPassword"
@@ -388,6 +399,7 @@ const SignUp = () => {
                                 onFocus={handleOnFocus}
                                 onBlur={handleOnBlur}
                                 isPhoneNumber={false}
+                                onKeyDown={handleEnterKeyPressed}
                             />
                         </div>
                         <div className={styles.button}>

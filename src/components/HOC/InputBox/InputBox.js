@@ -6,7 +6,7 @@ import eyeIcon from '../../../assets/eyeIcon.svg'
 import eyeSlashIcons from '../../../assets/eye-slash.svg'
 
 const InputBox = (props) => {
-  const { id, name, value, onChange, label, error, onFocus, type, onBlur, isPhoneNumber, countryCode, onCountryCodeChange } = props;
+  const { id, name, value, onChange, label, error, onFocus, type, onBlur, isPhoneNumber, countryCode, onCountryCodeChange , onKeyDown} = props;
   const [inputType, setInputType] = useState(type || 'password');
   const [isFocused, setIsFocused] = useState(false);
   const handleToggleEye = (event) => {
@@ -54,6 +54,7 @@ const InputBox = (props) => {
             onChange={onChange}
             onFocus={handleFocus}
             onBlur={handleBlur}
+            onKeyDown={onKeyDown}
           />
           {(name === "password" || name === "confirmPassword") && <img src={inputType === "text" ? eyeSlashIcons : eyeIcon}
             className={styles.eyeIcon}

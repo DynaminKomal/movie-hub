@@ -26,7 +26,9 @@ export default function AppRoutes() {
                 <Route path={paths.FORGETPASSWORD} element={<ForgetPasswordPage />} />
                 <Route path={paths.RESETTOKEN} element={<ResetTokenPage />} />
 
-                <Route path={adminPaths.ADMINDASHBOARD} element={<AdminRoute><AdminDashBoard /></AdminRoute>} />
+                < Route element={< AdminRoute />}>
+                    <Route path={adminPaths.ADMINDASHBOARD} element={<AdminDashBoard />} />
+                </Route >
                 <Route path={userPaths.USERDASHBOARD} element={<UserRoute><UserDashboard /></UserRoute>} />
 
             </Routes>

@@ -45,12 +45,14 @@ const Login = () => {
                 password: "Your password must contain between 4 and 60 characters."
             });
         } else {
-            const countryCode = selectedCountryCode?.split(' ')[1]
-            const payload = {
-                emailorMobile: (countryCode && isPhoneNumber) ? countryCode + inputValues.emailOrMobile : inputValues.emailOrMobile,
-                password: inputValues.password
+            if (multipleError.emailOrMobile === "" && multipleError.password === "") {
+                const countryCode = selectedCountryCode?.split(' ')[1]
+                const payload = {
+                    emailorMobile: (countryCode && isPhoneNumber) ? countryCode + inputValues.emailOrMobile : inputValues.emailOrMobile,
+                    password: inputValues.password
+                }
+                dispatch(login.request(payload))
             }
-            dispatch(login.request(payload))
         }
     };
 
@@ -156,6 +158,13 @@ const Login = () => {
         }
     }
 
+    const handleEnterKeyPressed = (e) => {
+        if (e.key === 'Enter') {
+            handleOnBlur(e);
+            handleSubmit()
+        }
+    }
+
     return (
         <div className={loading ? `${styles.loginContainer} ${globalStyle.disabled}` : styles.loginContainer}>
             <div className={styles.loginForm}>
@@ -178,6 +187,7 @@ const Login = () => {
                             isPhoneNumber={isPhoneNumber}
                             countryCode={selectedCountryCode}
                             onCountryCodeChange={handleCountryCodeChange}
+                            onKeyDown={handleEnterKeyPressed}
                         />
                         <InputBox
                             id="password"
@@ -189,6 +199,7 @@ const Login = () => {
                             onChange={handleInputValue}
                             onFocus={handleOnFocus}
                             onBlur={handleOnBlur}
+                            onKeyDown={handleEnterKeyPressed}
                         />
                         <div className={styles.forgetPasswordText} >
                             <span onClick={() => handleNavigation('forget')}>Forget Password?</span>

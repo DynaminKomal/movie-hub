@@ -24,7 +24,7 @@ const connectToDatabase = async () => {
 // Start the application
 const startApp = async () => {
     await connectToDatabase();
-    const port = process.env.PORT || 8005;
+    const port = process.env.PORT || 8010;
     app.listen(port, () => {
         console.log(`App running on port: ${port}`);
     });
