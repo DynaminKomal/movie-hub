@@ -1,4 +1,4 @@
-*{
+* {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -18,7 +18,12 @@ body {
   --background-item: #191c33;
 }
 
-h1, h2, h3, p, span, div {
+h1,
+h2,
+h3,
+p,
+span,
+div {
   font-family: 'Metropolitano', sans-serif;
 }
 
@@ -30,4 +35,10 @@ h1, h2, h3, p, span, div {
 
 .react-datepicker__header {
   background-color: white !important;
+}
+
+
+a {
+  text-decoration: none !important;
+  color: unset !important;
 }
