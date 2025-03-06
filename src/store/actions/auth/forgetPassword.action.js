@@ -9,5 +9,7 @@ export const forgetPassword = {
 };
 
 
-export const RESET_FORGET_PASSWORD = "RESET_FORGET_PASSWORD";
-export const resetForgetPassword = (data) => action(RESET_FORGET_PASSWORD, data)
+export const RESET_FORGET_PASSWORD = createRequestTypes("RESET_FORGET_PASSWORD");
+export const resetForgetPassword = {
+    success: (data) => action(RESET_FORGET_PASSWORD, data)
+}

@@ -183,7 +183,7 @@ const SignUp = () => {
             setIsShow(true)
             setTimeout(() => {
                 setIsShow(false)
-                dispatch(resetSignup());
+                dispatch(resetSignup.success());
                 navigate(paths.LOGIN);
             }, 3000)
         }

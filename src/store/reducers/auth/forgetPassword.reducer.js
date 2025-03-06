@@ -13,7 +13,7 @@ const initialState = {
 export default function returnstate(state = initialState, action) {
 
     switch (action.type) {
-        case forgetPassword.RESET_FORGET_PASSWORD:
+        case forgetPassword.RESET_FORGET_PASSWORD.SUCCESS:
             return {
                 ...state,
                 loading: false,

@@ -9,5 +9,7 @@ export const login = {
 };
 
 
-export const RESET_LOGIN = "RESET_LOGIN";
-export const resetLogin = (data) => action(RESET_LOGIN, data)
+export const RESET_LOGIN = createRequestTypes("RESET_LOGIN");
+export const resetLogin = {
+    success: (data) => action(RESET_LOGIN, data)
+}

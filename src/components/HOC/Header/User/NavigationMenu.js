@@ -49,7 +49,7 @@ const NavigationMenu = () => {
   }, []);
 
   const handleLogout = () => {
-    dispatch(resetLogin())
+    dispatch(resetLogin.success())
     removeFromLocalStorage.signout()
     navigate('/login')
   }

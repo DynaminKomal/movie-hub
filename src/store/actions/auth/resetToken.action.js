@@ -9,5 +9,7 @@ export const resetToken = {
 };
 
 
-export const RESET_RESET_TOKEN = "RESET_RESET_TOKEN";
-export const reset_resetToken = (data) => action(RESET_RESET_TOKEN, data)
+export const RESET_RESET_TOKEN = createRequestTypes("RESET_RESET_TOKEN");
+export const reset_resetToken = {
+    success: (data) => action(RESET_RESET_TOKEN, data)
+}

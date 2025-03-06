@@ -13,7 +13,7 @@ const initialState = {
 export default function returnstate(state = initialState, action) {
 
     switch (action.type) {
-        case resetToken.RESET_RESET_TOKEN:
+        case resetToken.RESET_RESET_TOKEN.SUCCESS:
             return {
                 ...state,
                 loading: false,

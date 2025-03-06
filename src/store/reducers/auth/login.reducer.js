@@ -13,7 +13,7 @@ const initialState = {
 export default function returnstate(state = initialState, action) {
 
     switch (action.type) {
-        case login.RESET_LOGIN:
+        case login.RESET_LOGIN.SUCCESS:
             return {
                 ...state,
                 loading: false,
