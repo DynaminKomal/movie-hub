@@ -11,5 +11,5 @@ export const signUp = {
 
 export const RESET_SIGNUP = createRequestTypes("RESET_SIGNUP");
 export const resetSignup = {
-    success: (data) => action(RESET_SIGNUP, data)
+    success: (data) => action(RESET_SIGNUP.SUCCESS, data)
 }

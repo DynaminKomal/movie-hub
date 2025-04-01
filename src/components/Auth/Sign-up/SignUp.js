@@ -156,7 +156,7 @@ const SignUp = () => {
                 dob: dob ? moment(dob).format("YYYY-MM-DD") : null,
                 gender: gender,
                 password: passwordValues.password.trim(),
-                confirmPassword: passwordValues.confirmPassword.trim(),
+                passwordConfirm: passwordValues.confirmPassword.trim(),
             }
             dispatch(signUp.request(payload))
         }
@@ -191,6 +191,7 @@ const SignUp = () => {
             setIsShow(true)
             setTimeout(() => {
                 setIsShow(false)
+                dispatch(resetSignup.success());
             }, 3000)
         }
     }, [success, message, navigate, data])
