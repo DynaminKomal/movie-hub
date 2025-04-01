@@ -67,6 +67,7 @@ const ForgetPassword = () => {
             setIsShow(true)
             setTimeout(() => {
                 setIsShow(false)
+                dispatch(resetForgetPassword.success())
                 setIsClicked(false)
             }, 3000)
         }
