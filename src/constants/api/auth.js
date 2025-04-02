@@ -15,4 +15,8 @@ export const ApiEndpoints  = Object.freeze({
         url: '/auth/signup',
         method: "POST",
     },
+    validateCode:{
+        url: '/auth/code-verify',
+        method: "POST",
+    },
 })

@@ -27,3 +27,9 @@ export const signUpdAPI = {
         return axiosInstance.post(ApiEndpoints.signup.url, data);
     },
 }
+
+export const validateCodeAPI = {
+    postValidateCode: (data) => {
+        return axiosInstance.post(ApiEndpoints.validateCode.url, data);
+    },
+}
