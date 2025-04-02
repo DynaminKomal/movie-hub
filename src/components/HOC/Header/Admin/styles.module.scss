@@ -94,3 +94,9 @@
         }
     }
 }
+
+.active{
+    background: linear-gradient(270deg, rgba(115, 103, 240, 0.7) 0%, #7367f0 100%);
+    box-shadow: 0 .125rem .375rem 0 rgba(115, 103, 240, 0.3);
+    color: white !important;
+}

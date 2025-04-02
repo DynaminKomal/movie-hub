@@ -4,6 +4,7 @@ import { adminNavigation } from '../../../../constants/naviagtionList/adminNavig
 import logo from '../../../../assets/logo-icon.png';
 import toggleIcon from '../../../../assets/toggle.svg';
 import toggleOffIcon from '../../../../assets/toggleOff.svg';
+import { useSelector } from 'react-redux';
 
 const AdminHeader = () => {
     const [isCollapsed, setIsCollapsed] = useState(false);
@@ -11,6 +12,8 @@ const AdminHeader = () => {
     const toggleSidebar = () => {
         setIsCollapsed((prevState) => !prevState);
     };
+
+    const currentPage = useSelector((state) => state.page.currentPage)
 
     return (
         <aside className={`${styles.adminHeader} ${isCollapsed ? styles.collapsed : ''}`}>
@@ -36,7 +39,7 @@ const AdminHeader = () => {
                 {adminNavigation?.map((item) => {
                     return (
                         <li className={styles.nav} key={item.name}>
-                            <a className={styles.navItem}>
+                            <a className={`${styles.navItem} ${currentPage.toLowerCase() === item.name.toLowerCase() ? styles.active : ""}`}>
                                 <img src={item.icon} />
                                 <span>{item.name}</span>
                             </a>
