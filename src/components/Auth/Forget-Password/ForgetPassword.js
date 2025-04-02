@@ -3,7 +3,7 @@ import NavigationMenu from '../../HOC/Header/User/NavigationMenu';
 import styles from './styles.module.scss';
 import globalStyle from '../../../styles/globalStyle.module.scss'
 import { useDispatch, useSelector } from 'react-redux';
-import { forgetPassword, resetForgetPassword } from '../../../store/actions/auth/forgetPassword.action';
+import { forgetPassword, resetForgetPassword } from '../../../store/actions/auth/auth.actions';
 import Alert from '../../HOC/Alert/Alert';
 import lodingIcon from '../../../assets/loding.svg';
 
@@ -11,10 +11,12 @@ const ForgetPassword = () => {
 
     const dispatch = useDispatch();
     const [email, setEmail] = useState("");
+    const [code, setCode] = useState("");
     const [error, setError] = useState("");
     const [isClicked, setIsClicked] = useState(false);
     const forgetPasswordReducer = useSelector((state) => state.auth.forgetPasswordReducer);
     const [isShow, setIsShow] = useState(true)
+    const [isEmailedSent, setIsEmailedSent] = useState(false)
     const { success, failure, message, loading } = forgetPasswordReducer;
 
     const handleOnchange = (e) => {
@@ -53,6 +55,23 @@ const ForgetPassword = () => {
         }
     }
 
+    const handleCode = (e) => {
+        const value = e.target.value;
+
+        if (/^\d{0,6}$/.test(value)) {
+            setCode(value);
+        }
+    }
+
+    const handleVerifyCode = () => {
+        if (code.trim() === "") {
+            setError("Please enter a code.")
+        } else {
+            setIsClicked(true)
+            dispatch(forgetPassword.request({ emailorMobile: email }))
+
+        }
+    }
 
     useEffect(() => {
         if (success === true && message === "Token sent to email") {
@@ -61,6 +80,7 @@ const ForgetPassword = () => {
                 setIsShow(false)
                 setIsClicked(false)
                 dispatch(resetForgetPassword.success())
+                setIsEmailedSent(true);
             }, 3000)
         }
         if (failure) {
@@ -80,20 +100,34 @@ const ForgetPassword = () => {
                 {loading && <div className={globalStyle.loader}>
                     <img src={lodingIcon} alt="Loading icon" className={globalStyle.loadingImg} />
                 </div>}
-                <div className={styles.forgetPopup}>
-                    <div className={styles.forgetBody}>
-                        <h1>Forget Password</h1>
-                        <p>We will send you an email with instructions on how to reset your password.</p>
-                        <div className={`${styles.inputField} ${error.length > 0 ? globalStyle.failure : ""}`}>
-                            <input type="text" value={email} name="email" placeholder='name@example.com' onChange={handleOnchange} onBlur={handleOnBlur} />
-                            <span className={globalStyle.error}>{error}</span>
+                {
+                    (isEmailedSent) ?
+                        <div className={styles.forgetPopup}>
+                            <div className={styles.forgetBody}>
+                                <h1>Verify your email address</h1>
+                                <p>We emailed you a verification code to {email}. Enter code below to confirm your email address.</p>
+                                <div className={`${styles.inputField} ${error.length > 0 ? globalStyle.failure : ""}`}>
+                                    <input type="text" value={code} name="code" onChange={handleCode} onBlur={handleOnBlur} />
+                                    <span className={globalStyle.error}>{error}</span>
+                                </div>
+                                <button className={styles.emailBtn} onClick={handleVerifyCode} disabled={error.length > 0 || isClicked}>Verify</button>
+                            </div>
+                        </div> :
+                        <div className={styles.forgetPopup}>
+                            <div className={styles.forgetBody}>
+                                <h1>Forget Password</h1>
+                                <p>We will send you an email with instructions on how to reset your password.</p>
+                                <div className={`${styles.inputField} ${error.length > 0 ? globalStyle.failure : ""}`}>
+                                    <input type="text" value={email} name="email" placeholder='name@example.com' onChange={handleOnchange} onBlur={handleOnBlur} />
+                                    <span className={globalStyle.error}>{error}</span>
+                                </div>
+                                <button className={styles.emailBtn} onClick={handleForgetEmailRequest} disabled={error.length > 0 || isClicked}>Email Me</button>
+                            </div>
                         </div>
-                        <button className={styles.emailBtn} onClick={handleForgetEmailRequest} disabled={error.length > 0 || isClicked}>Email Me</button>
-                    </div>
-                    {isShow && <Alert
-                        message={message}
-                        type={success === true && failure === false ? "success" : success === false && failure === true ? "fail" : ""} setIsShow={setIsShow} />}
-                </div>
+                }
+                {isShow && <Alert
+                    message={message}
+                    type={success === true && failure === false ? "success" : success === false && failure === true ? "fail" : ""} setIsShow={setIsShow} />}
             </div>
         </div >
     )

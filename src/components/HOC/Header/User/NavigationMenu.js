@@ -12,7 +12,7 @@ import plusIcon from '../../../../assets/plusIcon.svg';
 import starIcon from '../../../../assets/star.svg';
 import logoutIcon from '../../../../assets/logout.svg';
 import { useDispatch } from 'react-redux';
-import { resetLogin } from '../../../../store/actions/auth/login.action';
+import { resetLogin } from '../../../../store/actions/auth/auth.actions';
 
 const NavigationMenu = () => {
   const dispatch = useDispatch();

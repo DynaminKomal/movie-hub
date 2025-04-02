@@ -1,6 +1,6 @@
 import { call, put, takeLatest } from "redux-saga/effects";
 import { forgetPasswordAPI } from "../../../services/auth/index"
-import { forgetPassword, FORGET_PASSWORD } from "../../actions/auth/forgetPassword.action"
+import { forgetPassword, FORGET_PASSWORD } from "../../actions/auth/auth.actions"
 
 function* handleForgetPassword(action) {
     try {

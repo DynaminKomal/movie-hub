@@ -3,17 +3,15 @@ import styles from './styles.module.scss';
 import InputBox from '../../HOC/InputBox/InputBox';
 import Button from '../../HOC/Button/Button';
 import { useDispatch, useSelector } from 'react-redux';
-import { login } from '../../../store/actions/auth/login.action'
 import { useNavigate } from 'react-router-dom';
 import { paths } from '../../../constants/paths/common';
 import Alert from '../../HOC/Alert/Alert';
-import { signout } from '../../../utils/localstorage';
 import lodingIcon from '../../../assets/loding.svg';
 import globalStyle from '../../../styles/globalStyle.module.scss';
 import CustomDropDown from '../../HOC/DropDown/CustomDropDown';
 import DateComponent from '../../HOC/UI/DateComponent';
 import moment from 'moment'
-import { resetSignup, signUp } from '../../../store/actions/auth/signup.action';
+import { resetSignup, signUp } from '../../../store/actions/auth/auth.actions';
 
 
 const SignUp = () => {

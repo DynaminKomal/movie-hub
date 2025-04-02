@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import NavigationMenu from '../../HOC/Header/User/NavigationMenu';
 import styles from './styles.module.scss';
 import { useDispatch, useSelector } from 'react-redux';
-import { resetToken } from '../../../store/actions/auth/resetToken.action';
+import { resetToken } from '../../../store/actions/auth/auth.actions';
 import { useNavigate, useParams } from 'react-router-dom';
 import { paths } from '../../../constants/paths/common';
 import Alert from '../../HOC/Alert/Alert';

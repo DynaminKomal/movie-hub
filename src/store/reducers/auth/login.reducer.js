@@ -1,4 +1,4 @@
-import * as login from '../../actions/auth/login.action'
+import * as authActions from '../../actions/auth/auth.actions'
 
 const initialState = {
     loading: false,
@@ -13,7 +13,7 @@ const initialState = {
 export default function returnstate(state = initialState, action) {
 
     switch (action.type) {
-        case login.RESET_LOGIN.SUCCESS:
+        case authActions.RESET_LOGIN.SUCCESS:
             return {
                 ...state,
                 loading: false,
@@ -24,14 +24,14 @@ export default function returnstate(state = initialState, action) {
                 message: '',
                 data: []
             };
-        case login.LOGIN.REQUEST:
+        case authActions.LOGIN.REQUEST:
             return {
                 ...state,
                 loading: true,
                 success: false,
                 failure: false,
             };
-        case login.LOGIN.SUCCESS:
+        case authActions.LOGIN.SUCCESS:
             return {
                 ...state,
                 loading: false,
@@ -43,7 +43,7 @@ export default function returnstate(state = initialState, action) {
                 data: action.payload.data
             };
 
-        case login.LOGIN.FAILURE:
+        case authActions.LOGIN.FAILURE:
             return {
                 ...state,
                 loading: false,

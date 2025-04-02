@@ -1,4 +1,4 @@
-import * as authActions from '../../actions/auth/auth.actions'
+import * as authAction from '../../actions/auth/auth.actions'
 
 const initialState = {
     loading: false,
@@ -13,7 +13,7 @@ const initialState = {
 export default function returnstate(state = initialState, action) {
 
     switch (action.type) {
-        case authActions.RESET_RESET_TOKEN.SUCCESS:
+        case authAction.RESET_VALIDATE_CODE.SUCCESS:
             return {
                 ...state,
                 loading: false,
@@ -24,14 +24,14 @@ export default function returnstate(state = initialState, action) {
                 message: '',
                 data: []
             };
-        case authActions.RESET_TOKEN.REQUEST:
+        case authAction.VALIDATE_CODE.REQUEST:
             return {
                 ...state,
                 loading: true,
                 success: false,
                 failure: false,
             };
-        case authActions.RESET_TOKEN.SUCCESS:
+        case authAction.VALIDATE_CODE.SUCCESS:
             return {
                 ...state,
                 loading: false,
@@ -43,7 +43,7 @@ export default function returnstate(state = initialState, action) {
                 data: action.payload.data
             };
 
-        case authActions.RESET_TOKEN.FAILURE:
+        case authAction.VALIDATE_CODE.FAILURE:
             return {
                 ...state,
                 loading: false,

@@ -1,4 +1,4 @@
-import * as forgetPassword from '../../actions/auth/forgetPassword.action'
+import * as authActions from '../../actions/auth/auth.actions'
 
 const initialState = {
     loading: false,
@@ -13,7 +13,7 @@ const initialState = {
 export default function returnstate(state = initialState, action) {
 
     switch (action.type) {
-        case forgetPassword.RESET_FORGET_PASSWORD.SUCCESS:
+        case authActions.RESET_FORGET_PASSWORD.SUCCESS:
             return {
                 ...state,
                 loading: false,
@@ -24,14 +24,14 @@ export default function returnstate(state = initialState, action) {
                 message: '',
                 data: []
             };
-        case forgetPassword.FORGET_PASSWORD.REQUEST:
+        case authActions.FORGET_PASSWORD.REQUEST:
             return {
                 ...state,
                 loading: true,
                 success: false,
                 failure: false,
             };
-        case forgetPassword.FORGET_PASSWORD.SUCCESS:
+        case authActions.FORGET_PASSWORD.SUCCESS:
             return {
                 ...state,
                 loading: false,
@@ -43,7 +43,7 @@ export default function returnstate(state = initialState, action) {
                 data: action.payload.data
             };
 
-        case forgetPassword.FORGET_PASSWORD.FAILURE:
+        case authActions.FORGET_PASSWORD.FAILURE:
             return {
                 ...state,
                 loading: false,

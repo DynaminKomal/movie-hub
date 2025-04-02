@@ -1,6 +1,6 @@
 import { call, put, takeLatest } from "redux-saga/effects";
 import { loginAPI } from "../../../services/auth/index"
-import { login, LOGIN } from "../../actions/auth/login.action"
+import { login, LOGIN } from "../../actions/auth/auth.actions"
 import { saveAuthToken, storeInLocalStorage } from "../../../utils/localstorage";
 
 function* handleLogin(action) {

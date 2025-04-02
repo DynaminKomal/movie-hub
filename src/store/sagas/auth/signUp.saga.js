@@ -1,6 +1,6 @@
 import { call, put, takeLatest } from "redux-saga/effects";
 import { signUpdAPI } from "../../../services/auth/index"
-import { signUp, SIGNUP } from "../../actions/auth/signup.action"
+import { signUp, SIGNUP } from "../../actions/auth/auth.actions"
 
 function* handleSignup(action) {
     try {

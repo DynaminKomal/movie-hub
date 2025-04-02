@@ -1,6 +1,6 @@
 import { call, put, takeLatest } from "redux-saga/effects";
 import { resetTokenAPI } from "../../../services/auth/index"
-import { resetToken, RESET_TOKEN } from "../../actions/auth/resetToken.action"
+import { resetToken, RESET_TOKEN } from "../../actions/auth/auth.actions"
 import { saveAuthToken, storeInLocalStorage } from "../../../utils/localstorage";
 
 function* handleResetToken(action) {
