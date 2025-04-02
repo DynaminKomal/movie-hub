@@ -55,8 +55,8 @@ const resetPassword = grasp(async (req, res, next) => {
     try {
         const schema = Joi.object({
             emailorMobile: Joi.string().required(),
-            password: Joi.string().required(),
-            passwordConfirm: Joi.string().required(),
+            newPassword: Joi.string().required(),
+            confirmPassword: Joi.string().required(),
         })
         req.body = await schema.validateAsync(req.body)
         next();

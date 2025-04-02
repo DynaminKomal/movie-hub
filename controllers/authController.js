@@ -122,8 +122,8 @@ const verifyResetToken = grasp(async (req, res) => {
 
     try {
         const userHistory = await UserHistory.find({ userEmailorMobile: emailorMobile })
-            .sort({ "passwordResetExpire": -1 }) 
-            .limit(1)  
+            .sort({ "passwordResetExpire": -1 })
+            .limit(1)
             .exec();
 
         if (!userHistory || userHistory.length === 0) {
@@ -140,7 +140,7 @@ const verifyResetToken = grasp(async (req, res) => {
         const currentTimeInUTC = new Date(currentTime.toISOString());
 
         if (currentTimeInUTC > latestUserHistory.passwordResetExpire) {
-            return sendResponse(res, 401, "fail", "Code has expired.");
+            return sendResponse(res, 401, "fail", "Verification Code has expired.");
         }
 
         return sendResponse(res, 200, "success", "Code is valid. You can now reset your password.");
@@ -158,29 +158,34 @@ const resetPassword = grasp(async (req, res) => {
         if (newPassword !== confirmPassword) {
             return sendResponse(res, 400, "fail", "Passwords do not match.");
         }
-        const userHistory = await UserHistory.findOne({ userEmailorMobile: emailorMobile });
+        const userHistory = await UserHistory.find({ userEmailorMobile: emailorMobile })
+            .sort({ "passwordResetExpire": -1 })
+            .limit(1)
+            .exec();
 
         if (!userHistory) {
             return sendResponse(res, 404, "fail", "No reset request found.");
         }
+        const latestUserHistory = userHistory[0];
+        const currentTime = new Date();
+        const currentTimeInUTC = new Date(currentTime.toISOString());
 
+        if (currentTimeInUTC > latestUserHistory.passwordResetExpire) {
+            return sendResponse(res, 401, "fail", "Verification Code has expired.");
+        }
         const user = await User.findOne({ email: emailorMobile }) || await User.findOne({ mobileNo: emailorMobile });
 
         if (!user) {
             return sendResponse(res, 404, "fail", "User not found.");
         }
 
-        // Hash the new password before saving
-        user.password = await hashPassword(newPassword);
+        user.password = newPassword;
+        user.passwordConfirm = confirmPassword;
         await user.save();
-
-        // Clear the reset token and expiration time from the user history
-        userHistory.passwordResetToken = undefined;
-        userHistory.passwordResetExpire = undefined;
-        await userHistory.save({ validateBeforeSave: false });
 
         return sendResponse(res, 200, "success", "Password has been successfully updated.");
     } catch (error) {
+        console.log("error", error)
         handleError(res, error);
     }
 });
