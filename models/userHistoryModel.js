@@ -9,12 +9,11 @@ const userHistorySchema = new mongoose.Schema({
 })
 
 userHistorySchema.methods.createPasswordResetToken = async function () {
-    const resetToken = crypto.randomBytes(32).toString('hex');
-    this.passwordResetToken = crypto.createHash('sha256').update(resetToken).
-        digest('hex');
+    const validationCode = Math.floor(100000 + Math.random() * 900000).toString();
+    this.passwordResetToken = validationCode
 
     this.passwordResetExpire = Date.now() + 10 * 60 * 1000;
-    return resetToken;
+    return validationCode;
 }
 
 const UserHistory = mongoose.model('User-History', userHistorySchema);

@@ -92,14 +92,12 @@ const forgetPassword = grasp(async (req, res) => {
         const userHistory = new UserHistory({ userEmailorMobile: emailorMobile });
         const resetToken = await userHistory.createPasswordResetToken();
         await userHistory.save();
-        const resetUrl = `${process.env.BASE_URL}/reset-password/${resetToken}`;
-        const message = `<h4>Reset Password</h4>
-                        <p>A password reset event has been triggered. The password reset window is limited to 10 minutes.</p>
-                        <p>If you do not reset your password within 10 minutes, you will need to submit a new request.</p>
-                        <p> To complete the password reset process, visit the following link:</p>
-                        <p><a href="${resetUrl}">${resetUrl}</a></p>
-                        <p>Username <a href="mailto:${user.userName}">${user.userName}</a></p>
-                        <p>Request Timestamp ${formattedTimestamp}</p>`;
+        const message = `<h4>Password Reset Validation</h4>
+                        <p>A password reset event has been triggered. The validation code is valid for 10 minutes.</p>
+                        <p>If you do not use the code within 10 minutes, you will need to submit a new request.</p>
+                        <p>Validation Code: <strong>${resetToken}</strong></p>
+                        <p>Username: <a href="mailto:${user.userName}">${user.userName}</a></p>
+                        <p>Request Timestamp: ${formattedTimestamp}</p>`;
 
         try {
             await sendEmail({

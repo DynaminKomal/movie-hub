@@ -140,10 +140,6 @@ userSchema.methods.changePassword = async function (JWTTimestamp) {
     return false;
 }
 
-// userSchema.methods.createPasswordResetToken = async function () {
-//     const resetToken = crypto.randomBytes(32).toString('hex');
-//     crypto.createHash('sha256').update(resetToken).digest('hex');
-// }
 
 const User = mongoose.model('Users', userSchema);
 
