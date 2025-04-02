@@ -11,10 +11,9 @@ function* handleResetToken(action) {
             yield put(resetToken.success({
                 status: resData?.status,
                 message: resData?.message,
-                data: data?.data,
+                data: resData?.data,
                 statusCode: resData?.statusCode
             }));
-            console.log("data.data", data.data)
             //storing the data in localstore after login apin success
             storeInLocalStorage.storeFirstName(data.data.firstName);
             storeInLocalStorage.storeEmail(data.data.email);
@@ -34,7 +33,7 @@ function* handleResetToken(action) {
         yield put(resetToken.failure({
             status: resData?.status,
             message: resData?.message,
-            data: resData?.data?.data,
+            data: resData?.data,
             statusCode: resData?.statusCode
         }));
     }

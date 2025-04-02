@@ -1,6 +1,7 @@
 import { call, put, takeLatest } from "redux-saga/effects";
 import { forgetPasswordAPI } from "../../../services/auth/index"
 import { forgetPassword, FORGET_PASSWORD } from "../../actions/auth/auth.actions"
+import { storeInLocalStorage } from "../../../utils/localstorage";
 
 function* handleForgetPassword(action) {
     try {
@@ -12,6 +13,7 @@ function* handleForgetPassword(action) {
             data: data?.data,
             statusCode: resData?.statusCode
         }));
+        storeInLocalStorage.storeVerificationCode(true);
 
     } catch (e) {
         const { data: resData } = e

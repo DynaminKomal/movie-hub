@@ -179,13 +179,18 @@ const resetPassword = grasp(async (req, res) => {
             return sendResponse(res, 404, "fail", "User not found.");
         }
 
+        const token = getToken(user._id, user.userType)
+        const userData = {
+            token: token,
+            data: user
+        }
+
         user.password = newPassword;
         user.passwordConfirm = confirmPassword;
         await user.save();
 
-        return sendResponse(res, 200, "success", "Password has been successfully updated.");
+        return sendResponse(res, 200, "success", "Password has been successfully updated.", userData);
     } catch (error) {
-        console.log("error", error)
         handleError(res, error);
     }
 });

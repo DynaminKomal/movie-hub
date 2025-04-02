@@ -13,7 +13,7 @@ userHistorySchema.methods.createPasswordResetToken = async function () {
     this.passwordResetToken = validationCode;
 
     const localTime = new Date();  
-    localTime.setMinutes(localTime.getMinutes() + 10);
+    localTime.setMinutes(localTime.getMinutes() + 30);
     this.passwordResetExpire = localTime; 
     return validationCode;
 };

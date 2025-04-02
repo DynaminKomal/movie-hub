@@ -22,6 +22,9 @@ export const storeInLocalStorage = {
   storeUserType: (userType) => {
     localStorage.setItem("user_type", userType)
   },
+  storeVerificationCode: (isCode) => {
+    localStorage.setItem("isCodeGenerate", isCode)
+  },
 }
 
 export const saveAuthToken = (token) => {

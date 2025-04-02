@@ -3,10 +3,12 @@ import NavigationMenu from '../../HOC/Header/User/NavigationMenu';
 import styles from './styles.module.scss';
 import globalStyle from '../../../styles/globalStyle.module.scss'
 import { useDispatch, useSelector } from 'react-redux';
-import { forgetPassword, resetForgetPassword } from '../../../store/actions/auth/auth.actions';
+import { forgetPassword, resetForgetPassword, resetValidateCode, validateCode } from '../../../store/actions/auth/auth.actions';
 import Alert from '../../HOC/Alert/Alert';
 import lodingIcon from '../../../assets/loding.svg';
-import { storeInLocalStorage } from '../../../utils/localstorage';
+import { fetchFromLocalStorage, removeDataFromLocalStorage, storeInLocalStorage } from '../../../utils/localstorage';
+import { useNavigate } from 'react-router-dom';
+import { paths } from '../../../constants/paths/common';
 
 const ForgetPassword = () => {
 
@@ -16,9 +18,16 @@ const ForgetPassword = () => {
     const [error, setError] = useState("");
     const [isClicked, setIsClicked] = useState(false);
     const forgetPasswordReducer = useSelector((state) => state.auth.forgetPasswordReducer);
+    const verificationCodeLoading = useSelector((state) => state.auth.validateCodeReducer.loading);
+    const verificationCodeSuccess = useSelector((state) => state.auth.validateCodeReducer.success);
+    const verificationCodeFailure = useSelector((state) => state.auth.validateCodeReducer.failure);
+    const verificationCodeMessage = useSelector((state) => state.auth.validateCodeReducer.message);
     const [isShow, setIsShow] = useState(true)
-    const [isEmailedSent, setIsEmailedSent] = useState(false)
+    const [isShowVerify, setIsShowVerify] = useState(true)
+    const isCodeGenerate = fetchFromLocalStorage("isCodeGenerate");
+    const getEmail = fetchFromLocalStorage("user_email");
     const { success, failure, message, loading } = forgetPasswordReducer;
+    const navigate = useNavigate()
 
     const handleOnchange = (e) => {
         const { value } = e.target;
@@ -70,7 +79,7 @@ const ForgetPassword = () => {
             setError("Please enter a code.")
         } else {
             setIsClicked(true)
-            dispatch(forgetPassword.request({ emailorMobile: email }))
+            dispatch(validateCode.request({ emailorMobile: getEmail, resetToken: code }))
 
         }
     }
@@ -81,8 +90,7 @@ const ForgetPassword = () => {
             setTimeout(() => {
                 setIsShow(false)
                 setIsClicked(false)
-                dispatch(resetForgetPassword.success())
-                setIsEmailedSent(true);
+                dispatch(resetForgetPassword.success());
             }, 3000)
         }
         if (failure) {
@@ -95,19 +103,45 @@ const ForgetPassword = () => {
         }
     }, [success, message, failure])
 
+    // this is for verification code
+    useEffect(() => {
+        if (verificationCodeSuccess === true && verificationCodeMessage === "Code is valid. You can now reset your password.") {
+            setIsShowVerify(true)
+            removeDataFromLocalStorage("isCodeGenerate")
+            setTimeout(() => {
+                setIsShowVerify(false)
+                setIsClicked(false)
+                dispatch(resetValidateCode.success());
+                navigate(paths.RESETTOKEN)
+            }, 3000)
+        }
+        if (verificationCodeFailure) {
+            if (verificationCodeMessage === "Verification Code has expired.") {
+                removeDataFromLocalStorage("isCodeGenerate")
+            }
+            setIsShowVerify(true)
+            setTimeout(() => {
+                setIsShowVerify(false)
+                dispatch(resetValidateCode.success())
+                setIsClicked(false)
+            }, 3000)
+
+        }
+    }, [verificationCodeSuccess, verificationCodeMessage, verificationCodeFailure])
+
     return (
         <div className={styles.forgetPasswordContainer}>
             <NavigationMenu />
-            <div className={loading ? `${styles.popupContainer} ${globalStyle.disabled}` : styles.popupContainer}>
-                {loading && <div className={globalStyle.loader}>
+            <div className={(loading || verificationCodeLoading) ? `${styles.popupContainer} ${globalStyle.disabled}` : styles.popupContainer}>
+                {(loading || verificationCodeLoading) && <div className={globalStyle.loader}>
                     <img src={lodingIcon} alt="Loading icon" className={globalStyle.loadingImg} />
                 </div>}
                 {
-                    (isEmailedSent) ?
+                    (isCodeGenerate) ?
                         <div className={styles.forgetPopup}>
                             <div className={styles.forgetBody}>
                                 <h1>Verify your email address</h1>
-                                <p>We emailed you a verification code to {email}. Enter code below to confirm your email address.</p>
+                                <p>We emailed you a verification code to {getEmail}. Enter code below to confirm your email address.</p>
                                 <div className={`${styles.inputField} ${error.length > 0 ? globalStyle.failure : ""}`}>
                                     <input type="text" value={code} name="code" onChange={handleCode} onBlur={handleOnBlur} />
                                     <span className={globalStyle.error}>{error}</span>
@@ -129,7 +163,16 @@ const ForgetPassword = () => {
                 }
                 {isShow && <Alert
                     message={message}
-                    type={success === true && failure === false ? "success" : success === false && failure === true ? "fail" : ""} setIsShow={setIsShow} />}
+                    type={success === true && failure === false ? "success"
+                        : success === false && failure === true ? "fail" : ""}
+                    setIsShow={setIsShow} />
+                }
+                {isShowVerify && <Alert
+                    message={verificationCodeMessage}
+                    type={verificationCodeSuccess === true && verificationCodeFailure === false ?
+                        "success" : verificationCodeSuccess === false && verificationCodeFailure === true
+                            ? "fail" : ""} setIsShow={setIsShow} />
+                }
             </div>
         </div >
     )

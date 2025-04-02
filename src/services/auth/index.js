@@ -15,10 +15,7 @@ export const forgetPasswordAPI = {
 
 export const resetTokenAPI = {
     patchResetToken: (data) => {
-        return axiosInstance.patch(ApiEndpoints.resetToken.url.replace(':token', data.token), {
-            password: data.password,
-            passwordConfirm: data.confirmPassword
-        });
+        return axiosInstance.patch(ApiEndpoints.resetToken.url, data);
     },
 }
 
@@ -30,6 +27,7 @@ export const signUpdAPI = {
 
 export const validateCodeAPI = {
     postValidateCode: (data) => {
+        console.log("data", data)
         return axiosInstance.post(ApiEndpoints.validateCode.url, data);
     },
 }

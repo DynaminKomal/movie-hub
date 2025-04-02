@@ -3,23 +3,23 @@ import NavigationMenu from '../../HOC/Header/User/NavigationMenu';
 import styles from './styles.module.scss';
 import { useDispatch, useSelector } from 'react-redux';
 import { resetToken } from '../../../store/actions/auth/auth.actions';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { paths } from '../../../constants/paths/common';
 import Alert from '../../HOC/Alert/Alert';
 import lodingIcon from '../../../assets/loding.svg';
 import globalStyle from '../../../styles/globalStyle.module.scss'
 import InputBox from '../../HOC/InputBox/InputBox';
+import { fetchFromLocalStorage, removeDataFromLocalStorage } from '../../../utils/localstorage';
 
 const ResetToken = () => {
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const params = useParams();
-    const { token } = params;
     const [isShow, setIsShow] = useState(true)
     const resetPasswordReducer = useSelector((state) => state.auth.resetTokenReducer)
-    const { success, failure, message, loading } = resetPasswordReducer
+    const { success, failure, message, loading } = resetPasswordReducer;
 
+    const getEmail = fetchFromLocalStorage("user_email");
     const [inputValues, setInputValues] = useState({
         password: "", confirmPassword: ""
     })
@@ -96,8 +96,8 @@ const ResetToken = () => {
         }
         else {
             const payload = {
-                token: token,
-                password: inputValues.password,
+                emailorMobile: getEmail,
+                newPassword: inputValues.password,
                 confirmPassword: inputValues.confirmPassword,
             }
             setIsDisabled(true);
@@ -115,14 +115,18 @@ const ResetToken = () => {
     }, [multipleError])
 
     useEffect(() => {
-        if (success === true && message === "You logged in successfully!") {
+        if (success === true && message === "Password has been successfully updated.") {
             setIsShow(true)
+            removeDataFromLocalStorage("isCodeGenerate")
             navigate(paths.GOTODASHBOARD)
             setIsShow(false)
             setIsDisabled(false)
 
         }
         if (failure) {
+            if (failure === "Verification Code has expired.") {
+                removeDataFromLocalStorage("isCodeGenerate")
+            }
             setIsShow(true)
             setTimeout(() => {
                 setIsShow(false)
@@ -132,7 +136,7 @@ const ResetToken = () => {
     }, [success, message, failure])
 
     return (
-        <div className={loading ? `${styles.resetTokenContainer} ${globalStyle.disabled}`: styles.resetTokenContainer}>
+        <div className={loading ? `${styles.resetTokenContainer} ${globalStyle.disabled}` : styles.resetTokenContainer}>
             <NavigationMenu />
             <div className={styles.popupContainer}>
                 {loading && <div className={globalStyle.loader}>
