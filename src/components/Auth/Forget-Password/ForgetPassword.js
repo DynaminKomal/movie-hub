@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { forgetPassword, resetForgetPassword } from '../../../store/actions/auth/auth.actions';
 import Alert from '../../HOC/Alert/Alert';
 import lodingIcon from '../../../assets/loding.svg';
+import { storeInLocalStorage } from '../../../utils/localstorage';
 
 const ForgetPassword = () => {
 
@@ -50,6 +51,7 @@ const ForgetPassword = () => {
             setError("Please enter a valid email address.")
         } else if (isEmailValid()) {
             setIsClicked(true)
+            storeInLocalStorage.storeEmail(email);
             dispatch(forgetPassword.request({ emailorMobile: email }))
 
         }

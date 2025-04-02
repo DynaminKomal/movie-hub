@@ -117,58 +117,80 @@ const forgetPassword = grasp(async (req, res) => {
     }
 });
 
-const resetPassword = grasp(async (req, res) => {
+const verifyResetToken = grasp(async (req, res) => {
+    const { emailorMobile, resetToken } = req.body;
+
     try {
-        const { password, passwordConfirm } = req.body;
-        //Get user based token
-        const hashedToken = crypto.createHash('sha256')
-            .update(req.params.token).digest('hex');
-        //check token exist and token not expired
-        const user = await UserHistory.findOne({
-            passwordResetToken: hashedToken,
-            passwordResetExpire: { $gt: Date.now() }
-        })
-        if (!user) {
-            return sendResponse(res, 400, "fail", "Invalid Token or has expired.")
-        }
-        let userExist;
-        const isPhoneNumber = /^[0-9+]+$/.test(user.userEmailorMobile);
-        if (isPhoneNumber) {
-            const extractedPhoneNo = await User.extractMobileNumber(user.userEmailorMobile)
-            const { countryCallingCode, nationalNumber } = extractedPhoneNo;
+        const userHistory = await UserHistory.find({ userEmailorMobile: emailorMobile })
+            .sort({ "passwordResetExpire": -1 }) 
+            .limit(1)  
+            .exec();
 
-            userExist = await User.findOne({ mobileNo: nationalNumber, countryCode: countryCallingCode });
-
+        if (!userHistory || userHistory.length === 0) {
+            return sendResponse(res, 404, "fail", "No reset request found.");
         }
-        else {
-            userExist = await User.findOne({ email: user.userEmailorMobile });
-        }
-        if (!userExist) {
-            return sendResponse(res, 401, "fail", "User does not exist.");
-        }
-        // set new password
-        userExist.password = password;
-        userExist.passwordConfirm = passwordConfirm;
-        await userExist.save()
 
+        const latestUserHistory = userHistory[0];
 
-        const token = getToken(userExist._id, userExist.userType)
-        const userData = {
-            token: token,
-            data: userExist
+        if (latestUserHistory.passwordResetToken !== resetToken) {
+            return sendResponse(res, 401, "fail", "Invalid reset token.");
         }
-        sendResponse(res, 200, "success", "You logged in successfully!", userData);
 
-    } catch (err) {
-        console.log("err", err)
-        handleError(res, err);
+        const currentTime = new Date();
+        const currentTimeInUTC = new Date(currentTime.toISOString());
+
+        if (currentTimeInUTC > latestUserHistory.passwordResetExpire) {
+            return sendResponse(res, 401, "fail", "Code has expired.");
+        }
+
+        return sendResponse(res, 200, "success", "Code is valid. You can now reset your password.");
+    } catch (error) {
+        handleError(res, error);
     }
-})
+});
+
+
+
+const resetPassword = grasp(async (req, res) => {
+    const { emailorMobile, newPassword, confirmPassword } = req.body;
+
+    try {
+        if (newPassword !== confirmPassword) {
+            return sendResponse(res, 400, "fail", "Passwords do not match.");
+        }
+        const userHistory = await UserHistory.findOne({ userEmailorMobile: emailorMobile });
+
+        if (!userHistory) {
+            return sendResponse(res, 404, "fail", "No reset request found.");
+        }
+
+        const user = await User.findOne({ email: emailorMobile }) || await User.findOne({ mobileNo: emailorMobile });
+
+        if (!user) {
+            return sendResponse(res, 404, "fail", "User not found.");
+        }
+
+        // Hash the new password before saving
+        user.password = await hashPassword(newPassword);
+        await user.save();
+
+        // Clear the reset token and expiration time from the user history
+        userHistory.passwordResetToken = undefined;
+        userHistory.passwordResetExpire = undefined;
+        await userHistory.save({ validateBeforeSave: false });
+
+        return sendResponse(res, 200, "success", "Password has been successfully updated.");
+    } catch (error) {
+        handleError(res, error);
+    }
+});
+
 
 
 module.exports = {
     login,
     signup,
     forgetPassword,
-    resetPassword
+    resetPassword,
+    verifyResetToken
 }

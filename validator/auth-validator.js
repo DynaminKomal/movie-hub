@@ -51,12 +51,26 @@ const forgetPassword = grasp(async (req, res, next) => {
     }
 })
 
-
 const resetPassword = grasp(async (req, res, next) => {
     try {
         const schema = Joi.object({
+            emailorMobile: Joi.string().required(),
             password: Joi.string().required(),
             passwordConfirm: Joi.string().required(),
+        })
+        req.body = await schema.validateAsync(req.body)
+        next();
+
+    } catch (error) {
+        handleError(res, error)
+    }
+})
+
+const verifyResetToken = grasp(async (req, res, next) => {
+    try {
+        const schema = Joi.object({
+            emailorMobile: Joi.string().required(),
+            resetToken: Joi.string().required(),
         })
         req.body = await schema.validateAsync(req.body)
         next();
@@ -70,5 +84,6 @@ module.exports = {
     login,
     signup,
     forgetPassword,
-    resetPassword
+    resetPassword,
+    verifyResetToken
 }

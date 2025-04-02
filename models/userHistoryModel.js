@@ -10,11 +10,14 @@ const userHistorySchema = new mongoose.Schema({
 
 userHistorySchema.methods.createPasswordResetToken = async function () {
     const validationCode = Math.floor(100000 + Math.random() * 900000).toString();
-    this.passwordResetToken = validationCode
+    this.passwordResetToken = validationCode;
 
-    this.passwordResetExpire = Date.now() + 10 * 60 * 1000;
+    const localTime = new Date();  
+    localTime.setMinutes(localTime.getMinutes() + 10);
+    this.passwordResetExpire = localTime; 
     return validationCode;
-}
+};
+
 
 const UserHistory = mongoose.model('User-History', userHistorySchema);
 

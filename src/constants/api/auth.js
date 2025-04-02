@@ -16,7 +16,7 @@ export const ApiEndpoints  = Object.freeze({
         method: "POST",
     },
     validateCode:{
-        url: '/auth/code-verify',
+        url: '/auth/verify-token',
         method: "POST",
     },
 })
