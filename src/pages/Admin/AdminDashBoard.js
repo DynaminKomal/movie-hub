@@ -1,9 +1,8 @@
-import React from 'react'
-import AdminLandingPage from '../../components/Admin/AdminLandingPage/AdminLandingPage'
+import React from 'react';
 
 const AdminDashBoard = () => {
   return (
-    <AdminLandingPage />
+    <>Admin dashboard</>
   )
 }
 
