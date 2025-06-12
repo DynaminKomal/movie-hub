@@ -18,7 +18,7 @@ const SignUp = () => {
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const signupRedcuer = useSelector((state) => state.auth.signupRedcuer)
+    const signupRedcuer = useSelector((state) => state.auth.signupReducer)
     const { success, message, failure, data, loading } = signupRedcuer;
     const [isShow, setIsShow] = useState(false);
     const [error, setError] = useState("");
