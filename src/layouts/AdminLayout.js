@@ -11,7 +11,7 @@ const AdminLayout = (props) => {
         <div className={styles.sideBarWrapper}>
           <SideBar />
         </div>
-        <div className="content">
+        <div className={styles.content}>
           {props.children}
         </div>
       </div>
