@@ -191,8 +191,29 @@
     visibility: hidden;
 }
 
-.scroll{
+.scroll {
     max-height: 300px;
     overflow-y: auto;
     overflow-x: hidden
+}
+
+
+.notificationBtn {
+    background-color: #7367f0 !important;
+}
+
+.bellIcon {
+    position: relative;
+
+    &:after {
+        position: absolute;
+        border-radius: 100%;
+        block-size: calc(2.5rem * .2);
+        box-shadow: 0 0 0 2px #fff;
+        content: "";
+        inline-size: calc(2.5rem * .2);
+        top: -1px;
+        right: -2.1px;
+        background-color: rgba(255, 76, 81, 1) !important
+    }
 }

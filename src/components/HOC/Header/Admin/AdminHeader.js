@@ -1,7 +1,6 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import styles from './styles.module.scss';
 import logo from '../../../../assets/logo-icon.png';
-import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import Button from '@mui/material/Button';
 import { MdMenuOpen } from "react-icons/md";
@@ -9,7 +8,6 @@ import { IoSearch } from "react-icons/io5";
 import { FaRegBell } from "react-icons/fa6";
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
-import Avatar from '@mui/material/Avatar';
 import Divider from '@mui/material/Divider';
 import Settings from '@mui/icons-material/Settings';
 import Logout from '@mui/icons-material/Logout';
@@ -24,7 +22,7 @@ const AdminHeader = () => {
     const open = Boolean(anchorEl);
     const openNotification = Boolean(anchorNotificationEl);
 
-    const currentPage = useSelector((state) => state.page.currentPage);
+    // const currentPage = useSelector((state) => state.page.currentPage);
 
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget);
@@ -76,7 +74,9 @@ const AdminHeader = () => {
                                 aria-expanded={openNotification ? 'true' : undefined}
                                 onClick={handleNotificationClick}
                             >
-                                <FaRegBell />
+                                <div className={styles.bellIcon}>
+                                    <FaRegBell />
+                                </div>
                             </Button>
                             <Menu
                                 id="notification-menu"
@@ -273,6 +273,11 @@ const AdminHeader = () => {
                                         </div>
                                     </MenuItem>
                                 </div>
+                                <Divider />
+                                <div className='d-flex align-items-center justify-content-center pt-2'>
+                                    <Button className={`text-white ${styles.notificationBtn}`}>View all notification</Button>
+                                </div>
+
 
                             </Menu>
                         </div>
