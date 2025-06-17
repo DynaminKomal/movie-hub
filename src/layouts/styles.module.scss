@@ -7,11 +7,12 @@
     inline-size: 100%;
 }
 
-.content{
-    background-color: #ebe9e9;
+.content {
+    background-color: #f8f8f8;
+    border-radius: 8px;
 }
 
-.sideBarWrapper{
+.sideBarWrapper {
     width: 20%;
     flex: 0 0 20%;
     transition: all 0.3s ease-in-out;

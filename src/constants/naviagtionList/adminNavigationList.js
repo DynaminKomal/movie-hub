@@ -1,16 +1,34 @@
 import { adminPaths } from "../paths/adminPaths";
-import homeIcon from '../../assets/home.svg';
-import movieIcon from '../../assets/movieIcon.svg'
+import { RiHomeSmile2Line } from "react-icons/ri";
+import { FaAngleRight } from "react-icons/fa6";
+import { BiMoviePlay } from "react-icons/bi";
+import { FaUsers } from "react-icons/fa6";
+import { FaRegBell } from "react-icons/fa6";
 
 export const adminNavigation = [
     {
-        name: "Home",
+        label: 'Dashboard',
+        icon: <RiHomeSmile2Line />,
         path: adminPaths.ADMINDASHBOARD,
-        icon: homeIcon
     },
     {
-        name: "Movie",
+        label: 'Movies',
+        icon: <BiMoviePlay />,
         path: adminPaths.ADMINDASHBOARD,
-        icon: movieIcon
-    }
-]
+        hasSubmenu: true,
+        submenuIcon: <FaAngleRight />,
+    },
+    {
+        label: 'Users',
+        icon: <FaUsers />,
+        path: adminPaths.ADMINDASHBOARD,
+        hasSubmenu: true,
+        submenuIcon: <FaAngleRight />,
+    },
+    {
+        label: 'Notifcation',
+        icon: <FaRegBell />,
+        path: adminPaths.ADMINDASHBOARD,
+    },
+    
+];
